@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Account Lookup</title>
+
+    <!-- Excel Reader -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f6fa;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #123f6d;
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 700px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #123f6d;
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+
+        .instruction {
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 17px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+        }
+
+        button {
+            border: none;
+            border-radius: 9px;
+            padding: 14px 22px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .search-button {
+            background: #123f6d;
+            color: white;
+        }
+
+        .search-button:hover {
+            background: #0d3157;
+        }
+
+        .search-button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 13px 15px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .message.visible {
+            display: block;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .message.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .message.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .result {
+            display: none;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .result.visible {
+            display: block;
+        }
+
+        .result-title {
+            background: #edf4fb;
+            color: #123f6d;
+            padding: 15px 18px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .result-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            align-items: center;
+            padding: 17px 18px;
+            border-top: 1px solid #e2e8f0;
+            gap: 15px;
+        }
+
+        .label {
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        .value {
+            color: #0f172a;
+            font-size: 16px;
+            word-break: break-word;
+        }
+
+        .password-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .password-value {
+            font-family: Consolas, monospace;
+            font-size: 16px;
+        }
+
+        .small-button {
+            background: #e2e8f0;
+            color: #334155;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .copy-button {
+            background: #edf4fb;
+            color: #123f6d;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .status {
+            margin-top: 18px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                margin: 25px auto;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .result-row {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Student Account Lookup</h1>
+    <p>School Student Account Information</p>
+</header>
+
+<main>
+
+    <div class="card">
+
+        <h2>Find Your Account</h2>
+
+        <p class="instruction">
+            Enter your Student ID to retrieve your school account details.
+        </p>
+
+        <div
+            id="message"
+            class="message info visible"
+        >
+            Loading student accounts...
+        </div>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="studentID"
+                placeholder="Enter Student ID"
+                autocomplete="off"
+                disabled
+                onkeydown="
+                    if(event.key === 'Enter') {
+                        searchStudent();
+                    }
+                "
+            >
+
+            <button
+                id="searchButton"
+                class="search-button"
+                onclick="searchStudent()"
+                disabled
+            >
+                Search
+            </button>
+
+        </div>
+
+        <div
+            id="result"
+            class="result"
+        >
+
+            <div class="result-title">
+                Student Account Information
+            </div>
+
+            <div class="result-row">
+
+                <div class="label">
+                    Student ID
+                </div>
+
+                <div
+                    id="resultID"
+                    class="value"
+                ></div>
+
+            </div>
+
+            <div class="result-row">
+
+                <div class="label">
+                    Name
+                </div>
+
+                <div
+                    id="resultName"
+                    class="value"
+                ></div>
+
+            </div>
+
+            <div class="result-row">
+
+                <div class="label">
+                    Email
+                </div>
+
+                <div class="password-area">
+
+                    <span
+                        id="resultEmail"
+                        class="value"
+                    ></span>
+
+                    <button
+                        class="copy-button"
+                        onclick="copyEmail()"
+                    >
+                        Copy
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="result-row">
+
+                <div class="label">
+                    Password
+                </div>
+
+                <div class="password-area">
+
+                    <span
+                        id="resultPassword"
+                        class="password-value"
+                    ></span>
+
+                    <button
+                        id="showPasswordButton"
+                        class="small-button"
+                        onclick="togglePassword()"
+                    >
+                        Show
+                    </button>
+
+                    <button
+                        class="copy-button"
+                        onclick="copyPassword()"
+                    >
+                        Copy
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+    </div>
+
+</main>
+
+<footer>
+    Student Account Portal
+</footer>
+
+<script>
+
+    /*
+        =========================================
+        EXCEL FILE
+        =========================================
+
+        Place this file in the same GitHub folder
+        as index.html:
+
+        Student_Accounts.xlsx
+
+    */
+
+    const EXCEL_FILE = "Student_Accounts.xlsx";
+
+
+    let students = [];
+
+    let currentPassword = "";
+
+    let currentEmail = "";
+
+    let passwordVisible = false;
+
+
+    // =========================================
+    // LOAD EXCEL AUTOMATICALLY
+    // =========================================
+
+    async function loadExcel() {
+
+        try {
+
+            // Prevent browser from using an old cached Excel file
+            const response = await fetch(
+                EXCEL_FILE + "?v=" + Date.now()
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Excel file could not be loaded."
+                );
+
+            }
+
+
+            const arrayBuffer =
+                await response.arrayBuffer();
+
+
+            const workbook =
+                XLSX.read(
+                    arrayBuffer,
+                    {
+                        type: "array"
+                    }
+                );
+
+
+            const firstSheet =
+                workbook.SheetNames[0];
+
+
+            const worksheet =
+                workbook.Sheets[firstSheet];
+
+
+            const rows =
+                XLSX.utils.sheet_to_json(
+                    worksheet,
+                    {
+                        defval: "",
+                        raw: false
+                    }
+                );
+
+
+            students =
+                rows
+                    .map(normalizeStudent)
+                    .filter(student =>
+                        student.id !== ""
+                    );
+
+
+            document
+                .getElementById("studentID")
+                .disabled = false;
+
+
+            document
+                .getElementById("searchButton")
+                .disabled = false;
+
+
+            showMessage(
+                "Student accounts loaded successfully.",
+                "success"
+            );
+
+
+            document.getElementById(
+                "status"
+            ).textContent =
+                students.length +
+                " student account(s) available.";
+
+
+            setTimeout(() => {
+
+                hideMessage();
+
+            }, 2000);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                "Unable to load the student account file. Please contact the administrator.",
+                "error"
+            );
+
+
+            document.getElementById(
+                "status"
+            ).textContent =
+                "Student database unavailable.";
+
+        }
+
+    }
+
+
+    // =========================================
+    // RECOGNIZE EXCEL COLUMNS
+    // =========================================
+
+    function normalizeStudent(row) {
+
+        const normalized = {};
+
+
+        Object.keys(row).forEach(key => {
+
+            const cleanedKey =
+                key
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, "")
+                    .replace(/[^a-z0-9]/g, "");
+
+
+            normalized[cleanedKey] =
+                row[key];
+
+        });
+
+
+        const id =
+            normalized.studentid ||
+            normalized.studentnumber ||
+            normalized.studentno ||
+            normalized.studentcode ||
+            normalized.id ||
+            "";
+
+
+        const name =
+            normalized.studentname ||
+            normalized.fullname ||
+            normalized.name ||
+            "";
+
+
+        const email =
+            normalized.studentemail ||
+            normalized.emailaddress ||
+            normalized.email ||
+            normalized.username ||
+            "";
+
+
+        const password =
+            normalized.studentpassword ||
+            normalized.password ||
+            normalized.pass ||
+            "";
+
+
+        return {
+
+            id:
+                String(id)
+                    .trim(),
+
+            name:
+                String(name)
+                    .trim(),
+
+            email:
+                String(email)
+                    .trim(),
+
+            password:
+                String(password)
+                    .trim()
+
+        };
+
+    }
+
+
+    // =========================================
+    // SEARCH
+    // =========================================
+
+    function searchStudent() {
+
+        const enteredID =
+            document
+                .getElementById("studentID")
+                .value
+                .trim();
+
+
+        document
+            .getElementById("result")
+            .classList
+            .remove("visible");
+
+
+        if (!enteredID) {
+
+            showMessage(
+                "Please enter a Student ID.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const student =
+            students.find(student =>
+
+                normalizeID(student.id) ===
+                normalizeID(enteredID)
+
+            );
+
+
+        if (!student) {
+
+            showMessage(
+                "Student ID not found. Please check the ID and try again.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        hideMessage();
+
+
+        document.getElementById(
+            "resultID"
+        ).textContent =
+            student.id;
+
+
+        document.getElementById(
+            "resultName"
+        ).textContent =
+            student.name ||
+            "Not available";
+
+
+        document.getElementById(
+            "resultEmail"
+        ).textContent =
+            student.email ||
+            "Not available";
+
+
+        currentEmail =
+            student.email || "";
+
+
+        currentPassword =
+            student.password || "";
+
+
+        passwordVisible = false;
+
+
+        document.getElementById(
+            "resultPassword"
+        ).textContent =
+            maskPassword(
+                currentPassword
+            );
+
+
+        document.getElementById(
+            "showPasswordButton"
+        ).textContent =
+            "Show";
+
+
+        document
+            .getElementById("result")
+            .classList
+            .add("visible");
+
+    }
+
+
+    function normalizeID(value) {
+
+        return String(value)
+            .trim()
+            .replace(/\s+/g, "")
+            .toLowerCase();
+
+    }
+
+
+    // =========================================
+    // PASSWORD
+    // =========================================
+
+    function maskPassword(password) {
+
+        if (!password) {
+
+            return "Not available";
+
+        }
+
+
+        return "•".repeat(
+            Math.max(
+                password.length,
+                8
+            )
+        );
+
+    }
+
+
+    function togglePassword() {
+
+        if (!currentPassword) {
+            return;
+        }
+
+
+        passwordVisible =
+            !passwordVisible;
+
+
+        document.getElementById(
+            "resultPassword"
+        ).textContent =
+            passwordVisible
+                ? currentPassword
+                : maskPassword(
+                    currentPassword
+                );
+
+
+        document.getElementById(
+            "showPasswordButton"
+        ).textContent =
+            passwordVisible
+                ? "Hide"
+                : "Show";
+
+    }
+
+
+    // =========================================
+    // COPY
+    // =========================================
+
+    async function copyEmail() {
+
+        if (!currentEmail) {
+            return;
+        }
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                currentEmail
+            );
+
+
+            showTemporaryMessage(
+                "Email copied."
+            );
+
+        } catch {
+
+            fallbackCopy(
+                currentEmail
+            );
+
+        }
+
+    }
+
+
+    async function copyPassword() {
+
+        if (!currentPassword) {
+            return;
+        }
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                currentPassword
+            );
+
+
+            showTemporaryMessage(
+                "Password copied."
+            );
+
+        } catch {
+
+            fallbackCopy(
+                currentPassword
+            );
+
+        }
+
+    }
+
+
+    function fallbackCopy(text) {
+
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+
+
+        textarea.value =
+            text;
+
+
+        document.body.appendChild(
+            textarea
+        );
+
+
+        textarea.select();
+
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        textarea.remove();
+
+
+        showTemporaryMessage(
+            "Copied."
+        );
+
+    }
+
+
+    // =========================================
+    // MESSAGES
+    // =========================================
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        message.textContent =
+            text;
+
+
+        message.className =
+            "message visible " +
+            type;
+
+    }
+
+
+    function hideMessage() {
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message";
+
+    }
+
+
+    function showTemporaryMessage(
+        text
+    ) {
+
+        showMessage(
+            text,
+            "success"
+        );
+
+
+        setTimeout(() => {
+
+            hideMessage();
+
+        }, 1500);
+
+    }
+
+
+    // =========================================
+    // START
+    // =========================================
+
+    loadExcel();
+
+</script>
+
+</body>
+</html>
