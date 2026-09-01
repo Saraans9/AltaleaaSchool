@@ -1,964 +1,4156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
 
-    <title>Student Account Lookup</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <!-- Excel Reader -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<title>Altaleaa School Platform</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<!-- Excel Reader -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f3f6fa;
-            color: #1e293b;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
 
-        header {
-            background: #123f6d;
-            color: white;
-            padding: 28px 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-        }
+<style>
 
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 6px;
-        }
+/* =========================================================
+   GLOBAL SETTINGS
+========================================================= */
 
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        main {
-            flex: 1;
-            width: 100%;
-            max-width: 700px;
-            margin: 45px auto;
-            padding: 0 20px;
-        }
+:root {
 
-        .card {
-            background: white;
-            padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-        }
+    --navy: #073763;
+    --navy-dark: #042844;
 
-        .card h2 {
-            color: #123f6d;
-            margin-bottom: 8px;
-            font-size: 24px;
-        }
+    --blue: #0c5d9f;
+    --light-blue: #4a9bd6;
 
-        .instruction {
-            color: #64748b;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
+    --cyan: #21a5c2;
+    --teal: #12a79d;
 
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 22px;
-        }
+    --gold: #f3b63f;
 
-        input {
-            flex: 1;
-            padding: 14px 16px;
-            border: 1px solid #cbd5e1;
-            border-radius: 9px;
-            font-size: 17px;
-            outline: none;
-        }
+    --white: #ffffff;
 
-        input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
-        }
+    --text: #24384d;
+    --muted: #65798d;
 
-        button {
-            border: none;
-            border-radius: 9px;
-            padding: 14px 22px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-        }
+    --border: #dbe7ef;
 
-        .search-button {
-            background: #123f6d;
-            color: white;
-        }
+}
 
-        .search-button:hover {
-            background: #0d3157;
-        }
 
-        .search-button:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .message {
-            display: none;
-            padding: 13px 15px;
-            border-radius: 9px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
 
-        .message.visible {
-            display: block;
-        }
+body {
 
-        .message.error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
+    min-height: 100vh;
 
-        .message.info {
-            background: #dbeafe;
-            color: #1e40af;
-        }
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
 
-        .message.success {
-            background: #dcfce7;
-            color: #166534;
-        }
+    color: var(--text);
 
-        .result {
-            display: none;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
+    background:
 
-        .result.visible {
-            display: block;
-        }
+        linear-gradient(
+            rgba(4, 35, 63, 0.61),
+            rgba(8, 67, 101, 0.49)
+        ),
 
-        .result-title {
-            background: #edf4fb;
-            color: #123f6d;
-            padding: 15px 18px;
-            font-weight: bold;
-            font-size: 16px;
-        }
+        url("school.png");
 
-        .result-row {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            align-items: center;
-            padding: 17px 18px;
-            border-top: 1px solid #e2e8f0;
-            gap: 15px;
-        }
+    background-size: cover;
 
-        .label {
-            color: #64748b;
-            font-weight: 700;
-        }
+    background-position: center;
 
-        .value {
-            color: #0f172a;
-            font-size: 16px;
-            word-break: break-word;
-        }
+    background-repeat: no-repeat;
 
-        .password-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    background-attachment: fixed;
 
-        .password-value {
-            font-family: Consolas, monospace;
-            font-size: 16px;
-        }
+}
 
-        .small-button {
-            background: #e2e8f0;
-            color: #334155;
-            padding: 8px 12px;
-            font-size: 12px;
-        }
 
-        .copy-button {
-            background: #edf4fb;
-            color: #123f6d;
-            padding: 8px 12px;
-            font-size: 12px;
-        }
+/* Soft decorative overlay */
 
-        .status {
-            margin-top: 18px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 12px;
-        }
+body::before {
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #94a3b8;
-            font-size: 13px;
-        }
+    content: "";
 
-        @media (max-width: 600px) {
-            main {
-                margin: 25px auto;
-            }
+    position: fixed;
 
-            .card {
-                padding: 22px;
-            }
+    inset: 0;
 
-            .search-box {
-                flex-direction: column;
-            }
+    pointer-events: none;
 
-            .search-button {
-                width: 100%;
-            }
+    z-index: -1;
 
-            .result-row {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
+    background:
 
-            header h1 {
-                font-size: 23px;
-            }
-        }
-    </style>
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255,255,255,.18),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 90% 75%,
+            rgba(30,181,194,.16),
+            transparent 30%
+        );
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.school-header {
+
+    min-height: 135px;
+
+    display: grid;
+
+    grid-template-columns:
+        160px
+        1fr
+        160px;
+
+    align-items: center;
+
+    padding:
+        18px
+        40px;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            rgba(3,38,68,.97),
+            rgba(7,81,133,.95),
+            rgba(8,111,126,.94)
+        );
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.22);
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.22);
+
+}
+
+
+/* =========================================================
+   LOGOS
+========================================================= */
+
+.logo-holder {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.logo-card {
+
+    width: 120px;
+
+    height: 90px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        rgba(255,255,255,.96);
+
+    border-radius: 18px;
+
+    padding: 8px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.18);
+
+}
+
+
+.logo-card img {
+
+    max-width: 105px;
+
+    max-height: 75px;
+
+    object-fit: contain;
+
+}
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.school-title {
+
+    text-align: center;
+
+    color: white;
+
+}
+
+
+.school-title h1 {
+
+    font-size: 35px;
+
+    font-weight: 800;
+
+    letter-spacing: .4px;
+
+}
+
+
+.school-title p {
+
+    margin-top: 7px;
+
+    font-size: 14px;
+
+    opacity: .89;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.main-nav {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+        12px
+        15px;
+
+    overflow-x: auto;
+
+    background:
+        rgba(255,255,255,.95);
+
+    backdrop-filter:
+        blur(17px);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.12);
+
+}
+
+
+.nav-button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding:
+        11px
+        16px;
+
+    background:
+        transparent;
+
+    color:
+        #456078;
+
+    font-size:
+        13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        all .2s ease;
+
+}
+
+
+.nav-button:hover {
+
+    color:
+        var(--blue);
+
+    background:
+        #eaf5fb;
+
+}
+
+
+.nav-button.active {
+
+    color:
+        white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 5px 15px
+        rgba(10,85,145,.25);
+
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+main {
+
+    max-width:
+        1250px;
+
+    margin:
+        35px
+        auto
+        60px;
+
+    padding:
+        0
+        22px;
+
+}
+
+
+.section {
+
+    display:
+        none;
+
+    animation:
+        fadeIn
+        .3s ease;
+
+}
+
+
+.section.active {
+
+    display:
+        block;
+
+}
+
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(9px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   GLASS CONTAINER
+========================================================= */
+
+.glass-card {
+
+    background:
+        rgba(255,255,255,.95);
+
+    backdrop-filter:
+        blur(18px);
+
+    border:
+        1px solid
+        rgba(255,255,255,.6);
+
+    border-radius:
+        25px;
+
+    padding:
+        31px;
+
+    box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.17);
+
+}
+
+
+/* =========================================================
+   HOME HERO
+========================================================= */
+
+.hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding:
+        40px;
+
+    margin-bottom:
+        25px;
+
+    border-radius:
+        26px;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            rgba(255,255,255,.98),
+            rgba(234,249,252,.96)
+        );
+
+    box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.16);
+
+}
+
+
+.hero::before {
+
+    content: "";
+
+    position:
+        absolute;
+
+    right:
+        -80px;
+
+    top:
+        -95px;
+
+    width:
+        260px;
+
+    height:
+        260px;
+
+    border-radius:
+        50%;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(14,94,160,.13),
+            rgba(20,170,159,.18)
+        );
+
+}
+
+
+.hero-badge {
+
+    display:
+        inline-block;
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    margin-bottom:
+        14px;
+
+    padding:
+        7px
+        14px;
+
+    border-radius:
+        50px;
+
+    background:
+        #e1f4fa;
+
+    color:
+        var(--blue);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .5px;
+
+}
+
+
+.hero h2 {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    color:
+        var(--navy);
+
+    font-size:
+        32px;
+
+    margin-bottom:
+        11px;
+
+}
+
+
+.hero p {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    max-width:
+        760px;
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.7;
+
+    font-size:
+        15px;
+
+}
+
+
+/* =========================================================
+   DASHBOARD CARDS
+========================================================= */
+
+.dashboard {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(215px,1fr)
+        );
+
+    gap:
+        18px;
+
+}
+
+
+.dashboard-card {
+
+    min-height:
+        195px;
+
+    padding:
+        25px;
+
+    cursor:
+        pointer;
+
+    border-radius:
+        21px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.6);
+
+    background:
+        rgba(255,255,255,.96);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.11);
+
+    transition:
+        all .25s ease;
+
+}
+
+
+.dashboard-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 18px 42px
+        rgba(0,0,0,.18);
+
+}
+
+
+.dashboard-icon {
+
+    width:
+        58px;
+
+    height:
+        58px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin-bottom:
+        16px;
+
+    border-radius:
+        16px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e6f3fd,
+            #dcf6f3
+        );
+
+    font-size:
+        29px;
+
+}
+
+
+.dashboard-card h3 {
+
+    color:
+        var(--navy);
+
+    margin-bottom:
+        8px;
+
+    font-size:
+        18px;
+
+}
+
+
+.dashboard-card p {
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.6;
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.section-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    margin-bottom:
+        26px;
+
+    padding-bottom:
+        20px;
+
+    border-bottom:
+        1px solid
+        #e3ebf1;
+
+}
+
+
+.section-icon {
+
+    width:
+        56px;
+
+    height:
+        56px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        16px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e4f2fc,
+            #def7f3
+        );
+
+    font-size:
+        28px;
+
+}
+
+
+.section-heading h2 {
+
+    color:
+        var(--navy);
+
+    font-size:
+        25px;
+
+}
+
+
+.section-heading p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    margin-top:
+        3px;
+
+}
+
+
+/* =========================================================
+   LMS
+========================================================= */
+
+.lookup-container {
+
+    max-width:
+        760px;
+
+    margin:
+        auto;
+
+}
+
+
+.search-area {
+
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    margin:
+        15px
+        0
+        20px;
+
+}
+
+
+.search-area input {
+
+    flex:
+        1;
+
+    padding:
+        15px
+        17px;
+
+    border:
+        1px solid
+        #cbd9e4;
+
+    border-radius:
+        11px;
+
+    font-size:
+        16px;
+
+    outline:
+        none;
+
+}
+
+
+.search-area input:focus {
+
+    border-color:
+        var(--light-blue);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(74,155,214,.12);
+
+}
+
+
+.primary-button {
+
+    border:
+        none;
+
+    border-radius:
+        11px;
+
+    padding:
+        14px
+        25px;
+
+    color:
+        white;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+
+}
+
+
+.primary-button:hover {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy-dark),
+            var(--blue)
+        );
+
+}
+
+
+.primary-button:disabled {
+
+    opacity:
+        .5;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    display:
+        none;
+
+    margin-bottom:
+        17px;
+
+    padding:
+        13px
+        16px;
+
+    border-radius:
+        10px;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+}
+
+
+.message.visible {
+
+    display:
+        block;
+
+}
+
+
+.message.info {
+
+    background:
+        #e3f1fc;
+
+    color:
+        #1e507a;
+
+}
+
+
+.message.success {
+
+    background:
+        #dcfce7;
+
+    color:
+        #166534;
+
+}
+
+
+.message.error {
+
+    background:
+        #fee2e2;
+
+    color:
+        #991b1b;
+
+}
+
+
+/* =========================================================
+   LMS RESULT
+========================================================= */
+
+.account-result {
+
+    display:
+        none;
+
+    margin-top:
+        25px;
+
+    border:
+        1px solid
+        #dce7ee;
+
+    border-radius:
+        15px;
+
+    overflow:
+        hidden;
+
+}
+
+
+.account-result.visible {
+
+    display:
+        block;
+
+}
+
+
+.account-heading {
+
+    padding:
+        15px
+        20px;
+
+    color:
+        white;
+
+    font-weight:
+        700;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+
+}
+
+
+.account-row {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        175px
+        1fr;
+
+    gap:
+        15px;
+
+    padding:
+        17px
+        20px;
+
+    border-top:
+        1px solid
+        #e5edf3;
+
+}
+
+
+.account-label {
+
+    color:
+        var(--muted);
+
+    font-weight:
+        700;
+
+}
+
+
+.account-value {
+
+    word-break:
+        break-word;
+
+}
+
+
+.account-actions {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        9px;
+
+}
+
+
+.small-button {
+
+    border:
+        none;
+
+    border-radius:
+        8px;
+
+    padding:
+        7px
+        11px;
+
+    cursor:
+        pointer;
+
+    color:
+        var(--blue);
+
+    background:
+        #e8f3fb;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* =========================================================
+   RESOURCE CARDS
+========================================================= */
+
+.resource-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px,1fr)
+        );
+
+    gap:
+        17px;
+
+}
+
+
+.resource-card {
+
+    padding:
+        23px;
+
+    border-radius:
+        17px;
+
+    border:
+        1px solid
+        #dce8f0;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #eef8fc
+        );
+
+}
+
+
+.resource-card h3 {
+
+    color:
+        var(--navy);
+
+    margin-bottom:
+        9px;
+
+}
+
+
+.resource-card p {
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.6;
+
+    font-size:
+        13px;
+
+    margin-bottom:
+        15px;
+
+}
+
+
+.resource-button {
+
+    display:
+        inline-block;
+
+    padding:
+        10px
+        15px;
+
+    border-radius:
+        9px;
+
+    color:
+        white;
+
+    text-decoration:
+        none;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+
+}
+
+
+/* =========================================================
+   CLASS BUTTONS
+========================================================= */
+
+.section-description {
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.6;
+
+    margin-bottom:
+        22px;
+
+    font-size:
+        14px;
+
+}
+
+
+.class-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(115px,1fr)
+        );
+
+    gap:
+        13px;
+
+}
+
+
+.class-button {
+
+    min-height:
+        58px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        10px;
+
+    border-radius:
+        14px;
+
+    border:
+        1px solid
+        #d9e6ef;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #eef7fb
+        );
+
+    color:
+        var(--navy);
+
+    text-decoration:
+        none;
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    box-shadow:
+        0 5px 14px
+        rgba(0,0,0,.06);
+
+    transition:
+        all .2s ease;
+
+}
+
+
+.class-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    color:
+        white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--teal)
+        );
+
+    box-shadow:
+        0 8px 20px
+        rgba(10,94,145,.22);
+
+}
+
+
+.telegram-button::before {
+
+    content:
+        "✈";
+
+    margin-right:
+        7px;
+
+}
+
+
+/* =========================================================
+   BELL TIMINGS
+========================================================= */
+
+.bell-summary {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        14px;
+
+    margin-bottom:
+        25px;
+
+}
+
+
+.bell-summary-card {
+
+    padding:
+        19px;
+
+    border-radius:
+        17px;
+
+    text-align:
+        center;
+
+    border:
+        1px solid
+        #dce9f2;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #edf8ff,
+            #e8f8f5
+        );
+
+}
+
+
+.bell-summary-card strong {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--navy);
+
+    font-size:
+        20px;
+
+}
+
+
+.bell-summary-card span {
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+}
+
+
+.schedule-buttons {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+    margin-bottom:
+        22px;
+
+}
+
+
+.schedule-button {
+
+    padding:
+        9px
+        14px;
+
+    border:
+        1px solid
+        #d6e4ed;
+
+    border-radius:
+        30px;
+
+    background:
+        #f5f9fc;
+
+    color:
+        #47637b;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+}
+
+
+.schedule-button.active {
+
+    color:
+        white;
+
+    border-color:
+        transparent;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--teal)
+        );
+
+}
+
+
+.schedule-title {
+
+    color:
+        var(--navy);
+
+    margin-bottom:
+        15px;
+
+}
+
+
+.table-container {
+
+    overflow-x:
+        auto;
+
+}
+
+
+.bell-table {
+
+    width:
+        100%;
+
+    border-collapse:
+        collapse;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        15px;
+
+}
+
+
+.bell-table th {
+
+    padding:
+        14px;
+
+    text-align:
+        left;
+
+    color:
+        white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+
+}
+
+
+.bell-table td {
+
+    padding:
+        13px
+        14px;
+
+    border-bottom:
+        1px solid
+        #e5edf2;
+
+}
+
+
+.bell-table tbody tr:nth-child(even) {
+
+    background:
+        #f8fafc;
+
+}
+
+
+.break-row {
+
+    background:
+        #fff6dc !important;
+
+}
+
+
+.prayer-row {
+
+    background:
+        #e5f8f5 !important;
+
+}
+
+
+.dismissal-row {
+
+    background:
+        #e7f0fd !important;
+
+    font-weight:
+        700;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    padding:
+        25px;
+
+    text-align:
+        center;
+
+    color:
+        rgba(255,255,255,.87);
+
+    font-size:
+        12px;
+
+    background:
+        rgba(3,30,54,.93);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:760px) {
+
+
+    .school-header {
+
+        grid-template-columns:
+            75px
+            1fr
+            75px;
+
+        min-height:
+            105px;
+
+        padding:
+            12px
+            7px;
+
+    }
+
+
+    .logo-card {
+
+        width:
+            65px;
+
+        height:
+            62px;
+
+        border-radius:
+            12px;
+
+    }
+
+
+    .logo-card img {
+
+        max-width:
+            55px;
+
+        max-height:
+            50px;
+
+    }
+
+
+    .school-title h1 {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .school-title p {
+
+        font-size:
+            9px;
+
+    }
+
+
+    main {
+
+        padding:
+            0
+            12px;
+
+    }
+
+
+    .glass-card {
+
+        padding:
+            20px;
+
+    }
+
+
+    .hero {
+
+        padding:
+            27px;
+
+    }
+
+
+    .hero h2 {
+
+        font-size:
+            25px;
+
+    }
+
+
+    .search-area {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .account-row {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            5px;
+
+    }
+
+
+    .bell-summary {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<header>
-    <h1>Student Account Lookup</h1>
-    <p>School Student Account Information</p>
-</header>
 
-<main>
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
-    <div class="card">
+<header class="school-header">
 
-        <h2>Find Your Account</h2>
 
-        <p class="instruction">
-            Enter your Student ID to retrieve your school account details.
-        </p>
+<div class="logo-holder">
 
-        <div
-            id="message"
-            class="message info visible"
+    <div class="logo-card">
+
+        <img
+            src="school-logo.png"
+            alt="Altaleaa School Logo"
         >
-            Loading student accounts...
-        </div>
-
-        <div class="search-box">
-
-            <input
-                type="text"
-                id="studentID"
-                placeholder="Enter Student ID"
-                autocomplete="off"
-                disabled
-                onkeydown="
-                    if(event.key === 'Enter') {
-                        searchStudent();
-                    }
-                "
-            >
-
-            <button
-                id="searchButton"
-                class="search-button"
-                onclick="searchStudent()"
-                disabled
-            >
-                Search
-            </button>
-
-        </div>
-
-        <div
-            id="result"
-            class="result"
-        >
-
-            <div class="result-title">
-                Student Account Information
-            </div>
-
-            <div class="result-row">
-
-                <div class="label">
-                    Student ID
-                </div>
-
-                <div
-                    id="resultID"
-                    class="value"
-                ></div>
-
-            </div>
-
-            <div class="result-row">
-
-                <div class="label">
-                    Name
-                </div>
-
-                <div
-                    id="resultName"
-                    class="value"
-                ></div>
-
-            </div>
-
-            <div class="result-row">
-
-                <div class="label">
-                    Email
-                </div>
-
-                <div class="password-area">
-
-                    <span
-                        id="resultEmail"
-                        class="value"
-                    ></span>
-
-                    <button
-                        class="copy-button"
-                        onclick="copyEmail()"
-                    >
-                        Copy
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="result-row">
-
-                <div class="label">
-                    Password
-                </div>
-
-                <div class="password-area">
-
-                    <span
-                        id="resultPassword"
-                        class="password-value"
-                    ></span>
-
-                    <button
-                        id="showPasswordButton"
-                        class="small-button"
-                        onclick="togglePassword()"
-                    >
-                        Show
-                    </button>
-
-                    <button
-                        class="copy-button"
-                        onclick="copyPassword()"
-                    >
-                        Copy
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div
-            id="status"
-            class="status"
-        ></div>
 
     </div>
 
+</div>
+
+
+<div class="school-title">
+
+    <h1>
+        Altaleaa School Platform
+    </h1>
+
+    <p>
+        Learning • Communication • Resources • Student Services
+    </p>
+
+</div>
+
+
+<div class="logo-holder">
+
+    <div class="logo-card">
+
+        <img
+            src="moe-logo.png"
+            alt="Ministry of Education Logo"
+        >
+
+    </div>
+
+</div>
+
+
+</header>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="main-nav">
+
+
+<button
+    class="nav-button active"
+    onclick="openSection('home',this)"
+>
+🏠 Home
+</button>
+
+
+<button
+    class="nav-button"
+    onclick="openSection('lms',this)"
+>
+👤 LMS Accounts
+</button>
+
+
+<button
+    class="nav-button"
+    onclick="openSection('timetable',this)"
+>
+📅 Time Table
+</button>
+
+
+<button
+    class="nav-button"
+    onclick="openSection('bell',this)"
+>
+🔔 Bell Timings
+</button>
+
+
+<button
+    class="nav-button"
+    onclick="openSection('revision',this)"
+>
+📚 Revision Material
+</button>
+
+
+<button
+    class="nav-button"
+    onclick="openSection('weekly',this)"
+>
+📝 Weekly Plans
+</button>
+
+
+<button
+    class="nav-button"
+    onclick="openSection('telegram',this)"
+>
+✈ Telegram Groups
+</button>
+
+
+</nav>
+
+
+<main>
+
+
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<section
+    id="home"
+    class="section active"
+>
+
+
+<div class="hero">
+
+
+<span class="hero-badge">
+ALTALEAA SCHOOL
+</span>
+
+
+<h2>
+Welcome to Altaleaa School Platform
+</h2>
+
+
+<p>
+
+Access your school services in one place.
+Find LMS account information, school timetables,
+official bell timings, revision resources,
+weekly learning plans and class Telegram groups.
+
+</p>
+
+
+</div>
+
+
+<div class="dashboard">
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('lms')"
+>
+
+<div class="dashboard-icon">
+👤
+</div>
+
+<h3>
+LMS Accounts
+</h3>
+
+<p>
+Find your student email and LMS account information using your Student ID.
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('timetable')"
+>
+
+<div class="dashboard-icon">
+📅
+</div>
+
+<h3>
+Time Table
+</h3>
+
+<p>
+Access the latest school or student timetable.
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('bell')"
+>
+
+<div class="dashboard-icon">
+🔔
+</div>
+
+<h3>
+Bell Timings
+</h3>
+
+<p>
+Check Cycle 1, Cycle 2 & 3, Tamkeen and Friday schedules.
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('revision')"
+>
+
+<div class="dashboard-icon">
+📚
+</div>
+
+<h3>
+Revision Material
+</h3>
+
+<p>
+Access revision resources and study material.
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('weekly')"
+>
+
+<div class="dashboard-icon">
+📝
+</div>
+
+<h3>
+Weekly Plans
+</h3>
+
+<p>
+Open the current weekly learning plan for your class.
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('telegram')"
+>
+
+<div class="dashboard-icon">
+✈
+</div>
+
+<h3>
+Telegram Groups
+</h3>
+
+<p>
+Access your official class Telegram communication group.
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     LMS ACCOUNT LOOKUP
+========================================================= -->
+
+<section
+    id="lms"
+    class="section"
+>
+
+
+<div class="glass-card">
+
+
+<div class="section-heading">
+
+
+<div class="section-icon">
+👤
+</div>
+
+
+<div>
+
+<h2>
+LMS Account Lookup
+</h2>
+
+<p>
+Enter your Student ID to retrieve your account information.
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="lookup-container">
+
+
+<div
+    id="message"
+    class="message info visible"
+>
+Loading student accounts...
+</div>
+
+
+<div class="search-area">
+
+
+<input
+    type="text"
+    id="studentID"
+    placeholder="Enter Student ID"
+    autocomplete="off"
+    disabled
+    onkeydown="
+    if(event.key === 'Enter'){
+        searchStudent();
+    }"
+>
+
+
+<button
+    id="searchButton"
+    class="primary-button"
+    onclick="searchStudent()"
+    disabled
+>
+
+Search Account
+
+</button>
+
+
+</div>
+
+
+<div
+    id="accountResult"
+    class="account-result"
+>
+
+
+<div class="account-heading">
+
+Student Account Information
+
+</div>
+
+
+<div class="account-row">
+
+<div class="account-label">
+Student ID
+</div>
+
+<div
+    id="resultID"
+    class="account-value"
+></div>
+
+</div>
+
+
+<div class="account-row">
+
+<div class="account-label">
+Student Name
+</div>
+
+<div
+    id="resultName"
+    class="account-value"
+></div>
+
+</div>
+
+
+<div class="account-row">
+
+<div class="account-label">
+Email
+</div>
+
+<div class="account-actions">
+
+<span
+    id="resultEmail"
+    class="account-value"
+></span>
+
+<button
+    class="small-button"
+    onclick="copyEmail()"
+>
+Copy
+</button>
+
+</div>
+
+</div>
+
+
+<div class="account-row">
+
+<div class="account-label">
+Password
+</div>
+
+
+<div class="account-actions">
+
+<span
+    id="resultPassword"
+    class="account-value"
+></span>
+
+
+<button
+    id="passwordButton"
+    class="small-button"
+    onclick="togglePassword()"
+>
+Show
+</button>
+
+
+<button
+    class="small-button"
+    onclick="copyPassword()"
+>
+Copy
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     TIME TABLE
+========================================================= -->
+
+<section
+    id="timetable"
+    class="section"
+>
+
+
+<div class="glass-card">
+
+
+<div class="section-heading">
+
+
+<div class="section-icon">
+📅
+</div>
+
+
+<div>
+
+<h2>
+School Time Table
+</h2>
+
+<p>
+Access the latest school timetable.
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="resource-grid">
+
+
+<div class="resource-card">
+
+<h3>
+Current Time Table
+</h3>
+
+<p>
+Click below to view the latest timetable.
+</p>
+
+<a
+    href="timetable.pdf"
+    target="_blank"
+    class="resource-button"
+>
+
+Open Time Table
+
+</a>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     BELL TIMINGS
+========================================================= -->
+
+<section
+    id="bell"
+    class="section"
+>
+
+
+<div class="glass-card">
+
+
+<div class="section-heading">
+
+
+<div class="section-icon">
+🔔
+</div>
+
+
+<div>
+
+<h2>
+Bell Timings
+</h2>
+
+<p>
+Official school-day schedules for Al-Taleaa School.
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="bell-summary">
+
+
+<div class="bell-summary-card">
+
+<strong>
+7:45 AM
+</strong>
+
+<span>
+Morning Assembly
+</span>
+
+</div>
+
+
+<div class="bell-summary-card">
+
+<strong>
+8:00 AM
+</strong>
+
+<span>
+First Period Starts
+</span>
+
+</div>
+
+
+<div class="bell-summary-card">
+
+<strong>
+45 Minutes
+</strong>
+
+<span>
+Standard Period Duration
+</span>
+
+</div>
+
+
+</div>
+
+
+<div class="schedule-buttons">
+
+
+<button
+    class="schedule-button active"
+    onclick="showSchedule('cycle1',this)"
+>
+Cycle 1
+</button>
+
+
+<button
+    class="schedule-button"
+    onclick="showSchedule('cycle1Tamkeen',this)"
+>
+Cycle 1 Tamkeen
+</button>
+
+
+<button
+    class="schedule-button"
+    onclick="showSchedule('cycle23',this)"
+>
+Cycle 2 & 3
+</button>
+
+
+<button
+    class="schedule-button"
+    onclick="showSchedule('cycle23Tamkeen',this)"
+>
+Cycle 2 & 3 Tamkeen
+</button>
+
+
+<button
+    class="schedule-button"
+    onclick="showSchedule('friday1',this)"
+>
+Friday Cycle 1
+</button>
+
+
+<button
+    class="schedule-button"
+    onclick="showSchedule('friday23',this)"
+>
+Friday Cycle 2 & 3
+</button>
+
+
+</div>
+
+
+<h3
+    id="scheduleTitle"
+    class="schedule-title"
+>
+Cycle 1 Schedule
+</h3>
+
+
+<div class="table-container">
+
+
+<table class="bell-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Period
+</th>
+
+<th>
+Time
+</th>
+
+<th>
+Duration
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody
+    id="scheduleBody"
+>
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     REVISION MATERIAL
+========================================================= -->
+
+<section
+    id="revision"
+    class="section"
+>
+
+
+<div class="glass-card">
+
+
+<div class="section-heading">
+
+
+<div class="section-icon">
+📚
+</div>
+
+
+<div>
+
+<h2>
+Revision Material
+</h2>
+
+<p>
+Select the grade to access revision resources.
+</p>
+
+</div>
+
+
+</div>
+
+
+<p class="section-description">
+
+Click on the required grade below.
+You can connect each button to a Google Drive folder,
+OneDrive folder, PDF file or website.
+
+</p>
+
+
+<div
+    id="revisionGrid"
+    class="class-grid"
+>
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     WEEKLY PLANS
+========================================================= -->
+
+<section
+    id="weekly"
+    class="section"
+>
+
+
+<div class="glass-card">
+
+
+<div class="section-heading">
+
+
+<div class="section-icon">
+📝
+</div>
+
+
+<div>
+
+<h2>
+Weekly Plans
+</h2>
+
+<p>
+Select your class to access the latest weekly plan.
+</p>
+
+</div>
+
+
+</div>
+
+
+<p class="section-description">
+
+Choose your class below.
+Each button can link directly to its weekly plan.
+
+</p>
+
+
+<div
+    id="weeklyGrid"
+    class="class-grid"
+>
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     TELEGRAM GROUPS
+========================================================= -->
+
+<section
+    id="telegram"
+    class="section"
+>
+
+
+<div class="glass-card">
+
+
+<div class="section-heading">
+
+
+<div class="section-icon">
+✈
+</div>
+
+
+<div>
+
+<h2>
+Telegram Groups
+</h2>
+
+<p>
+Select your class to open the official Telegram group.
+</p>
+
+</div>
+
+
+</div>
+
+
+<p class="section-description">
+
+Click the relevant class below to open its Telegram group.
+
+</p>
+
+
+<div
+    id="telegramGrid"
+    class="class-grid"
+>
+</div>
+
+
+</div>
+
+
+</section>
+
+
 </main>
 
+
 <footer>
-    Student Account Portal
+
+© 2026 Altaleaa School
+
+&nbsp; • &nbsp;
+
+Ministry of Education – UAE
+
 </footer>
+
 
 <script>
 
-    /*
-        =========================================
-        EXCEL FILE
-        =========================================
+/* =========================================================
+   MAIN FILE SETTINGS
+========================================================= */
 
-        Place this file in the same GitHub folder
-        as index.html:
-
-        Student_Accounts.xlsx
-
-    */
-
-    const EXCEL_FILE = "Student_Accounts.xlsx";
+const EXCEL_FILE =
+    "Student_Accounts.xlsx";
 
 
-    let students = [];
+/* =========================================================
+   WEEKLY PLAN LINKS
 
-    let currentPassword = "";
+   IMPORTANT:
+   Replace the blank "" with your actual link.
 
-    let currentEmail = "";
+   Example:
 
-    let passwordVisible = false;
+   "7": "https://drive.google.com/your-link"
+
+========================================================= */
+
+const WEEKLY_LINKS = {
+
+    "KG1A": "",
+    "KG1B": "",
+
+    "KG2A": "",
+    "KG2B": "",
+
+    "1A": "",
+    "1B": "",
+
+    "2A": "",
+    "2B": "",
+
+    "3A": "",
+    "3B": "",
+
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": "",
+
+    "9G": "",
+
+    "10A": "",
+    "10G": "",
+
+    "11G": "",
+
+    "12A": "",
+    "12G": ""
+
+};
 
 
-    // =========================================
-    // LOAD EXCEL AUTOMATICALLY
-    // =========================================
+/* =========================================================
+   TELEGRAM LINKS
 
-    async function loadExcel() {
+   Example:
 
-        try {
+   "7": "https://t.me/example"
 
-            // Prevent browser from using an old cached Excel file
-            const response = await fetch(
-                EXCEL_FILE + "?v=" + Date.now()
+========================================================= */
+
+const TELEGRAM_LINKS = {
+
+    "1A": "",
+    "1B": "",
+
+    "2A": "",
+    "2B": "",
+
+    "3A": "",
+    "3B": "",
+
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": "",
+
+    "9G": "",
+
+    "10A": "",
+    "10G": "",
+
+    "11G": "",
+
+    "12A": "",
+    "12G": ""
+
+};
+
+
+/* =========================================================
+   REVISION MATERIAL LINKS
+
+   You can edit these as needed.
+========================================================= */
+
+const REVISION_LINKS = {
+
+    "Grade 1": "",
+    "Grade 2": "",
+    "Grade 3": "",
+    "Grade 4": "",
+    "Grade 5": "",
+    "Grade 6": "",
+    "Grade 7": "",
+    "Grade 8": "",
+    "Grade 9": "",
+    "Grade 10": "",
+    "Grade 11": "",
+    "Grade 12": ""
+
+};
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function openSection(
+    sectionName,
+    button
+) {
+
+    document
+        .querySelectorAll(
+            ".section"
+        )
+        .forEach(
+            section => {
+
+                section
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            sectionName
+        )
+        .classList
+        .add(
+            "active"
+        );
+
+
+    document
+        .querySelectorAll(
+            ".nav-button"
+        )
+        .forEach(
+            nav => {
+
+                nav
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+            }
+        );
+
+
+    if(button) {
+
+        button
+            .classList
+            .add(
+                "active"
             );
 
+    }
 
-            if (!response.ok) {
 
-                throw new Error(
-                    "Excel file could not be loaded."
+    window.scrollTo({
+
+        top: 0,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+/* Open page from dashboard */
+
+function openSectionByName(
+    sectionName
+) {
+
+    let matchingButton =
+        null;
+
+
+    document
+        .querySelectorAll(
+            ".nav-button"
+        )
+        .forEach(
+            button => {
+
+                const command =
+                    button.getAttribute(
+                        "onclick"
+                    ) || "";
+
+
+                if(
+                    command.includes(
+                        "'" +
+                        sectionName +
+                        "'"
+                    )
+                ) {
+
+                    matchingButton =
+                        button;
+
+                }
+
+            }
+        );
+
+
+    openSection(
+        sectionName,
+        matchingButton
+    );
+
+}
+
+
+/* =========================================================
+   CREATE CLASS BUTTONS
+========================================================= */
+
+function buildButtons(
+    containerID,
+    data,
+    telegram = false
+) {
+
+    const container =
+        document.getElementById(
+            containerID
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    Object.entries(
+        data
+    )
+    .forEach(
+        ([name,link]) => {
+
+
+            const button =
+                document.createElement(
+                    "a"
                 );
+
+
+            button.className =
+                "class-button";
+
+
+            if(telegram) {
+
+                button
+                    .classList
+                    .add(
+                        "telegram-button"
+                    );
 
             }
 
 
-            const arrayBuffer =
-                await response.arrayBuffer();
+            button.textContent =
+                name;
 
 
-            const workbook =
-                XLSX.read(
-                    arrayBuffer,
-                    {
-                        type: "array"
+            if(link) {
+
+
+                button.href =
+                    link;
+
+
+                button.target =
+                    "_blank";
+
+
+                button.rel =
+                    "noopener noreferrer";
+
+
+            } else {
+
+
+                button.href =
+                    "#";
+
+
+                button.onclick =
+                    function(event) {
+
+
+                        event
+                            .preventDefault();
+
+
+                        alert(
+
+                            "The link for " +
+                            name +
+                            " has not been added yet."
+
+                        );
+
+
+                    };
+
+
+            }
+
+
+            container
+                .appendChild(
+                    button
+                );
+
+
+        }
+    );
+
+}
+
+
+/* Build buttons */
+
+buildButtons(
+    "weeklyGrid",
+    WEEKLY_LINKS
+);
+
+
+buildButtons(
+    "telegramGrid",
+    TELEGRAM_LINKS,
+    true
+);
+
+
+buildButtons(
+    "revisionGrid",
+    REVISION_LINKS
+);
+
+
+/* =========================================================
+   BELL TIMINGS DATA
+========================================================= */
+
+const SCHOOL_SCHEDULES = {
+
+
+cycle1: {
+
+title:
+"Cycle 1 Schedule",
+
+rows: [
+
+["Period 1","8:00 – 8:45","45 min"],
+
+["Period 2","8:45 – 9:30","45 min"],
+
+["Period 3","9:30 – 10:15","45 min"],
+
+["Break","10:15 – 10:35","20 min"],
+
+["Period 4","10:35 – 11:20","45 min"],
+
+["Period 5","11:20 – 12:05","45 min"],
+
+["Period 6","12:05 – 12:50","45 min"],
+
+["Break","12:50 – 1:00","10 min"],
+
+["Period 7","1:00 – 1:45","45 min"],
+
+["Dismissal","1:45 PM",""]
+
+]
+
+},
+
+
+cycle1Tamkeen: {
+
+title:
+"Cycle 1 Tamkeen Schedule",
+
+rows: [
+
+["P1","7:45 – 8:25","40 min"],
+
+["P2","8:25 – 9:05","40 min"],
+
+["Flexible Period","9:05 – 9:50","45 min"],
+
+["P3","9:50 – 10:30","40 min"],
+
+["Break","10:30 – 10:50","20 min"],
+
+["P4","10:50 – 11:30","40 min"],
+
+["P5","11:30 – 12:10","40 min"],
+
+["P6","12:10 – 12:50","40 min"],
+
+["Prayer","12:50 – 1:00","10 min"],
+
+["P7","1:00 – 1:45","45 min"],
+
+["Dismissal","1:45 – 2:00","15 min"]
+
+]
+
+},
+
+
+cycle23: {
+
+title:
+"Cycle 2 & 3 Schedule",
+
+rows: [
+
+["Period 1","8:00 – 8:45","45 min"],
+
+["Period 2","8:45 – 9:30","45 min"],
+
+["Period 3","9:30 – 10:15","45 min"],
+
+["Period 4","10:15 – 11:00","45 min"],
+
+["Break","11:00 – 11:20","20 min"],
+
+["Period 5","11:20 – 12:05","45 min"],
+
+["Period 6","12:05 – 12:50","45 min"],
+
+["Prayer Break","12:50 – 1:00","10 min"],
+
+["Period 7","1:00 – 1:45","45 min"],
+
+["Period 8","1:45 – 2:30","45 min"],
+
+["Dismissal","2:30 PM",""]
+
+]
+
+},
+
+
+cycle23Tamkeen: {
+
+title:
+"Cycle 2 & 3 Tamkeen Schedule",
+
+rows: [
+
+["P1","7:45 – 8:25","40 min"],
+
+["P2","8:25 – 9:05","40 min"],
+
+["Flexible Period","9:05 – 9:50","45 min"],
+
+["P3","9:50 – 10:30","40 min"],
+
+["P4","10:30 – 11:10","40 min"],
+
+["Break","11:10 – 11:30","20 min"],
+
+["P5","11:30 – 12:10","40 min"],
+
+["P6","12:10 – 12:50","40 min"],
+
+["Prayer","12:50 – 1:00","10 min"],
+
+["P7","1:00 – 1:45","45 min"],
+
+["P8","1:45 – 2:30","45 min"],
+
+["Dismissal","2:30 – 2:40","10 min"]
+
+]
+
+},
+
+
+friday1: {
+
+title:
+"Friday – Cycle 1",
+
+rows: [
+
+["Period 1","7:45 – 8:30","45 min"],
+
+["Period 2","8:30 – 9:15","45 min"],
+
+["Break","9:15 – 9:35","20 min"],
+
+["Period 3","9:35 – 10:20","45 min"],
+
+["Period 4","10:20 – 11:05","45 min"]
+
+]
+
+},
+
+
+friday23: {
+
+title:
+"Friday – Cycle 2 & 3",
+
+rows: [
+
+["Assembly","7:45 – 8:00","15 min"],
+
+["Period 1","8:00 – 8:45","45 min"],
+
+["Period 2","8:45 – 9:30","45 min"],
+
+["Period 3","9:30 – 10:15","45 min"],
+
+["Break","10:15 – 10:35","20 min"],
+
+["Period 4","10:35 – 11:20","45 min"]
+
+]
+
+}
+
+
+};
+
+
+/* =========================================================
+   DISPLAY BELL TIMINGS
+========================================================= */
+
+function showSchedule(
+    scheduleName,
+    button
+) {
+
+
+    document
+        .querySelectorAll(
+            ".schedule-button"
+        )
+        .forEach(
+            item => {
+
+                item
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+            }
+        );
+
+
+    button
+        .classList
+        .add(
+            "active"
+        );
+
+
+    renderSchedule(
+        scheduleName
+    );
+
+}
+
+
+function renderSchedule(
+    scheduleName
+) {
+
+
+    const schedule =
+        SCHOOL_SCHEDULES[
+            scheduleName
+        ];
+
+
+    document
+        .getElementById(
+            "scheduleTitle"
+        )
+        .textContent =
+            schedule.title;
+
+
+    const tableBody =
+        document
+            .getElementById(
+                "scheduleBody"
+            );
+
+
+    tableBody.innerHTML =
+        "";
+
+
+    schedule.rows
+        .forEach(
+            row => {
+
+
+                const tableRow =
+                    document
+                        .createElement(
+                            "tr"
+                        );
+
+
+                const rowName =
+                    row[0]
+                        .toLowerCase();
+
+
+                if(
+                    rowName.includes(
+                        "break"
+                    )
+                ) {
+
+                    tableRow
+                        .classList
+                        .add(
+                            "break-row"
+                        );
+
+                }
+
+
+                if(
+                    rowName.includes(
+                        "prayer"
+                    )
+                ) {
+
+                    tableRow
+                        .classList
+                        .add(
+                            "prayer-row"
+                        );
+
+                }
+
+
+                if(
+                    rowName.includes(
+                        "dismissal"
+                    )
+                ) {
+
+                    tableRow
+                        .classList
+                        .add(
+                            "dismissal-row"
+                        );
+
+                }
+
+
+                row.forEach(
+                    value => {
+
+
+                        const cell =
+                            document
+                                .createElement(
+                                    "td"
+                                );
+
+
+                        cell.textContent =
+                            value;
+
+
+                        tableRow
+                            .appendChild(
+                                cell
+                            );
+
+
                     }
                 );
 
 
-            const firstSheet =
-                workbook.SheetNames[0];
-
-
-            const worksheet =
-                workbook.Sheets[firstSheet];
-
-
-            const rows =
-                XLSX.utils.sheet_to_json(
-                    worksheet,
-                    {
-                        defval: "",
-                        raw: false
-                    }
-                );
-
-
-            students =
-                rows
-                    .map(normalizeStudent)
-                    .filter(student =>
-                        student.id !== ""
+                tableBody
+                    .appendChild(
+                        tableRow
                     );
 
 
-            document
-                .getElementById("studentID")
-                .disabled = false;
-
-
-            document
-                .getElementById("searchButton")
-                .disabled = false;
-
-
-            showMessage(
-                "Student accounts loaded successfully.",
-                "success"
-            );
-
-
-            document.getElementById(
-                "status"
-            ).textContent =
-                students.length +
-                " student account(s) available.";
-
-
-            setTimeout(() => {
-
-                hideMessage();
-
-            }, 2000);
-
-
-        } catch (error) {
-
-            console.error(error);
-
-
-            showMessage(
-                "Unable to load the student account file. Please contact the administrator.",
-                "error"
-            );
-
-
-            document.getElementById(
-                "status"
-            ).textContent =
-                "Student database unavailable.";
-
-        }
-
-    }
-
-
-    // =========================================
-    // RECOGNIZE EXCEL COLUMNS
-    // =========================================
-
-    function normalizeStudent(row) {
-
-        const normalized = {};
-
-
-        Object.keys(row).forEach(key => {
-
-            const cleanedKey =
-                key
-                    .toLowerCase()
-                    .trim()
-                    .replace(/\s+/g, "")
-                    .replace(/[^a-z0-9]/g, "");
-
-
-            normalized[cleanedKey] =
-                row[key];
-
-        });
-
-
-        const id =
-            normalized.studentid ||
-            normalized.studentnumber ||
-            normalized.studentno ||
-            normalized.studentcode ||
-            normalized.id ||
-            "";
-
-
-        const name =
-            normalized.studentname ||
-            normalized.fullname ||
-            normalized.name ||
-            "";
-
-
-        const email =
-            normalized.studentemail ||
-            normalized.emailaddress ||
-            normalized.email ||
-            normalized.username ||
-            "";
-
-
-        const password =
-            normalized.studentpassword ||
-            normalized.password ||
-            normalized.pass ||
-            "";
-
-
-        return {
-
-            id:
-                String(id)
-                    .trim(),
-
-            name:
-                String(name)
-                    .trim(),
-
-            email:
-                String(email)
-                    .trim(),
-
-            password:
-                String(password)
-                    .trim()
-
-        };
-
-    }
-
-
-    // =========================================
-    // SEARCH
-    // =========================================
-
-    function searchStudent() {
-
-        const enteredID =
-            document
-                .getElementById("studentID")
-                .value
-                .trim();
-
-
-        document
-            .getElementById("result")
-            .classList
-            .remove("visible");
-
-
-        if (!enteredID) {
-
-            showMessage(
-                "Please enter a Student ID.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        const student =
-            students.find(student =>
-
-                normalizeID(student.id) ===
-                normalizeID(enteredID)
-
-            );
-
-
-        if (!student) {
-
-            showMessage(
-                "Student ID not found. Please check the ID and try again.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        hideMessage();
-
-
-        document.getElementById(
-            "resultID"
-        ).textContent =
-            student.id;
-
-
-        document.getElementById(
-            "resultName"
-        ).textContent =
-            student.name ||
-            "Not available";
-
-
-        document.getElementById(
-            "resultEmail"
-        ).textContent =
-            student.email ||
-            "Not available";
-
-
-        currentEmail =
-            student.email || "";
-
-
-        currentPassword =
-            student.password || "";
-
-
-        passwordVisible = false;
-
-
-        document.getElementById(
-            "resultPassword"
-        ).textContent =
-            maskPassword(
-                currentPassword
-            );
-
-
-        document.getElementById(
-            "showPasswordButton"
-        ).textContent =
-            "Show";
-
-
-        document
-            .getElementById("result")
-            .classList
-            .add("visible");
-
-    }
-
-
-    function normalizeID(value) {
-
-        return String(value)
-            .trim()
-            .replace(/\s+/g, "")
-            .toLowerCase();
-
-    }
-
-
-    // =========================================
-    // PASSWORD
-    // =========================================
-
-    function maskPassword(password) {
-
-        if (!password) {
-
-            return "Not available";
-
-        }
-
-
-        return "•".repeat(
-            Math.max(
-                password.length,
-                8
-            )
+            }
         );
 
-    }
+}
 
 
-    function togglePassword() {
+/* Display Cycle 1 initially */
 
-        if (!currentPassword) {
-            return;
+renderSchedule(
+    "cycle1"
+);
+
+
+/* =========================================================
+   LMS DATABASE
+========================================================= */
+
+let students =
+    [];
+
+
+let currentEmail =
+    "";
+
+
+let currentPassword =
+    "";
+
+
+let passwordVisible =
+    false;
+
+
+/* =========================================================
+   LOAD EXCEL
+========================================================= */
+
+async function loadExcel() {
+
+
+try {
+
+
+const response =
+    await fetch(
+
+        EXCEL_FILE +
+        "?v=" +
+        Date.now()
+
+    );
+
+
+if(!response.ok) {
+
+
+    throw new Error(
+        "Unable to load Excel database."
+    );
+
+
+}
+
+
+const data =
+    await response
+        .arrayBuffer();
+
+
+const workbook =
+    XLSX.read(
+
+        data,
+
+        {
+            type:
+                "array"
         }
 
-
-        passwordVisible =
-            !passwordVisible;
+    );
 
 
-        document.getElementById(
-            "resultPassword"
-        ).textContent =
-            passwordVisible
-                ? currentPassword
-                : maskPassword(
-                    currentPassword
+const firstSheet =
+    workbook.SheetNames[0];
+
+
+const worksheet =
+    workbook.Sheets[
+        firstSheet
+    ];
+
+
+const rows =
+    XLSX.utils.sheet_to_json(
+
+        worksheet,
+
+        {
+            defval:
+                "",
+
+            raw:
+                false
+        }
+
+    );
+
+
+students =
+    rows
+        .map(
+            normalizeStudent
+        )
+        .filter(
+            student =>
+                student.id !== ""
+        );
+
+
+document
+    .getElementById(
+        "studentID"
+    )
+    .disabled =
+        false;
+
+
+document
+    .getElementById(
+        "searchButton"
+    )
+    .disabled =
+        false;
+
+
+showMessage(
+
+    "Student accounts are ready.",
+
+    "success"
+
+);
+
+
+setTimeout(
+
+    hideMessage,
+
+    1800
+
+);
+
+
+}
+
+catch(error) {
+
+
+console.error(
+    error
+);
+
+
+showMessage(
+
+    "Student account database could not be loaded.",
+
+    "error"
+
+);
+
+
+}
+
+
+}
+
+
+/* =========================================================
+   EXCEL COLUMN RECOGNITION
+========================================================= */
+
+function normalizeStudent(
+    row
+) {
+
+
+const normalized =
+    {};
+
+
+Object.keys(
+    row
+)
+.forEach(
+    key => {
+
+
+        const cleanKey =
+            key
+                .toLowerCase()
+                .trim()
+                .replace(
+                    /\s+/g,
+                    ""
+                )
+                .replace(
+                    /[^a-z0-9]/g,
+                    ""
                 );
 
 
-        document.getElementById(
-            "showPasswordButton"
-        ).textContent =
-            passwordVisible
-                ? "Hide"
-                : "Show";
+        normalized[
+            cleanKey
+        ] =
+            row[key];
+
 
     }
+);
 
 
-    // =========================================
-    // COPY
-    // =========================================
-
-    async function copyEmail() {
-
-        if (!currentEmail) {
-            return;
-        }
+return {
 
 
-        try {
+id:
+String(
 
-            await navigator.clipboard.writeText(
-                currentEmail
-            );
+    normalized.studentid ||
 
+    normalized.studentnumber ||
 
-            showTemporaryMessage(
-                "Email copied."
-            );
+    normalized.studentno ||
 
-        } catch {
+    normalized.id ||
 
-            fallbackCopy(
-                currentEmail
-            );
+    ""
 
-        }
-
-    }
+).trim(),
 
 
-    async function copyPassword() {
+name:
+String(
 
-        if (!currentPassword) {
-            return;
-        }
+    normalized.studentname ||
 
+    normalized.fullname ||
 
-        try {
+    normalized.name ||
 
-            await navigator.clipboard.writeText(
-                currentPassword
-            );
+    ""
 
-
-            showTemporaryMessage(
-                "Password copied."
-            );
-
-        } catch {
-
-            fallbackCopy(
-                currentPassword
-            );
-
-        }
-
-    }
+).trim(),
 
 
-    function fallbackCopy(text) {
+email:
+String(
 
-        const textarea =
-            document.createElement(
-                "textarea"
-            );
+    normalized.studentemail ||
+
+    normalized.emailaddress ||
+
+    normalized.email ||
+
+    normalized.username ||
+
+    ""
+
+).trim(),
 
 
-        textarea.value =
-            text;
+password:
+String(
+
+    normalized.studentpassword ||
+
+    normalized.password ||
+
+    normalized.pass ||
+
+    ""
+
+).trim()
 
 
-        document.body.appendChild(
-            textarea
+};
+
+
+}
+
+
+/* =========================================================
+   SEARCH STUDENT
+========================================================= */
+
+function searchStudent() {
+
+
+const enteredID =
+    document
+        .getElementById(
+            "studentID"
+        )
+        .value
+        .trim();
+
+
+document
+    .getElementById(
+        "accountResult"
+    )
+    .classList
+    .remove(
+        "visible"
+    );
+
+
+if(!enteredID) {
+
+
+showMessage(
+
+    "Please enter a Student ID.",
+
+    "error"
+
+);
+
+
+return;
+
+
+}
+
+
+const student =
+    students.find(
+        student =>
+
+
+            normalizeID(
+                student.id
+            )
+
+            ===
+
+            normalizeID(
+                enteredID
+            )
+
+
+    );
+
+
+if(!student) {
+
+
+showMessage(
+
+    "Student ID not found. Please check the ID and try again.",
+
+    "error"
+
+);
+
+
+return;
+
+
+}
+
+
+hideMessage();
+
+
+document
+    .getElementById(
+        "resultID"
+    )
+    .textContent =
+        student.id;
+
+
+document
+    .getElementById(
+        "resultName"
+    )
+    .textContent =
+        student.name ||
+        "Not available";
+
+
+document
+    .getElementById(
+        "resultEmail"
+    )
+    .textContent =
+        student.email ||
+        "Not available";
+
+
+currentEmail =
+    student.email ||
+    "";
+
+
+currentPassword =
+    student.password ||
+    "";
+
+
+passwordVisible =
+    false;
+
+
+document
+    .getElementById(
+        "resultPassword"
+    )
+    .textContent =
+        maskPassword(
+            currentPassword
         );
 
 
-        textarea.select();
+document
+    .getElementById(
+        "passwordButton"
+    )
+    .textContent =
+        "Show";
 
 
-        document.execCommand(
-            "copy"
+document
+    .getElementById(
+        "accountResult"
+    )
+    .classList
+    .add(
+        "visible"
+    );
+
+
+}
+
+
+/* =========================================================
+   NORMALIZE STUDENT ID
+========================================================= */
+
+function normalizeID(
+    value
+) {
+
+
+return String(
+    value
+)
+.trim()
+.replace(
+    /\s+/g,
+    ""
+)
+.toLowerCase();
+
+
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+function maskPassword(
+    password
+) {
+
+
+if(!password) {
+
+
+return "Not available";
+
+
+}
+
+
+return "•".repeat(
+
+    Math.max(
+
+        password.length,
+
+        8
+
+    )
+
+);
+
+
+}
+
+
+function togglePassword() {
+
+
+if(!currentPassword) {
+
+
+return;
+
+
+}
+
+
+passwordVisible =
+    !passwordVisible;
+
+
+document
+    .getElementById(
+        "resultPassword"
+    )
+    .textContent =
+
+
+        passwordVisible
+
+        ?
+
+        currentPassword
+
+        :
+
+        maskPassword(
+            currentPassword
         );
 
 
-        textarea.remove();
+document
+    .getElementById(
+        "passwordButton"
+    )
+    .textContent =
 
 
-        showTemporaryMessage(
-            "Copied."
-        );
+        passwordVisible
 
-    }
+        ?
 
+        "Hide"
 
-    // =========================================
-    // MESSAGES
-    // =========================================
+        :
 
-    function showMessage(
-        text,
-        type
-    ) {
-
-        const message =
-            document.getElementById(
-                "message"
-            );
+        "Show";
 
 
-        message.textContent =
-            text;
+}
 
 
-        message.className =
-            "message visible " +
-            type;
+/* =========================================================
+   COPY FUNCTIONS
+========================================================= */
 
-    }
-
-
-    function hideMessage() {
-
-        document.getElementById(
-            "message"
-        ).className =
-            "message";
-
-    }
+async function copyEmail() {
 
 
-    function showTemporaryMessage(
+if(
+    currentEmail
+) {
+
+
+await copyText(
+    currentEmail
+);
+
+
+}
+
+
+}
+
+
+async function copyPassword() {
+
+
+if(
+    currentPassword
+) {
+
+
+await copyText(
+    currentPassword
+);
+
+
+}
+
+
+}
+
+
+async function copyText(
+    text
+) {
+
+
+try {
+
+
+await navigator
+    .clipboard
+    .writeText(
         text
-    ) {
+    );
 
-        showMessage(
-            text,
-            "success"
+
+showMessage(
+
+    "Copied successfully.",
+
+    "success"
+
+);
+
+
+setTimeout(
+
+    hideMessage,
+
+    1200
+
+);
+
+
+}
+
+catch(error) {
+
+
+console.error(
+    error
+);
+
+
+}
+
+
+}
+
+
+/* =========================================================
+   MESSAGE FUNCTIONS
+========================================================= */
+
+function showMessage(
+    messageText,
+    type
+) {
+
+
+const message =
+    document
+        .getElementById(
+            "message"
         );
 
 
-        setTimeout(() => {
-
-            hideMessage();
-
-        }, 1500);
-
-    }
+message.textContent =
+    messageText;
 
 
-    // =========================================
-    // START
-    // =========================================
+message.className =
+    "message visible " +
+    type;
 
-    loadExcel();
+
+}
+
+
+function hideMessage() {
+
+
+document
+    .getElementById(
+        "message"
+    )
+    .className =
+        "message";
+
+
+}
+
+
+/* =========================================================
+   START WEBSITE
+========================================================= */
+
+loadExcel();
+
 
 </script>
 
+
 </body>
+
 </html>
