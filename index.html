@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" dir="ltr">
 
 <head>
 
@@ -12,14 +13,16 @@
 
 <title>Altaleaa School Platform</title>
 
+
 <!-- Excel Reader -->
+
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 
 <style>
 
 /* =========================================================
-   GLOBAL SETTINGS
+   GLOBAL
 ========================================================= */
 
 * {
@@ -62,8 +65,8 @@ body {
 
     font-family:
         "Segoe UI",
+        Tahoma,
         Arial,
-        Helvetica,
         sans-serif;
 
     color: var(--text);
@@ -71,11 +74,11 @@ body {
     background:
 
         linear-gradient(
-            rgba(4, 35, 63, 0.61),
-            rgba(8, 67, 101, 0.49)
+            rgba(4,35,63,.60),
+            rgba(8,67,101,.48)
         ),
 
-        url("schoolbackground.jpg");
+        url("schoolbackground.jpj");
 
     background-size: cover;
 
@@ -88,7 +91,22 @@ body {
 }
 
 
-/* Soft decorative overlay */
+/* Arabic support */
+
+html[dir="rtl"] body {
+
+    font-family:
+        Tahoma,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   DECORATIVE BACKGROUND
+========================================================= */
 
 body::before {
 
@@ -112,7 +130,7 @@ body::before {
 
         radial-gradient(
             circle at 90% 75%,
-            rgba(30,181,194,.16),
+            rgba(30,181,194,.15),
             transparent 30%
         );
 
@@ -125,7 +143,7 @@ body::before {
 
 .school-header {
 
-    min-height: 135px;
+    min-height: 140px;
 
     display: grid;
 
@@ -168,9 +186,9 @@ body::before {
 
     display: flex;
 
-    align-items: center;
-
     justify-content: center;
+
+    align-items: center;
 
 }
 
@@ -179,7 +197,7 @@ body::before {
 
     width: 120px;
 
-    height: 90px;
+    height: 92px;
 
     display: flex;
 
@@ -213,7 +231,7 @@ body::before {
 
 
 /* =========================================================
-   HEADER TITLE
+   SCHOOL TITLE
 ========================================================= */
 
 .school-title {
@@ -242,7 +260,90 @@ body::before {
 
     font-size: 14px;
 
-    opacity: .89;
+    opacity: .9;
+
+}
+
+
+/* =========================================================
+   LANGUAGE SWITCH
+========================================================= */
+
+.language-bar {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    max-width: 1250px;
+
+    margin:
+        14px
+        auto
+        0;
+
+    padding:
+        0
+        22px;
+
+}
+
+
+.language-switch {
+
+    display: flex;
+
+    gap: 5px;
+
+    padding: 5px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(255,255,255,.94);
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.13);
+
+}
+
+
+.language-button {
+
+    border: none;
+
+    border-radius: 40px;
+
+    padding:
+        8px
+        15px;
+
+    cursor: pointer;
+
+    background:
+        transparent;
+
+    color:
+        var(--navy);
+
+    font-weight: 700;
+
+}
+
+
+.language-button.active {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+
+    color:
+        white;
 
 }
 
@@ -262,8 +363,6 @@ body::before {
     display: flex;
 
     justify-content: center;
-
-    align-items: center;
 
     gap: 6px;
 
@@ -302,8 +401,7 @@ body::before {
     color:
         #456078;
 
-    font-size:
-        13px;
+    font-size: 13px;
 
     font-weight: 700;
 
@@ -330,8 +428,7 @@ body::before {
 
 .nav-button.active {
 
-    color:
-        white;
+    color: white;
 
     background:
 
@@ -349,7 +446,7 @@ body::before {
 
 
 /* =========================================================
-   MAIN PAGE
+   MAIN
 ========================================================= */
 
 main {
@@ -358,7 +455,7 @@ main {
         1250px;
 
     margin:
-        35px
+        30px
         auto
         60px;
 
@@ -371,8 +468,7 @@ main {
 
 .section {
 
-    display:
-        none;
+    display: none;
 
     animation:
         fadeIn
@@ -383,8 +479,7 @@ main {
 
 .section.active {
 
-    display:
-        block;
+    display: block;
 
 }
 
@@ -413,7 +508,7 @@ main {
 
 
 /* =========================================================
-   GLASS CONTAINER
+   GLASS CARD
 ========================================================= */
 
 .glass-card {
@@ -442,7 +537,7 @@ main {
 
 
 /* =========================================================
-   HOME HERO
+   HERO
 ========================================================= */
 
 .hero {
@@ -479,23 +574,17 @@ main {
 
     content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
-    right:
-        -80px;
+    right: -80px;
 
-    top:
-        -95px;
+    top: -95px;
 
-    width:
-        260px;
+    width: 260px;
 
-    height:
-        260px;
+    height: 260px;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
 
@@ -508,26 +597,30 @@ main {
 }
 
 
+html[dir="rtl"] .hero::before {
+
+    right: auto;
+
+    left: -80px;
+
+}
+
+
 .hero-badge {
 
-    display:
-        inline-block;
+    display: inline-block;
 
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        2;
+    z-index: 2;
 
-    margin-bottom:
-        14px;
+    margin-bottom: 14px;
 
     padding:
         7px
         14px;
 
-    border-radius:
-        50px;
+    border-radius: 50px;
 
     background:
         #e1f4fa;
@@ -535,69 +628,54 @@ main {
     color:
         var(--blue);
 
-    font-size:
-        12px;
+    font-size: 12px;
 
-    font-weight:
-        800;
-
-    letter-spacing:
-        .5px;
+    font-weight: 800;
 
 }
 
 
 .hero h2 {
 
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        2;
+    z-index: 2;
 
     color:
         var(--navy);
 
-    font-size:
-        32px;
+    font-size: 32px;
 
-    margin-bottom:
-        11px;
+    margin-bottom: 11px;
 
 }
 
 
 .hero p {
 
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        2;
+    z-index: 2;
 
-    max-width:
-        760px;
+    max-width: 760px;
 
     color:
         var(--muted);
 
-    line-height:
-        1.7;
+    line-height: 1.7;
 
-    font-size:
-        15px;
+    font-size: 15px;
 
 }
 
 
 /* =========================================================
-   DASHBOARD CARDS
+   DASHBOARD
 ========================================================= */
 
 .dashboard {
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(
@@ -619,8 +697,7 @@ main {
     padding:
         25px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
     border-radius:
         21px;
@@ -656,26 +733,19 @@ main {
 
 .dashboard-icon {
 
-    width:
-        58px;
+    width: 58px;
 
-    height:
-        58px;
+    height: 58px;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    margin-bottom:
-        16px;
+    margin-bottom: 16px;
 
-    border-radius:
-        16px;
+    border-radius: 16px;
 
     background:
 
@@ -685,8 +755,7 @@ main {
             #dcf6f3
         );
 
-    font-size:
-        29px;
+    font-size: 29px;
 
 }
 
@@ -725,20 +794,15 @@ main {
 
 .section-heading {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    gap:
-        15px;
+    gap: 15px;
 
-    margin-bottom:
-        26px;
+    margin-bottom: 26px;
 
-    padding-bottom:
-        20px;
+    padding-bottom: 20px;
 
     border-bottom:
         1px solid
@@ -749,26 +813,19 @@ main {
 
 .section-icon {
 
-    width:
-        56px;
+    width: 56px;
 
-    height:
-        56px;
+    height: 56px;
 
-    flex-shrink:
-        0;
+    flex-shrink: 0;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    border-radius:
-        16px;
+    border-radius: 16px;
 
     background:
 
@@ -778,8 +835,7 @@ main {
             #def7f3
         );
 
-    font-size:
-        28px;
+    font-size: 28px;
 
 }
 
@@ -810,7 +866,7 @@ main {
 
 
 /* =========================================================
-   LMS
+   LMS SEARCH
 ========================================================= */
 
 .lookup-container {
@@ -818,19 +874,16 @@ main {
     max-width:
         760px;
 
-    margin:
-        auto;
+    margin: auto;
 
 }
 
 
 .search-area {
 
-    display:
-        flex;
+    display: flex;
 
-    gap:
-        10px;
+    gap: 10px;
 
     margin:
         15px
@@ -842,8 +895,7 @@ main {
 
 .search-area input {
 
-    flex:
-        1;
+    flex: 1;
 
     padding:
         15px
@@ -853,14 +905,11 @@ main {
         1px solid
         #cbd9e4;
 
-    border-radius:
-        11px;
+    border-radius: 11px;
 
-    font-size:
-        16px;
+    font-size: 16px;
 
-    outline:
-        none;
+    outline: none;
 
 }
 
@@ -879,24 +928,19 @@ main {
 
 .primary-button {
 
-    border:
-        none;
+    border: none;
 
-    border-radius:
-        11px;
+    border-radius: 11px;
 
     padding:
         14px
         25px;
 
-    color:
-        white;
+    color: white;
 
-    font-weight:
-        700;
+    font-weight: 700;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
     background:
 
@@ -909,23 +953,9 @@ main {
 }
 
 
-.primary-button:hover {
-
-    background:
-
-        linear-gradient(
-            135deg,
-            var(--navy-dark),
-            var(--blue)
-        );
-
-}
-
-
 .primary-button:disabled {
 
-    opacity:
-        .5;
+    opacity: .5;
 
     cursor:
         not-allowed;
@@ -934,37 +964,31 @@ main {
 
 
 /* =========================================================
-   MESSAGE
+   MESSAGES
 ========================================================= */
 
 .message {
 
-    display:
-        none;
+    display: none;
 
-    margin-bottom:
-        17px;
+    margin-bottom: 17px;
 
     padding:
         13px
         16px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    font-size:
-        13px;
+    font-size: 13px;
 
-    font-weight:
-        700;
+    font-weight: 700;
 
 }
 
 
 .message.visible {
 
-    display:
-        block;
+    display: block;
 
 }
 
@@ -1003,34 +1027,29 @@ main {
 
 
 /* =========================================================
-   LMS RESULT
+   ACCOUNT RESULT
 ========================================================= */
 
 .account-result {
 
-    display:
-        none;
+    display: none;
 
-    margin-top:
-        25px;
+    margin-top: 25px;
 
     border:
         1px solid
         #dce7ee;
 
-    border-radius:
-        15px;
+    border-radius: 15px;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
 }
 
 
 .account-result.visible {
 
-    display:
-        block;
+    display: block;
 
 }
 
@@ -1041,11 +1060,9 @@ main {
         15px
         20px;
 
-    color:
-        white;
+    color: white;
 
-    font-weight:
-        700;
+    font-weight: 700;
 
     background:
 
@@ -1060,15 +1077,13 @@ main {
 
 .account-row {
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         175px
         1fr;
 
-    gap:
-        15px;
+    gap: 15px;
 
     padding:
         17px
@@ -1086,51 +1101,35 @@ main {
     color:
         var(--muted);
 
-    font-weight:
-        700;
-
-}
-
-
-.account-value {
-
-    word-break:
-        break-word;
+    font-weight: 700;
 
 }
 
 
 .account-actions {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    flex-wrap:
-        wrap;
+    flex-wrap: wrap;
 
-    gap:
-        9px;
+    gap: 9px;
 
 }
 
 
 .small-button {
 
-    border:
-        none;
+    border: none;
 
-    border-radius:
-        8px;
+    border-radius: 8px;
 
     padding:
         7px
         11px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
     color:
         var(--blue);
@@ -1138,118 +1137,9 @@ main {
     background:
         #e8f3fb;
 
-    font-size:
-        12px;
+    font-size: 12px;
 
-    font-weight:
-        700;
-
-}
-
-
-/* =========================================================
-   RESOURCE CARDS
-========================================================= */
-
-.resource-grid {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(230px,1fr)
-        );
-
-    gap:
-        17px;
-
-}
-
-
-.resource-card {
-
-    padding:
-        23px;
-
-    border-radius:
-        17px;
-
-    border:
-        1px solid
-        #dce8f0;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #eef8fc
-        );
-
-}
-
-
-.resource-card h3 {
-
-    color:
-        var(--navy);
-
-    margin-bottom:
-        9px;
-
-}
-
-
-.resource-card p {
-
-    color:
-        var(--muted);
-
-    line-height:
-        1.6;
-
-    font-size:
-        13px;
-
-    margin-bottom:
-        15px;
-
-}
-
-
-.resource-button {
-
-    display:
-        inline-block;
-
-    padding:
-        10px
-        15px;
-
-    border-radius:
-        9px;
-
-    color:
-        white;
-
-    text-decoration:
-        none;
-
-    font-size:
-        12px;
-
-    font-weight:
-        700;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            var(--navy),
-            var(--blue)
-        );
+    font-weight: 700;
 
 }
 
@@ -1277,13 +1167,12 @@ main {
 
 .class-grid {
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(
-            auto-fit,
-            minmax(115px,1fr)
+            5,
+            1fr
         );
 
     gap:
@@ -1295,22 +1184,19 @@ main {
 .class-button {
 
     min-height:
-        58px;
+        60px;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     padding:
         10px;
 
     border-radius:
-        14px;
+        15px;
 
     border:
         1px solid
@@ -1327,14 +1213,12 @@ main {
     color:
         var(--navy);
 
-    text-decoration:
-        none;
+    text-decoration: none;
 
     font-size:
         15px;
 
-    font-weight:
-        800;
+    font-weight: 800;
 
     box-shadow:
         0 5px 14px
@@ -1351,8 +1235,7 @@ main {
     transform:
         translateY(-3px);
 
-    color:
-        white;
+    color: white;
 
     background:
 
@@ -1371,11 +1254,102 @@ main {
 
 .telegram-button::before {
 
-    content:
-        "✈";
+    content: "✈";
 
-    margin-right:
-        7px;
+    margin-inline-end: 7px;
+
+}
+
+
+/* =========================================================
+   RESOURCE
+========================================================= */
+
+.resource-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px,1fr)
+        );
+
+    gap: 17px;
+
+}
+
+
+.resource-card {
+
+    padding: 23px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid
+        #dce8f0;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #eef8fc
+        );
+
+}
+
+
+.resource-card h3 {
+
+    color:
+        var(--navy);
+
+    margin-bottom: 9px;
+
+}
+
+
+.resource-card p {
+
+    color:
+        var(--muted);
+
+    line-height: 1.6;
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.resource-button {
+
+    display: inline-block;
+
+    padding:
+        10px
+        15px;
+
+    border-radius: 9px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
 
 }
 
@@ -1386,31 +1360,25 @@ main {
 
 .bell-summary {
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:
-        14px;
+    gap: 14px;
 
-    margin-bottom:
-        25px;
+    margin-bottom: 25px;
 
 }
 
 
 .bell-summary-card {
 
-    padding:
-        19px;
+    padding: 19px;
 
-    border-radius:
-        17px;
+    border-radius: 17px;
 
-    text-align:
-        center;
+    text-align: center;
 
     border:
         1px solid
@@ -1429,17 +1397,14 @@ main {
 
 .bell-summary-card strong {
 
-    display:
-        block;
+    display: block;
 
-    margin-bottom:
-        4px;
+    margin-bottom: 4px;
 
     color:
         var(--navy);
 
-    font-size:
-        20px;
+    font-size: 20px;
 
 }
 
@@ -1449,25 +1414,20 @@ main {
     color:
         var(--muted);
 
-    font-size:
-        12px;
+    font-size: 12px;
 
 }
 
 
 .schedule-buttons {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-wrap:
-        wrap;
+    flex-wrap: wrap;
 
-    gap:
-        8px;
+    gap: 8px;
 
-    margin-bottom:
-        22px;
+    margin-bottom: 22px;
 
 }
 
@@ -1482,8 +1442,7 @@ main {
         1px solid
         #d6e4ed;
 
-    border-radius:
-        30px;
+    border-radius: 30px;
 
     background:
         #f5f9fc;
@@ -1491,22 +1450,18 @@ main {
     color:
         #47637b;
 
-    font-size:
-        12px;
+    font-size: 12px;
 
-    font-weight:
-        700;
+    font-weight: 700;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
 }
 
 
 .schedule-button.active {
 
-    color:
-        white;
+    color: white;
 
     border-color:
         transparent;
@@ -1535,39 +1490,28 @@ main {
 
 .table-container {
 
-    overflow-x:
-        auto;
+    overflow-x: auto;
 
 }
 
 
 .bell-table {
 
-    width:
-        100%;
+    width: 100%;
 
     border-collapse:
         collapse;
-
-    overflow:
-        hidden;
-
-    border-radius:
-        15px;
 
 }
 
 
 .bell-table th {
 
-    padding:
-        14px;
+    padding: 14px;
 
-    text-align:
-        left;
+    text-align: start;
 
-    color:
-        white;
+    color: white;
 
     background:
 
@@ -1622,8 +1566,7 @@ main {
     background:
         #e7f0fd !important;
 
-    font-weight:
-        700;
+    font-weight: 700;
 
 }
 
@@ -1635,19 +1578,44 @@ main {
 footer {
 
     padding:
-        25px;
+        27px
+        20px;
 
-    text-align:
-        center;
+    text-align: center;
 
     color:
-        rgba(255,255,255,.87);
-
-    font-size:
-        12px;
+        rgba(255,255,255,.91);
 
     background:
-        rgba(3,30,54,.93);
+        rgba(3,30,54,.94);
+
+    font-size: 13px;
+
+}
+
+
+footer strong {
+
+    color: white;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1000px) {
+
+    .class-grid {
+
+        grid-template-columns:
+            repeat(
+                4,
+                1fr
+            );
+
+    }
 
 }
 
@@ -1678,11 +1646,9 @@ footer {
 
     .logo-card {
 
-        width:
-            65px;
+        width: 65px;
 
-        height:
-            62px;
+        height: 62px;
 
         border-radius:
             12px;
@@ -1704,7 +1670,7 @@ footer {
     .school-title h1 {
 
         font-size:
-            20px;
+            19px;
 
     }
 
@@ -1713,6 +1679,15 @@ footer {
 
         font-size:
             9px;
+
+    }
+
+
+    .language-bar {
+
+        padding:
+            0
+            12px;
 
     }
 
@@ -1777,6 +1752,31 @@ footer {
     }
 
 
+    .class-grid {
+
+        grid-template-columns:
+            repeat(
+                3,
+                1fr
+            );
+
+    }
+
+}
+
+
+@media(max-width:480px) {
+
+    .class-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+
+    }
+
 }
 
 </style>
@@ -1810,12 +1810,17 @@ footer {
 
 <div class="school-title">
 
-    <h1>
+    <h1 id="platformTitle">
+
         Altaleaa School Platform
+
     </h1>
 
-    <p>
+
+    <p id="platformSubtitle">
+
         Learning • Communication • Resources • Student Services
+
     </p>
 
 </div>
@@ -1839,6 +1844,40 @@ footer {
 
 
 <!-- =========================================================
+     LANGUAGE
+========================================================= -->
+
+<div class="language-bar">
+
+
+<div class="language-switch">
+
+
+<button
+    id="englishButton"
+    class="language-button active"
+    onclick="setLanguage('en')"
+>
+English
+</button>
+
+
+<button
+    id="arabicButton"
+    class="language-button"
+    onclick="setLanguage('ar')"
+>
+العربية
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================================
      NAVIGATION
 ========================================================= -->
 
@@ -1847,57 +1886,64 @@ footer {
 
 <button
     class="nav-button active"
+    data-section="home"
     onclick="openSection('home',this)"
 >
-🏠 Home
+🏠 <span data-i18n="home">Home</span>
 </button>
 
 
 <button
     class="nav-button"
+    data-section="lms"
     onclick="openSection('lms',this)"
 >
-👤 LMS Accounts
+👤 <span data-i18n="lms">LMS Accounts</span>
 </button>
 
 
 <button
     class="nav-button"
+    data-section="timetable"
     onclick="openSection('timetable',this)"
 >
-📅 Time Table
+📅 <span data-i18n="timetable">Time Table</span>
 </button>
 
 
 <button
     class="nav-button"
+    data-section="bell"
     onclick="openSection('bell',this)"
 >
-🔔 Bell Timings
+🔔 <span data-i18n="bell">Bell Timings</span>
 </button>
 
 
 <button
     class="nav-button"
+    data-section="revision"
     onclick="openSection('revision',this)"
 >
-📚 Revision Material
+📚 <span data-i18n="revision">Revision Material</span>
 </button>
 
 
 <button
     class="nav-button"
+    data-section="weekly"
     onclick="openSection('weekly',this)"
 >
-📝 Weekly Plans
+📝 <span data-i18n="weekly">Weekly Plans</span>
 </button>
 
 
 <button
     class="nav-button"
+    data-section="telegram"
     onclick="openSection('telegram',this)"
 >
-✈ Telegram Groups
+✈ <span data-i18n="telegram">Telegram Groups</span>
 </button>
 
 
@@ -1920,17 +1966,22 @@ footer {
 <div class="hero">
 
 
-<span class="hero-badge">
+<span
+    class="hero-badge"
+    data-i18n="schoolBadge"
+>
 ALTALEAA SCHOOL
 </span>
 
 
-<h2>
+<h2 data-i18n="welcomeTitle">
+
 Welcome to Altaleaa School Platform
+
 </h2>
 
 
-<p>
+<p data-i18n="welcomeText">
 
 Access your school services in one place.
 Find LMS account information, school timetables,
@@ -1955,12 +2006,14 @@ weekly learning plans and class Telegram groups.
 👤
 </div>
 
-<h3>
+<h3 data-i18n="lms">
 LMS Accounts
 </h3>
 
-<p>
+<p data-i18n="lmsCardText">
+
 Find your student email and LMS account information using your Student ID.
+
 </p>
 
 </div>
@@ -1975,12 +2028,14 @@ Find your student email and LMS account information using your Student ID.
 📅
 </div>
 
-<h3>
+<h3 data-i18n="timetable">
 Time Table
 </h3>
 
-<p>
+<p data-i18n="timetableCardText">
+
 Access the latest school or student timetable.
+
 </p>
 
 </div>
@@ -1995,12 +2050,14 @@ Access the latest school or student timetable.
 🔔
 </div>
 
-<h3>
+<h3 data-i18n="bell">
 Bell Timings
 </h3>
 
-<p>
+<p data-i18n="bellCardText">
+
 Check Cycle 1, Cycle 2 & 3, Tamkeen and Friday schedules.
+
 </p>
 
 </div>
@@ -2015,12 +2072,14 @@ Check Cycle 1, Cycle 2 & 3, Tamkeen and Friday schedules.
 📚
 </div>
 
-<h3>
+<h3 data-i18n="revision">
 Revision Material
 </h3>
 
-<p>
+<p data-i18n="revisionCardText">
+
 Access revision resources and study material.
+
 </p>
 
 </div>
@@ -2035,12 +2094,14 @@ Access revision resources and study material.
 📝
 </div>
 
-<h3>
+<h3 data-i18n="weekly">
 Weekly Plans
 </h3>
 
-<p>
+<p data-i18n="weeklyCardText">
+
 Open the current weekly learning plan for your class.
+
 </p>
 
 </div>
@@ -2055,12 +2116,14 @@ Open the current weekly learning plan for your class.
 ✈
 </div>
 
-<h3>
+<h3 data-i18n="telegram">
 Telegram Groups
 </h3>
 
-<p>
+<p data-i18n="telegramCardText">
+
 Access your official class Telegram communication group.
+
 </p>
 
 </div>
@@ -2073,7 +2136,7 @@ Access your official class Telegram communication group.
 
 
 <!-- =========================================================
-     LMS ACCOUNT LOOKUP
+     LMS
 ========================================================= -->
 
 <section
@@ -2095,12 +2158,14 @@ Access your official class Telegram communication group.
 
 <div>
 
-<h2>
+<h2 data-i18n="lmsTitle">
 LMS Account Lookup
 </h2>
 
-<p>
+<p data-i18n="lmsDescription">
+
 Enter your Student ID to retrieve your account information.
+
 </p>
 
 </div>
@@ -2157,7 +2222,10 @@ Search Account
 >
 
 
-<div class="account-heading">
+<div
+    class="account-heading"
+    data-i18n="accountInformation"
+>
 
 Student Account Information
 
@@ -2166,46 +2234,47 @@ Student Account Information
 
 <div class="account-row">
 
-<div class="account-label">
+<div
+    class="account-label"
+    data-i18n="studentID"
+>
 Student ID
 </div>
 
-<div
-    id="resultID"
-    class="account-value"
-></div>
+<div id="resultID"></div>
 
 </div>
 
 
 <div class="account-row">
 
-<div class="account-label">
+<div
+    class="account-label"
+    data-i18n="studentName"
+>
 Student Name
 </div>
 
-<div
-    id="resultName"
-    class="account-value"
-></div>
+<div id="resultName"></div>
 
 </div>
 
 
 <div class="account-row">
 
-<div class="account-label">
+<div
+    class="account-label"
+    data-i18n="email"
+>
 Email
 </div>
 
 <div class="account-actions">
 
-<span
-    id="resultEmail"
-    class="account-value"
-></span>
+<span id="resultEmail"></span>
 
 <button
+    id="copyEmailButton"
     class="small-button"
     onclick="copyEmail()"
 >
@@ -2219,17 +2288,17 @@ Copy
 
 <div class="account-row">
 
-<div class="account-label">
+<div
+    class="account-label"
+    data-i18n="password"
+>
 Password
 </div>
 
 
 <div class="account-actions">
 
-<span
-    id="resultPassword"
-    class="account-value"
-></span>
+<span id="resultPassword"></span>
 
 
 <button
@@ -2242,6 +2311,7 @@ Show
 
 
 <button
+    id="copyPasswordButton"
     class="small-button"
     onclick="copyPassword()"
 >
@@ -2250,7 +2320,6 @@ Copy
 
 
 </div>
-
 
 </div>
 
@@ -2268,7 +2337,7 @@ Copy
 
 
 <!-- =========================================================
-     TIME TABLE
+     TIMETABLE
 ========================================================= -->
 
 <section
@@ -2282,7 +2351,6 @@ Copy
 
 <div class="section-heading">
 
-
 <div class="section-icon">
 📅
 </div>
@@ -2290,11 +2358,11 @@ Copy
 
 <div>
 
-<h2>
+<h2 data-i18n="timetableTitle">
 School Time Table
 </h2>
 
-<p>
+<p data-i18n="timetableDescription">
 Access the latest school timetable.
 </p>
 
@@ -2309,18 +2377,21 @@ Access the latest school timetable.
 
 <div class="resource-card">
 
-<h3>
+<h3 data-i18n="currentTimetable">
 Current Time Table
 </h3>
 
-<p>
+<p data-i18n="currentTimetableText">
+
 Click below to view the latest timetable.
+
 </p>
 
 <a
     href="timetable.pdf"
     target="_blank"
     class="resource-button"
+    data-i18n="openTimetable"
 >
 
 Open Time Table
@@ -2354,7 +2425,6 @@ Open Time Table
 
 <div class="section-heading">
 
-
 <div class="section-icon">
 🔔
 </div>
@@ -2362,12 +2432,14 @@ Open Time Table
 
 <div>
 
-<h2>
+<h2 data-i18n="bellTitle">
 Bell Timings
 </h2>
 
-<p>
+<p data-i18n="bellDescription">
+
 Official school-day schedules for Al-Taleaa School.
+
 </p>
 
 </div>
@@ -2385,7 +2457,7 @@ Official school-day schedules for Al-Taleaa School.
 7:45 AM
 </strong>
 
-<span>
+<span data-i18n="morningAssembly">
 Morning Assembly
 </span>
 
@@ -2398,7 +2470,7 @@ Morning Assembly
 8:00 AM
 </strong>
 
-<span>
+<span data-i18n="firstPeriodStarts">
 First Period Starts
 </span>
 
@@ -2408,10 +2480,10 @@ First Period Starts
 <div class="bell-summary-card">
 
 <strong>
-45 Minutes
+45 min
 </strong>
 
-<span>
+<span data-i18n="standardPeriod">
 Standard Period Duration
 </span>
 
@@ -2426,6 +2498,7 @@ Standard Period Duration
 
 <button
     class="schedule-button active"
+    data-schedule="cycle1"
     onclick="showSchedule('cycle1',this)"
 >
 Cycle 1
@@ -2434,6 +2507,7 @@ Cycle 1
 
 <button
     class="schedule-button"
+    data-schedule="cycle1Tamkeen"
     onclick="showSchedule('cycle1Tamkeen',this)"
 >
 Cycle 1 Tamkeen
@@ -2442,6 +2516,7 @@ Cycle 1 Tamkeen
 
 <button
     class="schedule-button"
+    data-schedule="cycle23"
     onclick="showSchedule('cycle23',this)"
 >
 Cycle 2 & 3
@@ -2450,6 +2525,7 @@ Cycle 2 & 3
 
 <button
     class="schedule-button"
+    data-schedule="cycle23Tamkeen"
     onclick="showSchedule('cycle23Tamkeen',this)"
 >
 Cycle 2 & 3 Tamkeen
@@ -2458,6 +2534,7 @@ Cycle 2 & 3 Tamkeen
 
 <button
     class="schedule-button"
+    data-schedule="friday1"
     onclick="showSchedule('friday1',this)"
 >
 Friday Cycle 1
@@ -2466,6 +2543,7 @@ Friday Cycle 1
 
 <button
     class="schedule-button"
+    data-schedule="friday23"
     onclick="showSchedule('friday23',this)"
 >
 Friday Cycle 2 & 3
@@ -2493,15 +2571,15 @@ Cycle 1 Schedule
 
 <tr>
 
-<th>
+<th data-i18n="period">
 Period
 </th>
 
-<th>
+<th data-i18n="time">
 Time
 </th>
 
-<th>
+<th data-i18n="duration">
 Duration
 </th>
 
@@ -2510,9 +2588,7 @@ Duration
 </thead>
 
 
-<tbody
-    id="scheduleBody"
->
+<tbody id="scheduleBody">
 </tbody>
 
 
@@ -2543,7 +2619,6 @@ Duration
 
 <div class="section-heading">
 
-
 <div class="section-icon">
 📚
 </div>
@@ -2551,11 +2626,11 @@ Duration
 
 <div>
 
-<h2>
+<h2 data-i18n="revisionTitle">
 Revision Material
 </h2>
 
-<p>
+<p data-i18n="revisionDescription">
 Select the grade to access revision resources.
 </p>
 
@@ -2565,11 +2640,12 @@ Select the grade to access revision resources.
 </div>
 
 
-<p class="section-description">
+<p
+    class="section-description"
+    data-i18n="revisionInstructions"
+>
 
 Click on the required grade below.
-You can connect each button to a Google Drive folder,
-OneDrive folder, PDF file or website.
 
 </p>
 
@@ -2602,7 +2678,6 @@ OneDrive folder, PDF file or website.
 
 <div class="section-heading">
 
-
 <div class="section-icon">
 📝
 </div>
@@ -2610,11 +2685,11 @@ OneDrive folder, PDF file or website.
 
 <div>
 
-<h2>
+<h2 data-i18n="weeklyTitle">
 Weekly Plans
 </h2>
 
-<p>
+<p data-i18n="weeklyDescription">
 Select your class to access the latest weekly plan.
 </p>
 
@@ -2624,10 +2699,12 @@ Select your class to access the latest weekly plan.
 </div>
 
 
-<p class="section-description">
+<p
+    class="section-description"
+    data-i18n="weeklyInstructions"
+>
 
 Choose your class below.
-Each button can link directly to its weekly plan.
 
 </p>
 
@@ -2646,7 +2723,7 @@ Each button can link directly to its weekly plan.
 
 
 <!-- =========================================================
-     TELEGRAM GROUPS
+     TELEGRAM
 ========================================================= -->
 
 <section
@@ -2660,7 +2737,6 @@ Each button can link directly to its weekly plan.
 
 <div class="section-heading">
 
-
 <div class="section-icon">
 ✈
 </div>
@@ -2668,11 +2744,11 @@ Each button can link directly to its weekly plan.
 
 <div>
 
-<h2>
+<h2 data-i18n="telegramTitle">
 Telegram Groups
 </h2>
 
-<p>
+<p data-i18n="telegramDescription">
 Select your class to open the official Telegram group.
 </p>
 
@@ -2682,9 +2758,12 @@ Select your class to open the official Telegram group.
 </div>
 
 
-<p class="section-description">
+<p
+    class="section-description"
+    data-i18n="telegramInstructions"
+>
 
-Click the relevant class below to open its Telegram group.
+Click the relevant class below.
 
 </p>
 
@@ -2705,13 +2784,17 @@ Click the relevant class below to open its Telegram group.
 </main>
 
 
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer>
 
-© 2026 Altaleaa School
+<span id="copyrightText">
 
-&nbsp; • &nbsp;
+© 2026 Sara Alansari. All Rights Reserved.
 
-Ministry of Education – UAE
+</span>
 
 </footer>
 
@@ -2719,122 +2802,907 @@ Ministry of Education – UAE
 <script>
 
 /* =========================================================
-   MAIN FILE SETTINGS
+   GLOBAL
 ========================================================= */
 
 const EXCEL_FILE =
     "Student_Accounts.xlsx";
 
 
+let currentLanguage =
+    "en";
+
+
 /* =========================================================
-   WEEKLY PLAN LINKS
+   WEEKLY PLAN BUTTON ORDER
 
-   IMPORTANT:
-   Replace the blank "" with your actual link.
-
-   Example:
-
-   "7": "https://drive.google.com/your-link"
-
+   EXACT ORDER REQUESTED
 ========================================================= */
 
-const WEEKLY_LINKS = {
+const WEEKLY_LINKS = [
 
-    "KG1A": "",
-    "KG1B": "",
+    {
+        name: "KG1A",
+        link: ""
+    },
 
-    "KG2A": "",
-    "KG2B": "",
+    {
+        name: "KG1B",
+        link: ""
+    },
 
-    "1A": "",
-    "1B": "",
+    {
+        name: "KG2A",
+        link: ""
+    },
 
-    "2A": "",
-    "2B": "",
+    {
+        name: "KG2B",
+        link: ""
+    },
 
-    "3A": "",
-    "3B": "",
+    {
+        name: "1A",
+        link: ""
+    },
 
-    "4": "",
-    "5": "",
-    "6": "",
-    "7": "",
-    "8": "",
+    {
+        name: "1B",
+        link: ""
+    },
 
-    "9G": "",
+    {
+        name: "2A",
+        link: ""
+    },
 
-    "10A": "",
-    "10G": "",
+    {
+        name: "2B",
+        link: ""
+    },
 
-    "11G": "",
+    {
+        name: "3A",
+        link: ""
+    },
 
-    "12A": "",
-    "12G": ""
+    {
+        name: "3B",
+        link: ""
+    },
+
+    {
+        name: "4",
+        link: ""
+    },
+
+    {
+        name: "5",
+        link: ""
+    },
+
+    {
+        name: "6",
+        link: ""
+    },
+
+    {
+        name: "7",
+        link: ""
+    },
+
+    {
+        name: "8",
+        link: ""
+    },
+
+    {
+        name: "9G",
+        link: ""
+    },
+
+    {
+        name: "10A",
+        link: ""
+    },
+
+    {
+        name: "10G",
+        link: ""
+    },
+
+    {
+        name: "11G",
+        link: ""
+    },
+
+    {
+        name: "12A",
+        link: ""
+    },
+
+    {
+        name: "12G",
+        link: ""
+    }
+
+];
+
+
+/* =========================================================
+   TELEGRAM BUTTON ORDER
+
+   EXACT ORDER REQUESTED
+========================================================= */
+
+const TELEGRAM_LINKS = [
+
+    {
+        name: "1A",
+        link: ""
+    },
+
+    {
+        name: "1B",
+        link: ""
+    },
+
+    {
+        name: "2A",
+        link: ""
+    },
+
+    {
+        name: "2B",
+        link: ""
+    },
+
+    {
+        name: "3A",
+        link: ""
+    },
+
+    {
+        name: "3B",
+        link: ""
+    },
+
+    {
+        name: "4",
+        link: ""
+    },
+
+    {
+        name: "5",
+        link: ""
+    },
+
+    {
+        name: "6",
+        link: ""
+    },
+
+    {
+        name: "7",
+        link: ""
+    },
+
+    {
+        name: "8",
+        link: ""
+    },
+
+    {
+        name: "9G",
+        link: ""
+    },
+
+    {
+        name: "10A",
+        link: ""
+    },
+
+    {
+        name: "10G",
+        link: ""
+    },
+
+    {
+        name: "11G",
+        link: ""
+    },
+
+    {
+        name: "12A",
+        link: ""
+    },
+
+    {
+        name: "12G",
+        link: ""
+    }
+
+];
+
+
+/* =========================================================
+   REVISION LINKS
+========================================================= */
+
+const REVISION_LINKS = [
+
+    {
+        name: "Grade 1",
+        arabic: "الصف الأول",
+        link: ""
+    },
+
+    {
+        name: "Grade 2",
+        arabic: "الصف الثاني",
+        link: ""
+    },
+
+    {
+        name: "Grade 3",
+        arabic: "الصف الثالث",
+        link: ""
+    },
+
+    {
+        name: "Grade 4",
+        arabic: "الصف الرابع",
+        link: ""
+    },
+
+    {
+        name: "Grade 5",
+        arabic: "الصف الخامس",
+        link: ""
+    },
+
+    {
+        name: "Grade 6",
+        arabic: "الصف السادس",
+        link: ""
+    },
+
+    {
+        name: "Grade 7",
+        arabic: "الصف السابع",
+        link: ""
+    },
+
+    {
+        name: "Grade 8",
+        arabic: "الصف الثامن",
+        link: ""
+    },
+
+    {
+        name: "Grade 9",
+        arabic: "الصف التاسع",
+        link: ""
+    },
+
+    {
+        name: "Grade 10",
+        arabic: "الصف العاشر",
+        link: ""
+    },
+
+    {
+        name: "Grade 11",
+        arabic: "الصف الحادي عشر",
+        link: ""
+    },
+
+    {
+        name: "Grade 12",
+        arabic: "الصف الثاني عشر",
+        link: ""
+    }
+
+];
+
+
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
+
+const translations = {
+
+
+en: {
+
+platformTitle:
+"Altaleaa School Platform",
+
+platformSubtitle:
+"Learning • Communication • Resources • Student Services",
+
+home:
+"Home",
+
+lms:
+"LMS Accounts",
+
+timetable:
+"Time Table",
+
+bell:
+"Bell Timings",
+
+revision:
+"Revision Material",
+
+weekly:
+"Weekly Plans",
+
+telegram:
+"Telegram Groups",
+
+schoolBadge:
+"ALTALEAA SCHOOL",
+
+welcomeTitle:
+"Welcome to Altaleaa School Platform",
+
+welcomeText:
+"Access your school services in one place. Find LMS account information, school timetables, official bell timings, revision resources, weekly learning plans and class Telegram groups.",
+
+lmsCardText:
+"Find your student email and LMS account information using your Student ID.",
+
+timetableCardText:
+"Access the latest school or student timetable.",
+
+bellCardText:
+"Check Cycle 1, Cycle 2 & 3, Tamkeen and Friday schedules.",
+
+revisionCardText:
+"Access revision resources and study material.",
+
+weeklyCardText:
+"Open the current weekly learning plan for your class.",
+
+telegramCardText:
+"Access your official class Telegram communication group.",
+
+lmsTitle:
+"LMS Account Lookup",
+
+lmsDescription:
+"Enter your Student ID to retrieve your account information.",
+
+accountInformation:
+"Student Account Information",
+
+studentID:
+"Student ID",
+
+studentName:
+"Student Name",
+
+email:
+"Email",
+
+password:
+"Password",
+
+copy:
+"Copy",
+
+show:
+"Show",
+
+hide:
+"Hide",
+
+search:
+"Search Account",
+
+searchPlaceholder:
+"Enter Student ID",
+
+loading:
+"Loading student accounts...",
+
+ready:
+"Student accounts are ready.",
+
+notFound:
+"Student ID not found. Please check the ID and try again.",
+
+enterID:
+"Please enter a Student ID.",
+
+databaseError:
+"Student account database could not be loaded.",
+
+copied:
+"Copied successfully.",
+
+timetableTitle:
+"School Time Table",
+
+timetableDescription:
+"Access the latest school timetable.",
+
+currentTimetable:
+"Current Time Table",
+
+currentTimetableText:
+"Click below to view the latest timetable.",
+
+openTimetable:
+"Open Time Table",
+
+bellTitle:
+"Bell Timings",
+
+bellDescription:
+"Official school-day schedules for Al-Taleaa School.",
+
+morningAssembly:
+"Morning Assembly",
+
+firstPeriodStarts:
+"First Period Starts",
+
+standardPeriod:
+"Standard Period Duration",
+
+period:
+"Period",
+
+time:
+"Time",
+
+duration:
+"Duration",
+
+revisionTitle:
+"Revision Material",
+
+revisionDescription:
+"Select the grade to access revision resources.",
+
+revisionInstructions:
+"Click on the required grade below.",
+
+weeklyTitle:
+"Weekly Plans",
+
+weeklyDescription:
+"Select your class to access the latest weekly plan.",
+
+weeklyInstructions:
+"Choose your class below.",
+
+telegramTitle:
+"Telegram Groups",
+
+telegramDescription:
+"Select your class to open the official Telegram group.",
+
+telegramInstructions:
+"Click the relevant class below.",
+
+linkMissing:
+"The link for this class has not been added yet.",
+
+copyright:
+"© 2026 Sara Alansari. All Rights Reserved."
+
+},
+
+
+ar: {
+
+platformTitle:
+"منصة مدرسة الطليعة",
+
+platformSubtitle:
+"التعلم • التواصل • المصادر • خدمات الطلبة",
+
+home:
+"الرئيسية",
+
+lms:
+"حسابات LMS",
+
+timetable:
+"الجدول الدراسي",
+
+bell:
+"مواعيد الحصص",
+
+revision:
+"مواد المراجعة",
+
+weekly:
+"الخطط الأسبوعية",
+
+telegram:
+"مجموعات تيليجرام",
+
+schoolBadge:
+"مدرسة الطليعة",
+
+welcomeTitle:
+"مرحباً بكم في منصة مدرسة الطليعة",
+
+welcomeText:
+"جميع الخدمات المدرسية في مكان واحد. يمكنكم الوصول إلى حسابات الطلبة والجداول الدراسية ومواعيد الحصص ومواد المراجعة والخطط الأسبوعية ومجموعات تيليجرام.",
+
+lmsCardText:
+"ابحث عن البريد الإلكتروني وبيانات حساب الطالب باستخدام الرقم التعريفي للطالب.",
+
+timetableCardText:
+"الوصول إلى أحدث جدول دراسي للمدرسة والطلبة.",
+
+bellCardText:
+"عرض مواعيد الحلقة الأولى والحلقتين الثانية والثالثة وتمكين ويوم الجمعة.",
+
+revisionCardText:
+"الوصول إلى مواد المراجعة والمصادر التعليمية.",
+
+weeklyCardText:
+"عرض أحدث خطة أسبوعية للصف.",
+
+telegramCardText:
+"الوصول إلى مجموعة تيليجرام الرسمية للصف.",
+
+lmsTitle:
+"البحث عن حساب الطالب",
+
+lmsDescription:
+"أدخل الرقم التعريفي للطالب لعرض بيانات الحساب.",
+
+accountInformation:
+"بيانات حساب الطالب",
+
+studentID:
+"الرقم التعريفي للطالب",
+
+studentName:
+"اسم الطالب",
+
+email:
+"البريد الإلكتروني",
+
+password:
+"كلمة المرور",
+
+copy:
+"نسخ",
+
+show:
+"إظهار",
+
+hide:
+"إخفاء",
+
+search:
+"بحث",
+
+searchPlaceholder:
+"أدخل الرقم التعريفي للطالب",
+
+loading:
+"جاري تحميل حسابات الطلبة...",
+
+ready:
+"حسابات الطلبة جاهزة.",
+
+notFound:
+"لم يتم العثور على الرقم التعريفي. يرجى التحقق والمحاولة مرة أخرى.",
+
+enterID:
+"يرجى إدخال الرقم التعريفي للطالب.",
+
+databaseError:
+"تعذر تحميل قاعدة بيانات حسابات الطلبة.",
+
+copied:
+"تم النسخ بنجاح.",
+
+timetableTitle:
+"الجدول الدراسي",
+
+timetableDescription:
+"الوصول إلى أحدث جدول دراسي.",
+
+currentTimetable:
+"الجدول الحالي",
+
+currentTimetableText:
+"اضغط أدناه لعرض أحدث جدول.",
+
+openTimetable:
+"فتح الجدول",
+
+bellTitle:
+"مواعيد الحصص",
+
+bellDescription:
+"المواعيد الرسمية لليوم الدراسي في مدرسة الطليعة.",
+
+morningAssembly:
+"الطابور الصباحي",
+
+firstPeriodStarts:
+"بداية الحصة الأولى",
+
+standardPeriod:
+"مدة الحصة الاعتيادية",
+
+period:
+"الحصة",
+
+time:
+"الوقت",
+
+duration:
+"المدة",
+
+revisionTitle:
+"مواد المراجعة",
+
+revisionDescription:
+"اختر الصف للوصول إلى مواد المراجعة.",
+
+revisionInstructions:
+"اضغط على الصف المطلوب أدناه.",
+
+weeklyTitle:
+"الخطط الأسبوعية",
+
+weeklyDescription:
+"اختر صفك للوصول إلى أحدث خطة أسبوعية.",
+
+weeklyInstructions:
+"اختر صفك أدناه.",
+
+telegramTitle:
+"مجموعات تيليجرام",
+
+telegramDescription:
+"اختر صفك لفتح مجموعة تيليجرام الرسمية.",
+
+telegramInstructions:
+"اضغط على الصف المطلوب أدناه.",
+
+linkMissing:
+"لم تتم إضافة رابط هذا الصف بعد.",
+
+copyright:
+"© 2026 سارة الأنصاري. جميع الحقوق محفوظة."
+
+}
 
 };
 
 
 /* =========================================================
-   TELEGRAM LINKS
-
-   Example:
-
-   "7": "https://t.me/example"
-
+   LANGUAGE SWITCH
 ========================================================= */
 
-const TELEGRAM_LINKS = {
+function setLanguage(
+    language
+) {
 
-    "1A": "",
-    "1B": "",
 
-    "2A": "",
-    "2B": "",
+currentLanguage =
+    language;
 
-    "3A": "",
-    "3B": "",
 
-    "4": "",
-    "5": "",
-    "6": "",
-    "7": "",
-    "8": "",
+const html =
+    document.documentElement;
 
-    "9G": "",
 
-    "10A": "",
-    "10G": "",
+if(language === "ar") {
 
-    "11G": "",
 
-    "12A": "",
-    "12G": ""
+    html.lang =
+        "ar";
 
-};
+
+    html.dir =
+        "rtl";
+
+
+    document
+        .getElementById(
+            "arabicButton"
+        )
+        .classList
+        .add(
+            "active"
+        );
+
+
+    document
+        .getElementById(
+            "englishButton"
+        )
+        .classList
+        .remove(
+            "active"
+        );
+
+
+} else {
+
+
+    html.lang =
+        "en";
+
+
+    html.dir =
+        "ltr";
+
+
+    document
+        .getElementById(
+            "englishButton"
+        )
+        .classList
+        .add(
+            "active"
+        );
+
+
+    document
+        .getElementById(
+            "arabicButton"
+        )
+        .classList
+        .remove(
+            "active"
+        );
+
+
+}
+
+
+updateLanguage();
+
+
+}
 
 
 /* =========================================================
-   REVISION MATERIAL LINKS
-
-   You can edit these as needed.
+   APPLY TRANSLATIONS
 ========================================================= */
 
-const REVISION_LINKS = {
+function updateLanguage() {
 
-    "Grade 1": "",
-    "Grade 2": "",
-    "Grade 3": "",
-    "Grade 4": "",
-    "Grade 5": "",
-    "Grade 6": "",
-    "Grade 7": "",
-    "Grade 8": "",
-    "Grade 9": "",
-    "Grade 10": "",
-    "Grade 11": "",
-    "Grade 12": ""
 
-};
+const language =
+    translations[
+        currentLanguage
+    ];
+
+
+document
+    .getElementById(
+        "platformTitle"
+    )
+    .textContent =
+        language.platformTitle;
+
+
+document
+    .getElementById(
+        "platformSubtitle"
+    )
+    .textContent =
+        language.platformSubtitle;
+
+
+document
+    .querySelectorAll(
+        "[data-i18n]"
+    )
+    .forEach(
+        element => {
+
+
+            const key =
+                element
+                    .getAttribute(
+                        "data-i18n"
+                    );
+
+
+            if(
+                language[key]
+            ) {
+
+
+                element.textContent =
+                    language[key];
+
+
+            }
+
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "studentID"
+    )
+    .placeholder =
+        language.searchPlaceholder;
+
+
+document
+    .getElementById(
+        "searchButton"
+    )
+    .textContent =
+        language.search;
+
+
+document
+    .getElementById(
+        "copyEmailButton"
+    )
+    .textContent =
+        language.copy;
+
+
+document
+    .getElementById(
+        "copyPasswordButton"
+    )
+    .textContent =
+        language.copy;
+
+
+document
+    .getElementById(
+        "passwordButton"
+    )
+    .textContent =
+
+        passwordVisible
+
+        ?
+
+        language.hide
+
+        :
+
+        language.show;
+
+
+document
+    .getElementById(
+        "copyrightText"
+    )
+    .textContent =
+        language.copyright;
+
+
+/* rebuild translated revision buttons */
+
+buildRevisionButtons();
+
+
+/* refresh current bell schedule */
+
+renderSchedule(
+    activeSchedule
+);
+
+
+}
 
 
 /* =========================================================
@@ -2846,284 +3714,360 @@ function openSection(
     button
 ) {
 
-    document
-        .querySelectorAll(
-            ".section"
-        )
-        .forEach(
-            section => {
 
-                section
-                    .classList
-                    .remove(
-                        "active"
-                    );
-
-            }
-        );
-
-
-    document
-        .getElementById(
-            sectionName
-        )
-        .classList
-        .add(
-            "active"
-        );
-
-
-    document
-        .querySelectorAll(
-            ".nav-button"
-        )
-        .forEach(
-            nav => {
-
-                nav
-                    .classList
-                    .remove(
-                        "active"
-                    );
-
-            }
-        );
-
-
-    if(button) {
-
-        button
-            .classList
-            .add(
-                "active"
-            );
-
-    }
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior:
-            "smooth"
-
-    });
-
-}
-
-
-/* Open page from dashboard */
-
-function openSectionByName(
-    sectionName
-) {
-
-    let matchingButton =
-        null;
-
-
-    document
-        .querySelectorAll(
-            ".nav-button"
-        )
-        .forEach(
-            button => {
-
-                const command =
-                    button.getAttribute(
-                        "onclick"
-                    ) || "";
-
-
-                if(
-                    command.includes(
-                        "'" +
-                        sectionName +
-                        "'"
-                    )
-                ) {
-
-                    matchingButton =
-                        button;
-
-                }
-
-            }
-        );
-
-
-    openSection(
-        sectionName,
-        matchingButton
-    );
-
-}
-
-
-/* =========================================================
-   CREATE CLASS BUTTONS
-========================================================= */
-
-function buildButtons(
-    containerID,
-    data,
-    telegram = false
-) {
-
-    const container =
-        document.getElementById(
-            containerID
-        );
-
-
-    container.innerHTML =
-        "";
-
-
-    Object.entries(
-        data
+document
+    .querySelectorAll(
+        ".section"
     )
     .forEach(
-        ([name,link]) => {
+        section => {
 
 
-            const button =
-                document.createElement(
-                    "a"
-                );
-
-
-            button.className =
-                "class-button";
-
-
-            if(telegram) {
-
-                button
-                    .classList
-                    .add(
-                        "telegram-button"
-                    );
-
-            }
-
-
-            button.textContent =
-                name;
-
-
-            if(link) {
-
-
-                button.href =
-                    link;
-
-
-                button.target =
-                    "_blank";
-
-
-                button.rel =
-                    "noopener noreferrer";
-
-
-            } else {
-
-
-                button.href =
-                    "#";
-
-
-                button.onclick =
-                    function(event) {
-
-
-                        event
-                            .preventDefault();
-
-
-                        alert(
-
-                            "The link for " +
-                            name +
-                            " has not been added yet."
-
-                        );
-
-
-                    };
-
-
-            }
-
-
-            container
-                .appendChild(
-                    button
+            section
+                .classList
+                .remove(
+                    "active"
                 );
 
 
         }
     );
 
+
+document
+    .getElementById(
+        sectionName
+    )
+    .classList
+    .add(
+        "active"
+    );
+
+
+document
+    .querySelectorAll(
+        ".nav-button"
+    )
+    .forEach(
+        nav => {
+
+
+            nav
+                .classList
+                .remove(
+                    "active"
+                );
+
+
+        }
+    );
+
+
+if(button) {
+
+
+    button
+        .classList
+        .add(
+            "active"
+        );
+
+
 }
 
 
-/* Build buttons */
+window.scrollTo({
 
-buildButtons(
-    "weeklyGrid",
-    WEEKLY_LINKS
-);
+    top: 0,
 
+    behavior:
+        "smooth"
 
-buildButtons(
-    "telegramGrid",
-    TELEGRAM_LINKS,
-    true
-);
+});
 
 
-buildButtons(
-    "revisionGrid",
-    REVISION_LINKS
-);
+}
 
 
 /* =========================================================
-   BELL TIMINGS DATA
+   OPEN FROM HOME CARD
 ========================================================= */
+
+function openSectionByName(
+    sectionName
+) {
+
+
+const button =
+    document.querySelector(
+
+        '.nav-button[data-section="' +
+        sectionName +
+        '"]'
+
+    );
+
+
+openSection(
+    sectionName,
+    button
+);
+
+
+}
+
+
+/* =========================================================
+   CREATE WEEKLY / TELEGRAM BUTTONS
+========================================================= */
+
+function buildClassButtons(
+    containerID,
+    data,
+    telegram = false
+) {
+
+
+const container =
+    document.getElementById(
+        containerID
+    );
+
+
+container.innerHTML =
+    "";
+
+
+data.forEach(
+    item => {
+
+
+        const button =
+            document.createElement(
+                "a"
+            );
+
+
+        button.className =
+            "class-button";
+
+
+        if(telegram) {
+
+
+            button
+                .classList
+                .add(
+                    "telegram-button"
+                );
+
+
+        }
+
+
+        button.textContent =
+            item.name;
+
+
+        if(
+            item.link
+        ) {
+
+
+            button.href =
+                item.link;
+
+
+            button.target =
+                "_blank";
+
+
+            button.rel =
+                "noopener noreferrer";
+
+
+        } else {
+
+
+            button.href =
+                "#";
+
+
+            button.onclick =
+                function(event) {
+
+
+                    event
+                        .preventDefault();
+
+
+                    alert(
+
+                        translations[
+                            currentLanguage
+                        ].linkMissing
+
+                    );
+
+
+                };
+
+
+        }
+
+
+        container
+            .appendChild(
+                button
+            );
+
+
+    }
+);
+
+
+}
+
+
+/* =========================================================
+   REVISION BUTTONS
+========================================================= */
+
+function buildRevisionButtons() {
+
+
+const container =
+    document.getElementById(
+        "revisionGrid"
+    );
+
+
+container.innerHTML =
+    "";
+
+
+REVISION_LINKS.forEach(
+    item => {
+
+
+        const button =
+            document.createElement(
+                "a"
+            );
+
+
+        button.className =
+            "class-button";
+
+
+        button.textContent =
+
+            currentLanguage === "ar"
+
+            ?
+
+            item.arabic
+
+            :
+
+            item.name;
+
+
+        if(
+            item.link
+        ) {
+
+
+            button.href =
+                item.link;
+
+
+            button.target =
+                "_blank";
+
+
+        } else {
+
+
+            button.href =
+                "#";
+
+
+            button.onclick =
+                function(event) {
+
+
+                    event.preventDefault();
+
+
+                    alert(
+
+                        translations[
+                            currentLanguage
+                        ].linkMissing
+
+                    );
+
+
+                };
+
+
+        }
+
+
+        container
+            .appendChild(
+                button
+            );
+
+
+    }
+);
+
+
+}
+
+
+/* =========================================================
+   BELL TIMINGS
+========================================================= */
+
+let activeSchedule =
+    "cycle1";
+
 
 const SCHOOL_SCHEDULES = {
 
 
 cycle1: {
 
-title:
+titleEn:
 "Cycle 1 Schedule",
+
+titleAr:
+"جدول الحلقة الأولى",
 
 rows: [
 
-["Period 1","8:00 – 8:45","45 min"],
+["Period 1","الحصة الأولى","8:00 – 8:45","45 min","45 دقيقة"],
 
-["Period 2","8:45 – 9:30","45 min"],
+["Period 2","الحصة الثانية","8:45 – 9:30","45 min","45 دقيقة"],
 
-["Period 3","9:30 – 10:15","45 min"],
+["Period 3","الحصة الثالثة","9:30 – 10:15","45 min","45 دقيقة"],
 
-["Break","10:15 – 10:35","20 min"],
+["Break","الاستراحة","10:15 – 10:35","20 min","20 دقيقة"],
 
-["Period 4","10:35 – 11:20","45 min"],
+["Period 4","الحصة الرابعة","10:35 – 11:20","45 min","45 دقيقة"],
 
-["Period 5","11:20 – 12:05","45 min"],
+["Period 5","الحصة الخامسة","11:20 – 12:05","45 min","45 دقيقة"],
 
-["Period 6","12:05 – 12:50","45 min"],
+["Period 6","الحصة السادسة","12:05 – 12:50","45 min","45 دقيقة"],
 
-["Break","12:50 – 1:00","10 min"],
+["Break","الاستراحة","12:50 – 1:00","10 min","10 دقائق"],
 
-["Period 7","1:00 – 1:45","45 min"],
+["Period 7","الحصة السابعة","1:00 – 1:45","45 min","45 دقيقة"],
 
-["Dismissal","1:45 PM",""]
+["Dismissal","الانصراف","1:45 PM","",""]
 
 ]
 
@@ -3132,32 +4076,35 @@ rows: [
 
 cycle1Tamkeen: {
 
-title:
+titleEn:
 "Cycle 1 Tamkeen Schedule",
+
+titleAr:
+"جدول تمكين - الحلقة الأولى",
 
 rows: [
 
-["P1","7:45 – 8:25","40 min"],
+["P1","الحصة الأولى","7:45 – 8:25","40 min","40 دقيقة"],
 
-["P2","8:25 – 9:05","40 min"],
+["P2","الحصة الثانية","8:25 – 9:05","40 min","40 دقيقة"],
 
-["Flexible Period","9:05 – 9:50","45 min"],
+["Flexible Period","الحصة المرنة","9:05 – 9:50","45 min","45 دقيقة"],
 
-["P3","9:50 – 10:30","40 min"],
+["P3","الحصة الثالثة","9:50 – 10:30","40 min","40 دقيقة"],
 
-["Break","10:30 – 10:50","20 min"],
+["Break","الاستراحة","10:30 – 10:50","20 min","20 دقيقة"],
 
-["P4","10:50 – 11:30","40 min"],
+["P4","الحصة الرابعة","10:50 – 11:30","40 min","40 دقيقة"],
 
-["P5","11:30 – 12:10","40 min"],
+["P5","الحصة الخامسة","11:30 – 12:10","40 min","40 دقيقة"],
 
-["P6","12:10 – 12:50","40 min"],
+["P6","الحصة السادسة","12:10 – 12:50","40 min","40 دقيقة"],
 
-["Prayer","12:50 – 1:00","10 min"],
+["Prayer","الصلاة","12:50 – 1:00","10 min","10 دقائق"],
 
-["P7","1:00 – 1:45","45 min"],
+["P7","الحصة السابعة","1:00 – 1:45","45 min","45 دقيقة"],
 
-["Dismissal","1:45 – 2:00","15 min"]
+["Dismissal","الانصراف","1:45 – 2:00","15 min","15 دقيقة"]
 
 ]
 
@@ -3166,32 +4113,35 @@ rows: [
 
 cycle23: {
 
-title:
+titleEn:
 "Cycle 2 & 3 Schedule",
+
+titleAr:
+"جدول الحلقتين الثانية والثالثة",
 
 rows: [
 
-["Period 1","8:00 – 8:45","45 min"],
+["Period 1","الحصة الأولى","8:00 – 8:45","45 min","45 دقيقة"],
 
-["Period 2","8:45 – 9:30","45 min"],
+["Period 2","الحصة الثانية","8:45 – 9:30","45 min","45 دقيقة"],
 
-["Period 3","9:30 – 10:15","45 min"],
+["Period 3","الحصة الثالثة","9:30 – 10:15","45 min","45 دقيقة"],
 
-["Period 4","10:15 – 11:00","45 min"],
+["Period 4","الحصة الرابعة","10:15 – 11:00","45 min","45 دقيقة"],
 
-["Break","11:00 – 11:20","20 min"],
+["Break","الاستراحة","11:00 – 11:20","20 min","20 دقيقة"],
 
-["Period 5","11:20 – 12:05","45 min"],
+["Period 5","الحصة الخامسة","11:20 – 12:05","45 min","45 دقيقة"],
 
-["Period 6","12:05 – 12:50","45 min"],
+["Period 6","الحصة السادسة","12:05 – 12:50","45 min","45 دقيقة"],
 
-["Prayer Break","12:50 – 1:00","10 min"],
+["Prayer Break","استراحة الصلاة","12:50 – 1:00","10 min","10 دقائق"],
 
-["Period 7","1:00 – 1:45","45 min"],
+["Period 7","الحصة السابعة","1:00 – 1:45","45 min","45 دقيقة"],
 
-["Period 8","1:45 – 2:30","45 min"],
+["Period 8","الحصة الثامنة","1:45 – 2:30","45 min","45 دقيقة"],
 
-["Dismissal","2:30 PM",""]
+["Dismissal","الانصراف","2:30 PM","",""]
 
 ]
 
@@ -3200,34 +4150,37 @@ rows: [
 
 cycle23Tamkeen: {
 
-title:
+titleEn:
 "Cycle 2 & 3 Tamkeen Schedule",
+
+titleAr:
+"جدول تمكين - الحلقتان الثانية والثالثة",
 
 rows: [
 
-["P1","7:45 – 8:25","40 min"],
+["P1","الحصة الأولى","7:45 – 8:25","40 min","40 دقيقة"],
 
-["P2","8:25 – 9:05","40 min"],
+["P2","الحصة الثانية","8:25 – 9:05","40 min","40 دقيقة"],
 
-["Flexible Period","9:05 – 9:50","45 min"],
+["Flexible Period","الحصة المرنة","9:05 – 9:50","45 min","45 دقيقة"],
 
-["P3","9:50 – 10:30","40 min"],
+["P3","الحصة الثالثة","9:50 – 10:30","40 min","40 دقيقة"],
 
-["P4","10:30 – 11:10","40 min"],
+["P4","الحصة الرابعة","10:30 – 11:10","40 min","40 دقيقة"],
 
-["Break","11:10 – 11:30","20 min"],
+["Break","الاستراحة","11:10 – 11:30","20 min","20 دقيقة"],
 
-["P5","11:30 – 12:10","40 min"],
+["P5","الحصة الخامسة","11:30 – 12:10","40 min","40 دقيقة"],
 
-["P6","12:10 – 12:50","40 min"],
+["P6","الحصة السادسة","12:10 – 12:50","40 min","40 دقيقة"],
 
-["Prayer","12:50 – 1:00","10 min"],
+["Prayer","الصلاة","12:50 – 1:00","10 min","10 دقائق"],
 
-["P7","1:00 – 1:45","45 min"],
+["P7","الحصة السابعة","1:00 – 1:45","45 min","45 دقيقة"],
 
-["P8","1:45 – 2:30","45 min"],
+["P8","الحصة الثامنة","1:45 – 2:30","45 min","45 دقيقة"],
 
-["Dismissal","2:30 – 2:40","10 min"]
+["Dismissal","الانصراف","2:30 – 2:40","10 min","10 دقائق"]
 
 ]
 
@@ -3236,20 +4189,23 @@ rows: [
 
 friday1: {
 
-title:
+titleEn:
 "Friday – Cycle 1",
+
+titleAr:
+"الجمعة - الحلقة الأولى",
 
 rows: [
 
-["Period 1","7:45 – 8:30","45 min"],
+["Period 1","الحصة الأولى","7:45 – 8:30","45 min","45 دقيقة"],
 
-["Period 2","8:30 – 9:15","45 min"],
+["Period 2","الحصة الثانية","8:30 – 9:15","45 min","45 دقيقة"],
 
-["Break","9:15 – 9:35","20 min"],
+["Break","الاستراحة","9:15 – 9:35","20 min","20 دقيقة"],
 
-["Period 3","9:35 – 10:20","45 min"],
+["Period 3","الحصة الثالثة","9:35 – 10:20","45 min","45 دقيقة"],
 
-["Period 4","10:20 – 11:05","45 min"]
+["Period 4","الحصة الرابعة","10:20 – 11:05","45 min","45 دقيقة"]
 
 ]
 
@@ -3258,33 +4214,35 @@ rows: [
 
 friday23: {
 
-title:
+titleEn:
 "Friday – Cycle 2 & 3",
+
+titleAr:
+"الجمعة - الحلقتان الثانية والثالثة",
 
 rows: [
 
-["Assembly","7:45 – 8:00","15 min"],
+["Assembly","الطابور","7:45 – 8:00","15 min","15 دقيقة"],
 
-["Period 1","8:00 – 8:45","45 min"],
+["Period 1","الحصة الأولى","8:00 – 8:45","45 min","45 دقيقة"],
 
-["Period 2","8:45 – 9:30","45 min"],
+["Period 2","الحصة الثانية","8:45 – 9:30","45 min","45 دقيقة"],
 
-["Period 3","9:30 – 10:15","45 min"],
+["Period 3","الحصة الثالثة","9:30 – 10:15","45 min","45 دقيقة"],
 
-["Break","10:15 – 10:35","20 min"],
+["Break","الاستراحة","10:15 – 10:35","20 min","20 دقيقة"],
 
-["Period 4","10:35 – 11:20","45 min"]
+["Period 4","الحصة الرابعة","10:35 – 11:20","45 min","45 دقيقة"]
 
 ]
 
 }
 
-
 };
 
 
 /* =========================================================
-   DISPLAY BELL TIMINGS
+   SHOW SCHEDULE
 ========================================================= */
 
 function showSchedule(
@@ -3293,171 +4251,215 @@ function showSchedule(
 ) {
 
 
-    document
-        .querySelectorAll(
-            ".schedule-button"
-        )
-        .forEach(
-            item => {
-
-                item
-                    .classList
-                    .remove(
-                        "active"
-                    );
-
-            }
-        );
+activeSchedule =
+    scheduleName;
 
 
-    button
-        .classList
-        .add(
-            "active"
-        );
+document
+    .querySelectorAll(
+        ".schedule-button"
+    )
+    .forEach(
+        item => {
 
 
-    renderSchedule(
-        scheduleName
+            item
+                .classList
+                .remove(
+                    "active"
+                );
+
+
+        }
     );
+
+
+button
+    .classList
+    .add(
+        "active"
+    );
+
+
+renderSchedule(
+    scheduleName
+);
+
 
 }
 
+
+/* =========================================================
+   RENDER SCHEDULE
+========================================================= */
 
 function renderSchedule(
     scheduleName
 ) {
 
 
-    const schedule =
-        SCHOOL_SCHEDULES[
-            scheduleName
-        ];
+const schedule =
+    SCHOOL_SCHEDULES[
+        scheduleName
+    ];
 
 
+document
+    .getElementById(
+        "scheduleTitle"
+    )
+    .textContent =
+
+        currentLanguage === "ar"
+
+        ?
+
+        schedule.titleAr
+
+        :
+
+        schedule.titleEn;
+
+
+const tbody =
     document
         .getElementById(
-            "scheduleTitle"
-        )
-        .textContent =
-            schedule.title;
+            "scheduleBody"
+        );
 
 
-    const tableBody =
-        document
-            .getElementById(
-                "scheduleBody"
-            );
+tbody.innerHTML =
+    "";
 
 
-    tableBody.innerHTML =
-        "";
+schedule.rows.forEach(
+    row => {
 
 
-    schedule.rows
-        .forEach(
-            row => {
-
-
-                const tableRow =
-                    document
-                        .createElement(
-                            "tr"
-                        );
-
-
-                const rowName =
-                    row[0]
-                        .toLowerCase();
-
-
-                if(
-                    rowName.includes(
-                        "break"
-                    )
-                ) {
-
-                    tableRow
-                        .classList
-                        .add(
-                            "break-row"
-                        );
-
-                }
-
-
-                if(
-                    rowName.includes(
-                        "prayer"
-                    )
-                ) {
-
-                    tableRow
-                        .classList
-                        .add(
-                            "prayer-row"
-                        );
-
-                }
-
-
-                if(
-                    rowName.includes(
-                        "dismissal"
-                    )
-                ) {
-
-                    tableRow
-                        .classList
-                        .add(
-                            "dismissal-row"
-                        );
-
-                }
-
-
-                row.forEach(
-                    value => {
-
-
-                        const cell =
-                            document
-                                .createElement(
-                                    "td"
-                                );
-
-
-                        cell.textContent =
-                            value;
-
-
-                        tableRow
-                            .appendChild(
-                                cell
-                            );
-
-
-                    }
+        const tr =
+            document
+                .createElement(
+                    "tr"
                 );
 
 
-                tableBody
+        const type =
+            row[0]
+                .toLowerCase();
+
+
+        if(
+            type.includes(
+                "break"
+            )
+        ) {
+
+
+            tr
+                .classList
+                .add(
+                    "break-row"
+                );
+
+
+        }
+
+
+        if(
+            type.includes(
+                "prayer"
+            )
+        ) {
+
+
+            tr
+                .classList
+                .add(
+                    "prayer-row"
+                );
+
+
+        }
+
+
+        if(
+            type.includes(
+                "dismissal"
+            )
+        ) {
+
+
+            tr
+                .classList
+                .add(
+                    "dismissal-row"
+                );
+
+
+        }
+
+
+        const period =
+            currentLanguage === "ar"
+            ?
+            row[1]
+            :
+            row[0];
+
+
+        const time =
+            row[2];
+
+
+        const duration =
+            currentLanguage === "ar"
+            ?
+            row[4]
+            :
+            row[3];
+
+
+        [
+            period,
+            time,
+            duration
+        ]
+        .forEach(
+            value => {
+
+
+                const td =
+                    document
+                        .createElement(
+                            "td"
+                        );
+
+
+                td.textContent =
+                    value;
+
+
+                tr
                     .appendChild(
-                        tableRow
+                        td
                     );
 
 
             }
         );
 
-}
+
+        tbody
+            .appendChild(
+                tr
+            );
 
 
-/* Display Cycle 1 initially */
-
-renderSchedule(
-    "cycle1"
+    }
 );
+
+
+}
 
 
 /* =========================================================
@@ -3490,6 +4492,14 @@ async function loadExcel() {
 try {
 
 
+showMessage(
+    translations[
+        currentLanguage
+    ].loading,
+    "info"
+);
+
+
 const response =
     await fetch(
 
@@ -3500,11 +4510,13 @@ const response =
     );
 
 
-if(!response.ok) {
+if(
+    !response.ok
+) {
 
 
     throw new Error(
-        "Unable to load Excel database."
+        "Excel unavailable"
     );
 
 
@@ -3529,13 +4541,9 @@ const workbook =
     );
 
 
-const firstSheet =
-    workbook.SheetNames[0];
-
-
 const worksheet =
     workbook.Sheets[
-        firstSheet
+        workbook.SheetNames[0]
     ];
 
 
@@ -3545,11 +4553,13 @@ const rows =
         worksheet,
 
         {
+
             defval:
                 "",
 
             raw:
                 false
+
         }
 
     );
@@ -3584,7 +4594,9 @@ document
 
 showMessage(
 
-    "Student accounts are ready.",
+    translations[
+        currentLanguage
+    ].ready,
 
     "success"
 
@@ -3592,11 +4604,8 @@ showMessage(
 
 
 setTimeout(
-
     hideMessage,
-
     1800
-
 );
 
 
@@ -3612,7 +4621,9 @@ console.error(
 
 showMessage(
 
-    "Student account database could not be loaded.",
+    translations[
+        currentLanguage
+    ].databaseError,
 
     "error"
 
@@ -3626,7 +4637,7 @@ showMessage(
 
 
 /* =========================================================
-   EXCEL COLUMN RECOGNITION
+   NORMALIZE EXCEL ROW
 ========================================================= */
 
 function normalizeStudent(
@@ -3739,7 +4750,7 @@ String(
 
 
 /* =========================================================
-   SEARCH STUDENT
+   SEARCH
 ========================================================= */
 
 function searchStudent() {
@@ -3764,12 +4775,16 @@ document
     );
 
 
-if(!enteredID) {
+if(
+    !enteredID
+) {
 
 
 showMessage(
 
-    "Please enter a Student ID.",
+    translations[
+        currentLanguage
+    ].enterID,
 
     "error"
 
@@ -3787,26 +4802,30 @@ const student =
         student =>
 
 
-            normalizeID(
-                student.id
-            )
+        normalizeID(
+            student.id
+        )
 
-            ===
+        ===
 
-            normalizeID(
-                enteredID
-            )
+        normalizeID(
+            enteredID
+        )
 
 
     );
 
 
-if(!student) {
+if(
+    !student
+) {
 
 
 showMessage(
 
-    "Student ID not found. Please check the ID and try again.",
+    translations[
+        currentLanguage
+    ].notFound,
 
     "error"
 
@@ -3836,7 +4855,7 @@ document
     )
     .textContent =
         student.name ||
-        "Not available";
+        "-";
 
 
 document
@@ -3845,7 +4864,7 @@ document
     )
     .textContent =
         student.email ||
-        "Not available";
+        "-";
 
 
 currentEmail =
@@ -3877,7 +4896,9 @@ document
         "passwordButton"
     )
     .textContent =
-        "Show";
+        translations[
+            currentLanguage
+        ].show;
 
 
 document
@@ -3894,7 +4915,7 @@ document
 
 
 /* =========================================================
-   NORMALIZE STUDENT ID
+   ID
 ========================================================= */
 
 function normalizeID(
@@ -3925,10 +4946,12 @@ function maskPassword(
 ) {
 
 
-if(!password) {
+if(
+    !password
+) {
 
 
-return "Not available";
+return "-";
 
 
 }
@@ -3953,7 +4976,9 @@ return "•".repeat(
 function togglePassword() {
 
 
-if(!currentPassword) {
+if(
+    !currentPassword
+) {
 
 
 return;
@@ -3971,7 +4996,6 @@ document
         "resultPassword"
     )
     .textContent =
-
 
         passwordVisible
 
@@ -3992,23 +5016,26 @@ document
     )
     .textContent =
 
-
         passwordVisible
 
         ?
 
-        "Hide"
+        translations[
+            currentLanguage
+        ].hide
 
         :
 
-        "Show";
+        translations[
+            currentLanguage
+        ].show;
 
 
 }
 
 
 /* =========================================================
-   COPY FUNCTIONS
+   COPY
 ========================================================= */
 
 async function copyEmail() {
@@ -4066,7 +5093,9 @@ await navigator
 
 showMessage(
 
-    "Copied successfully.",
+    translations[
+        currentLanguage
+    ].copied,
 
     "success"
 
@@ -4074,11 +5103,8 @@ showMessage(
 
 
 setTimeout(
-
     hideMessage,
-
     1200
-
 );
 
 
@@ -4099,11 +5125,11 @@ console.error(
 
 
 /* =========================================================
-   MESSAGE FUNCTIONS
+   MESSAGE
 ========================================================= */
 
 function showMessage(
-    messageText,
+    text,
     type
 ) {
 
@@ -4116,7 +5142,7 @@ const message =
 
 
 message.textContent =
-    messageText;
+    text;
 
 
 message.className =
@@ -4142,8 +5168,32 @@ document
 
 
 /* =========================================================
-   START WEBSITE
+   INITIALIZE
 ========================================================= */
+
+buildClassButtons(
+    "weeklyGrid",
+    WEEKLY_LINKS
+);
+
+
+buildClassButtons(
+    "telegramGrid",
+    TELEGRAM_LINKS,
+    true
+);
+
+
+buildRevisionButtons();
+
+
+renderSchedule(
+    "cycle1"
+);
+
+
+updateLanguage();
+
 
 loadExcel();
 
