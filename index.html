@@ -78,7 +78,7 @@ body {
             rgba(8,67,101,.48)
         ),
 
-        url("schoolbackground.jpj");
+        url("schoolbackground.jpg");
 
     background-size: cover;
 
@@ -1778,6 +1778,604 @@ footer strong {
     }
 
 }
+
+/* =========================================================
+   MOBILE FRIENDLY IMPROVEMENTS
+========================================================= */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+/* Make images responsive */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Better touch targets */
+
+button,
+.class-button,
+.resource-button,
+.nav-button {
+    min-height: 44px;
+}
+
+
+/* Responsive text */
+
+.school-title h1 {
+    font-size: clamp(20px, 4vw, 35px);
+}
+
+.hero h2 {
+    font-size: clamp(24px, 5vw, 32px);
+}
+
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 900px) {
+
+    main {
+        margin-top: 22px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .dashboard {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .class-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PHONES
+========================================================= */
+
+@media (max-width: 600px) {
+
+    /* -----------------------------------------
+       BODY
+    ----------------------------------------- */
+
+    body {
+
+        background-attachment: scroll;
+
+        background-position: center top;
+    }
+
+
+    /* -----------------------------------------
+       HEADER
+    ----------------------------------------- */
+
+    .school-header {
+
+        min-height: 95px;
+
+        grid-template-columns:
+            65px
+            1fr
+            65px;
+
+        padding:
+            10px
+            6px;
+
+        gap: 5px;
+    }
+
+
+    .logo-card {
+
+        width: 58px;
+
+        height: 58px;
+
+        padding: 5px;
+
+        border-radius: 10px;
+    }
+
+
+    .logo-card img {
+
+        max-width: 48px;
+
+        max-height: 48px;
+    }
+
+
+    .school-title h1 {
+
+        font-size: 18px;
+
+        line-height: 1.2;
+    }
+
+
+    .school-title p {
+
+        font-size: 8px;
+
+        margin-top: 4px;
+
+        line-height: 1.3;
+    }
+
+
+    /* -----------------------------------------
+       LANGUAGE SWITCH
+    ----------------------------------------- */
+
+    .language-bar {
+
+        margin-top: 8px;
+
+        padding:
+            0
+            10px;
+    }
+
+
+    .language-switch {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    .language-button {
+
+        flex: 1;
+
+        max-width: 140px;
+    }
+
+
+    /* -----------------------------------------
+       NAVIGATION
+    ----------------------------------------- */
+
+    .main-nav {
+
+        justify-content: flex-start;
+
+        padding:
+            8px
+            8px;
+
+        gap: 5px;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: none;
+    }
+
+
+    .main-nav::-webkit-scrollbar {
+
+        display: none;
+    }
+
+
+    .nav-button {
+
+        flex: 0 0 auto;
+
+        font-size: 12px;
+
+        padding:
+            9px
+            12px;
+    }
+
+
+    /* -----------------------------------------
+       MAIN PAGE
+    ----------------------------------------- */
+
+    main {
+
+        margin:
+            18px
+            auto
+            35px;
+
+        padding:
+            0
+            10px;
+    }
+
+
+    /* -----------------------------------------
+       HERO
+    ----------------------------------------- */
+
+    .hero {
+
+        padding: 22px;
+
+        border-radius: 18px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .hero h2 {
+
+        font-size: 23px;
+
+        line-height: 1.25;
+    }
+
+
+    .hero p {
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    .hero-badge {
+
+        font-size: 10px;
+
+        padding:
+            6px
+            10px;
+    }
+
+
+    /* -----------------------------------------
+       HOME DASHBOARD
+    ----------------------------------------- */
+
+    .dashboard {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 10px;
+    }
+
+
+    .dashboard-card {
+
+        min-height: 155px;
+
+        padding: 16px;
+
+        border-radius: 16px;
+    }
+
+
+    .dashboard-icon {
+
+        width: 46px;
+
+        height: 46px;
+
+        font-size: 23px;
+
+        margin-bottom: 10px;
+    }
+
+
+    .dashboard-card h3 {
+
+        font-size: 15px;
+    }
+
+
+    .dashboard-card p {
+
+        font-size: 11px;
+
+        line-height: 1.45;
+    }
+
+
+    /* -----------------------------------------
+       MAIN WHITE CARDS
+    ----------------------------------------- */
+
+    .glass-card {
+
+        padding: 18px;
+
+        border-radius: 18px;
+    }
+
+
+    /* -----------------------------------------
+       SECTION HEADINGS
+    ----------------------------------------- */
+
+    .section-heading {
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+        margin-bottom: 20px;
+
+        padding-bottom: 15px;
+    }
+
+
+    .section-icon {
+
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 22px;
+
+        border-radius: 12px;
+    }
+
+
+    .section-heading h2 {
+
+        font-size: 21px;
+    }
+
+
+    .section-heading p {
+
+        font-size: 12px;
+
+        line-height: 1.4;
+    }
+
+
+    /* -----------------------------------------
+       LMS SEARCH
+    ----------------------------------------- */
+
+    .search-area {
+
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+
+    .search-area input {
+
+        width: 100%;
+
+        font-size: 16px;
+
+        padding:
+            14px;
+    }
+
+
+    .primary-button {
+
+        width: 100%;
+
+        padding:
+            14px;
+    }
+
+
+    /* -----------------------------------------
+       LMS RESULT
+    ----------------------------------------- */
+
+    .account-row {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 6px;
+
+        padding:
+            14px;
+    }
+
+
+    .account-label {
+
+        font-size: 12px;
+    }
+
+
+    .account-actions {
+
+        width: 100%;
+    }
+
+
+    /* -----------------------------------------
+       BELL SUMMARY
+    ----------------------------------------- */
+
+    .bell-summary {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 8px;
+    }
+
+
+    .bell-summary-card {
+
+        padding: 14px;
+    }
+
+
+    /* -----------------------------------------
+       BELL SCHEDULE BUTTONS
+    ----------------------------------------- */
+
+    .schedule-buttons {
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+
+        padding-bottom: 5px;
+
+        scrollbar-width: none;
+    }
+
+
+    .schedule-buttons::-webkit-scrollbar {
+
+        display: none;
+    }
+
+
+    .schedule-button {
+
+        flex: 0 0 auto;
+
+        white-space: nowrap;
+    }
+
+
+    /* -----------------------------------------
+       BELL TABLE
+    ----------------------------------------- */
+
+    .table-container {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .bell-table {
+
+        min-width: 520px;
+    }
+
+
+    .bell-table th,
+    .bell-table td {
+
+        padding:
+            11px
+            10px;
+
+        font-size: 12px;
+    }
+
+
+    /* -----------------------------------------
+       WEEKLY PLAN / TELEGRAM / REVISION
+    ----------------------------------------- */
+
+    .class-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 9px;
+    }
+
+
+    .class-button {
+
+        min-height: 52px;
+
+        padding:
+            8px;
+
+        font-size: 13px;
+
+        border-radius: 12px;
+    }
+
+
+    /* -----------------------------------------
+       RESOURCE CARD
+    ----------------------------------------- */
+
+    .resource-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    /* -----------------------------------------
+       FOOTER
+    ----------------------------------------- */
+
+    footer {
+
+        padding:
+            20px
+            12px;
+
+        font-size: 11px;
+
+        line-height: 1.6;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .dashboard {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .class-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .school-title h1 {
+
+        font-size: 16px;
+    }
+
+}
+
+    
 
 </style>
 
