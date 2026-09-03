@@ -1572,6 +1572,59 @@ html[dir="rtl"] .hero::before {
 
 
 /* =========================================================
+   CONTACT US
+========================================================= */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.contact-card {
+    padding: 22px;
+    border-radius: 17px;
+    border: 1px solid #dce8f0;
+    background: linear-gradient(145deg, #ffffff, #eef8fc);
+    box-shadow: 0 5px 14px rgba(0,0,0,.06);
+}
+
+.contact-role {
+    margin-bottom: 8px;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.contact-name {
+    margin-bottom: 12px;
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.contact-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 13px;
+    border-radius: 10px;
+    background: #e8f3fb;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 800;
+    direction: ltr;
+}
+
+.contact-phone:hover {
+    color: white;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+}
+
+/* =========================================================
    FOOTER
 ========================================================= */
 
@@ -2545,6 +2598,15 @@ English
 </button>
 
 
+<button
+    class="nav-button"
+    data-section="contact"
+    onclick="openSection('contact',this)"
+>
+☎️ <span data-i18n="contact">Contact Us</span>
+</button>
+
+
 </nav>
 
 
@@ -2721,6 +2783,28 @@ Telegram Groups
 <p data-i18n="telegramCardText">
 
 Access your official class Telegram communication group.
+
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('contact')"
+>
+
+<div class="dashboard-icon">
+☎️
+</div>
+
+<h3 data-i18n="contact">
+Contact Us
+</h3>
+
+<p data-i18n="contactCardText">
+
+Find the school landline and key school contact numbers.
 
 </p>
 
@@ -3379,6 +3463,82 @@ Click the relevant class below.
 </section>
 
 
+<!-- =========================================================
+     CONTACT US
+========================================================= -->
+
+<section
+    id="contact"
+    class="section"
+>
+
+<div class="glass-card">
+
+<div class="section-heading">
+
+<div class="section-icon">
+☎️
+</div>
+
+<div>
+
+<h2 data-i18n="contactTitle">
+Contact Us
+</h2>
+
+<p data-i18n="contactDescription">
+School contact information and key points of contact.
+</p>
+
+</div>
+
+</div>
+
+<div class="contact-grid">
+
+<div class="contact-card">
+    <div class="contact-role" data-i18n="schoolLandline">School Landline</div>
+    <div class="contact-name" data-i18n="schoolLandlineName">School Main Office</div>
+    <a class="contact-phone" href="tel:037016115">☎ 03 701 6115</a>
+</div>
+
+<div class="contact-card">
+    <div class="contact-role" data-i18n="schoolPrincipal">School Principal</div>
+    <div class="contact-name" data-i18n="principalName">Safeya Al Katheeri</div>
+    <a class="contact-phone" href="tel:+971501409016">☎ +971 50 140 9016</a>
+</div>
+
+<div class="contact-card">
+    <div class="contact-role" data-i18n="socialWorker">Social Worker</div>
+    <div class="contact-name" data-i18n="ahoudName">Ahoud aljneibi</div>
+    <a class="contact-phone" href="tel:+971527792557">☎ +971 52 779 2557</a>
+</div>
+
+<div class="contact-card">
+    <div class="contact-role" data-i18n="socialWorker">Social Worker</div>
+    <div class="contact-name" data-i18n="shammaName">Shamma alkhaili</div>
+    <a class="contact-phone" href="tel:+971561799016">☎ +971 56 179 9016</a>
+</div>
+
+<div class="contact-card">
+    <div class="contact-role" data-i18n="registration">Registration</div>
+    <div class="contact-name" data-i18n="mariamName">Mariam Almazrouei</div>
+    <a class="contact-phone" href="tel:+971566155593">☎ +971 56 615 5593</a>
+</div>
+
+<div class="contact-card">
+    <div class="contact-role" data-i18n="alefContact">Alef</div>
+    <div class="contact-name" data-i18n="zainabName">Zainab Mohammed</div>
+    <a class="contact-phone" href="tel:+971566892071">☎ +971 56 689 2071</a>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
 </main>
 
 
@@ -3740,6 +3900,9 @@ weekly:
 telegram:
 "Telegram Groups",
 
+contact:
+"Contact Us",
+
 schoolBadge:
 "ALTALEAA SCHOOL",
 
@@ -3747,7 +3910,7 @@ welcomeTitle:
 "Welcome to Altaleaa School Platform",
 
 welcomeText:
-"Access your school services in one place. Find LMS account information, school timetables, official bell timings, revision resources, weekly learning plans and class Telegram groups.",
+"Access your school services in one place. Find LMS account information, school timetables, official bell timings, revision resources, weekly learning plans, class Telegram groups and school contacts.",
 
 lmsCardText:
 "Find your student email and LMS account information using your Student ID.",
@@ -3766,6 +3929,9 @@ weeklyCardText:
 
 telegramCardText:
 "Access your official class Telegram communication group.",
+
+contactCardText:
+"Find the school landline and key school contact numbers.",
 
 lmsTitle:
 "LMS Account Lookup",
@@ -3887,6 +4053,45 @@ telegramDescription:
 telegramInstructions:
 "Click the relevant class below.",
 
+contactTitle:
+"Contact Us",
+
+contactDescription:
+"School contact information and key points of contact.",
+
+schoolLandline:
+"School Landline",
+
+schoolLandlineName:
+"School Main Office",
+
+schoolPrincipal:
+"School Principal",
+
+principalName:
+"Safeya Al Katheeri",
+
+socialWorker:
+"Social Worker",
+
+ahoudName:
+"Ahoud aljneibi",
+
+shammaName:
+"Shamma alkhaili",
+
+registration:
+"Registration",
+
+mariamName:
+"Mariam Almazrouei",
+
+alefContact:
+"Alef",
+
+zainabName:
+"Zainab Mohammed",
+
 linkMissing:
 "The link for this class has not been added yet.",
 
@@ -3925,6 +4130,9 @@ weekly:
 telegram:
 "مجموعات تيليجرام",
 
+contact:
+"اتصل بنا",
+
 schoolBadge:
 "مدرسة الطليعة",
 
@@ -3932,7 +4140,7 @@ welcomeTitle:
 "مرحباً بكم في منصة مدرسة الطليعة",
 
 welcomeText:
-"جميع الخدمات المدرسية في مكان واحد. يمكنكم الوصول إلى حسابات الطلبة والجداول الدراسية ومواعيد الحصص ومواد المراجعة والخطط الأسبوعية ومجموعات تيليجرام.",
+"جميع الخدمات المدرسية في مكان واحد. يمكنكم الوصول إلى حسابات الطلبة والجداول الدراسية ومواعيد الحصص ومواد المراجعة والخطط الأسبوعية ومجموعات تيليجرام وبيانات التواصل مع المدرسة.",
 
 lmsCardText:
 "ابحث عن البريد الإلكتروني وبيانات حساب الطالب باستخدام الرقم التعريفي للطالب.",
@@ -3951,6 +4159,9 @@ weeklyCardText:
 
 telegramCardText:
 "الوصول إلى مجموعة تيليجرام الرسمية للصف.",
+
+contactCardText:
+"عرض رقم المدرسة وأرقام التواصل الرئيسية.",
 
 lmsTitle:
 "البحث عن حساب الطالب",
@@ -4071,6 +4282,45 @@ telegramDescription:
 
 telegramInstructions:
 "اضغط على الصف المطلوب أدناه.",
+
+contactTitle:
+"اتصل بنا",
+
+contactDescription:
+"بيانات التواصل مع المدرسة وجهات الاتصال الرئيسية.",
+
+schoolLandline:
+"رقم المدرسة",
+
+schoolLandlineName:
+"مكتب المدرسة",
+
+schoolPrincipal:
+"مديرة المدرسة",
+
+principalName:
+"صفية الكثيري",
+
+socialWorker:
+"الأخصائية الاجتماعية",
+
+ahoudName:
+"عهود الجنيبي",
+
+shammaName:
+"موزة العامري",
+
+registration:
+"التسجيل",
+
+mariamName:
+"مريم المزروعي",
+
+alefContact:
+"ألف",
+
+zainabName:
+"زينب محمد",
 
 linkMissing:
 "لم تتم إضافة رابط هذا الصف بعد.",
