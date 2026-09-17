@@ -1376,6 +1376,63 @@ html[dir="rtl"] .hero::before {
 }
 
 
+
+/* =========================================================
+   TIMETABLE PDF VIEWER
+========================================================= */
+
+.timetable-viewer {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #dce8f0;
+    border-radius: 18px;
+    background: #eef7fb;
+    box-shadow: 0 8px 24px rgba(0,0,0,.10);
+}
+
+.timetable-frame {
+    display: block;
+    width: 100%;
+    height: 78vh;
+    min-height: 650px;
+    border: 0;
+    background: white;
+}
+
+.timetable-fallback {
+    padding: 13px 16px;
+    text-align: center;
+    border-top: 1px solid #dce8f0;
+    background: rgba(255,255,255,.95);
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.timetable-fallback a {
+    color: var(--blue);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.timetable-fallback a:hover {
+    text-decoration: underline;
+}
+
+@media(max-width:760px) {
+    .timetable-frame {
+        height: 72vh;
+        min-height: 520px;
+    }
+}
+
+@media(max-width:480px) {
+    .timetable-frame {
+        height: 68vh;
+        min-height: 460px;
+    }
+}
+
+
 /* =========================================================
    BELL TIMINGS
 ========================================================= */
@@ -3298,34 +3355,28 @@ Access the latest school timetable.
 </div>
 
 
-<div class="resource-grid">
+<div class="timetable-viewer">
 
-
-<div class="resource-card">
-
-<h3 data-i18n="currentTimetable">
-Current Time Table
-</h3>
-
-<p data-i18n="currentTimetableText">
-
-Click below to view the latest timetable.
-
-</p>
-
-<a
-    href="timetable.pdf"
-    target="_blank"
-    class="resource-button"
-    data-i18n="openTimetable"
+<iframe
+    class="timetable-frame"
+    src="timetable.pdf#view=FitH"
+    title="School Time Table"
 >
+</iframe>
 
-Open Time Table
-
-</a>
-
+<div class="timetable-fallback">
+    <span data-i18n="timetableFallback">
+        If the timetable does not appear, open it directly:
+    </span>
+    <a
+        href="timetable.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-i18n="openTimetable"
+    >
+        Open Time Table
+    </a>
 </div>
-
 
 </div>
 
@@ -4333,10 +4384,13 @@ currentTimetable:
 "Current Time Table",
 
 currentTimetableText:
-"Click below to view the latest timetable.",
+"The latest school timetable is displayed below.",
 
 openTimetable:
 "Open Time Table",
+
+timetableFallback:
+"If the timetable does not appear, open it directly:",
 
 bellTitle:
 "Bell Timings",
@@ -4599,10 +4653,13 @@ currentTimetable:
 "الجدول الحالي",
 
 currentTimetableText:
-"اضغط أدناه لعرض أحدث جدول.",
+"يظهر أحدث جدول دراسي أدناه.",
 
 openTimetable:
 "فتح الجدول",
+
+timetableFallback:
+"إذا لم يظهر الجدول، افتحه مباشرة:",
 
 bellTitle:
 "مواعيد الحصص",
