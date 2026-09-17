@@ -3289,6 +3289,7 @@ Loading student accounts...
     placeholder="Enter Student Emirates ID"
     autocomplete="off"
     inputmode="numeric"
+    maxlength="18"
     aria-label="Student Emirates ID"
     disabled
     onkeydown="
@@ -4538,7 +4539,7 @@ enterID:
 "Please enter a Student Emirates ID.",
 
 databaseError:
-"Student account database could not be loaded.",
+"Student account database could not be loaded, or the Emirates ID column is missing.",
 
 copied:
 "Copied successfully.",
@@ -4813,7 +4814,7 @@ enterID:
 "يرجى إدخال الهوية الإماراتية للطالب.",
 
 databaseError:
-"تعذر تحميل قاعدة بيانات حسابات الطلبة.",
+"تعذر تحميل قاعدة بيانات حسابات الطلبة، أو أن عمود الهوية الإماراتية غير موجود.",
 
 copied:
 "تم النسخ بنجاح.",
@@ -6635,8 +6636,20 @@ students =
         )
         .filter(
             student =>
-                student.id !== ""
+                normalizeID(student.id) !== ""
         );
+
+
+if(
+    students.length === 0 &&
+    rows.length > 0
+) {
+
+    throw new Error(
+        "No Emirates ID column was detected in Student_Accounts.xlsx"
+    );
+
+}
 
 
 document
@@ -6743,26 +6756,44 @@ Object.keys(
 );
 
 
+/*
+    Detect the Emirates ID column even if the Excel heading varies.
+*/
+
+const emiratesIDKey =
+    Object.keys(normalized).find(
+        key =>
+            key === "studentemiratesid" ||
+            key === "emiratesid" ||
+            key === "emiratesidno" ||
+            key === "emiratesidnumber" ||
+            key === "studentemiratesidno" ||
+            key === "studentemiratesidnumber" ||
+            key === "studentemirateid" ||
+            key === "emiratesidentitynumber" ||
+            key === "studentemiratesidentitynumber" ||
+            key === "eid" ||
+            (
+                key.includes("emirates") &&
+                key.includes("id")
+            )
+    );
+
+
+const emiratesID =
+    emiratesIDKey
+    ?
+    normalized[emiratesIDKey]
+    :
+    "";
+
+
 return {
 
 
 id:
 String(
-
-    normalized.studentemiratesid ||
-
-    normalized.emiratesid ||
-
-    normalized.emiratesidentitynumber ||
-
-    normalized.emiratesidnumber ||
-
-    normalized.studentemiratesidentitynumber ||
-
-    normalized.eid ||
-
-    ""
-
+    emiratesID || ""
 ).trim(),
 
 
@@ -6864,22 +6895,57 @@ return;
 }
 
 
+const normalizedInputID =
+    normalizeID(
+        enteredID
+    );
+
+
+if(
+    normalizedInputID.length !== 15
+) {
+
+
+showMessage(
+
+    currentLanguage === "ar"
+    ?
+    "يرجى إدخال رقم هوية إماراتية صحيح مكوّن من 15 رقماً."
+    :
+    "Please enter a valid 15-digit Student Emirates ID.",
+
+    "error"
+
+);
+
+
+return;
+
+
+}
+
+
+const normalizedEnteredID =
+    normalizeID(
+        enteredID
+    );
+
+
 const student =
     students.find(
-        student =>
+        student => {
 
+            const normalizedStudentID =
+                normalizeID(
+                    student.id
+                );
 
-        normalizeID(
-            student.id
-        )
+            return (
+                normalizedStudentID !== "" &&
+                normalizedStudentID === normalizedEnteredID
+            );
 
-        ===
-
-        normalizeID(
-            enteredID
-        )
-
-
+        }
     );
 
 
@@ -6990,11 +7056,21 @@ function normalizeID(
 ) {
 
 
-return String(
-    value
-)
-.trim()
-.replace(
+let cleaned =
+    String(
+        value ?? ""
+    )
+    .trim();
+
+
+cleaned =
+    cleaned.replace(
+        /\.0+$/,
+        ""
+    );
+
+
+return cleaned.replace(
     /\D/g,
     ""
 );
