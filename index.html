@@ -1386,49 +1386,161 @@ html[dir="rtl"] .hero::before {
     overflow: hidden;
     border: 1px solid #dce8f0;
     border-radius: 18px;
-    background: #eef7fb;
+    background: linear-gradient(145deg, #eef7fb, #e6f4f2);
     box-shadow: 0 8px 24px rgba(0,0,0,.10);
 }
 
-.timetable-frame {
-    display: block;
-    width: 100%;
-    height: 78vh;
-    min-height: 650px;
-    border: 0;
-    background: white;
-}
-
-.timetable-fallback {
-    padding: 13px 16px;
-    text-align: center;
-    border-top: 1px solid #dce8f0;
+.timetable-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 13px 14px;
+    border-bottom: 1px solid #d7e5ed;
     background: rgba(255,255,255,.95);
-    color: var(--muted);
-    font-size: 12px;
 }
 
-.timetable-fallback a {
-    color: var(--blue);
+.timetable-toolbar-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.timetable-control {
+    min-height: 42px;
+    border: 1px solid #d2e1ea;
+    border-radius: 10px;
+    padding: 9px 13px;
+    cursor: pointer;
+    color: var(--navy);
+    background: white;
     font-weight: 800;
-    text-decoration: none;
+    transition: all .2s ease;
 }
 
-.timetable-fallback a:hover {
-    text-decoration: underline;
+.timetable-control:hover:not(:disabled) {
+    color: white;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+}
+
+.timetable-control:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.timetable-page-indicator {
+    min-width: 105px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.timetable-open-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+}
+
+.timetable-stage {
+    position: relative;
+    min-height: 650px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    overflow: auto;
+    background:
+        radial-gradient(circle at 50% 10%, rgba(255,255,255,.98), rgba(255,255,255,.40) 44%, transparent 72%),
+        linear-gradient(145deg, #dfeef4, #edf7f7);
+}
+
+.timetable-canvas-wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 100%;
+}
+
+#timetableCanvas {
+    display: block;
+    max-width: none;
+    height: auto;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    border-radius: 4px;
+}
+
+.timetable-status {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px;
+    text-align: center;
+    color: var(--navy);
+    background: rgba(239,248,251,.96);
+    font-weight: 800;
+}
+
+.timetable-status.hidden {
+    display: none;
+}
+
+.timetable-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #cfe2ed;
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: timetableSpin .85s linear infinite;
+}
+
+@keyframes timetableSpin {
+    to { transform: rotate(360deg); }
 }
 
 @media(max-width:760px) {
-    .timetable-frame {
-        height: 72vh;
+    .timetable-toolbar {
+        justify-content: center;
+    }
+
+    .timetable-toolbar-group {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .timetable-stage {
         min-height: 520px;
+        padding: 12px 8px 18px;
+    }
+
+    .timetable-control,
+    .timetable-open-link {
+        flex: 1;
+        min-width: 85px;
+        text-align: center;
     }
 }
 
 @media(max-width:480px) {
-    .timetable-frame {
-        height: 68vh;
-        min-height: 460px;
+    .timetable-stage {
+        min-height: 450px;
     }
 }
 
@@ -2953,7 +3065,7 @@ LMS Accounts
 
 <p data-i18n="lmsCardText">
 
-Find your student email and LMS account information using your Student ID.
+Find your student email and LMS account information using your Student Emirates ID.
 
 </p>
 
@@ -3174,8 +3286,10 @@ Loading student accounts...
 <input
     type="text"
     id="studentID"
-    placeholder="Enter Student ID"
+    placeholder="Enter Student Emirates ID"
     autocomplete="off"
+    inputmode="numeric"
+    aria-label="Student Emirates ID"
     disabled
     onkeydown="
     if(event.key === 'Enter'){
@@ -3221,7 +3335,7 @@ Student Account Information
     class="account-label"
     data-i18n="studentID"
 >
-Student ID
+Student Emirates ID
 </div>
 
 <div id="resultID"></div>
@@ -3355,27 +3469,82 @@ Access the latest school timetable.
 </div>
 
 
-<div class="timetable-viewer">
+<div class="timetable-viewer" id="timetableViewer">
 
-<iframe
-    class="timetable-frame"
-    src="timetable.pdf#view=FitH"
-    title="School Time Table"
+<div class="timetable-toolbar">
+
+<div class="timetable-toolbar-group">
+
+<button
+    id="timetablePrev"
+    class="timetable-control"
+    onclick="timetablePreviousPage()"
+    disabled
 >
-</iframe>
+← <span data-i18n="previousPage">Previous</span>
+</button>
 
-<div class="timetable-fallback">
-    <span data-i18n="timetableFallback">
-        If the timetable does not appear, open it directly:
-    </span>
-    <a
-        href="timetable.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-i18n="openTimetable"
-    >
-        Open Time Table
-    </a>
+<span
+    id="timetablePageIndicator"
+    class="timetable-page-indicator"
+>
+Page —
+</span>
+
+<button
+    id="timetableNext"
+    class="timetable-control"
+    onclick="timetableNextPage()"
+    disabled
+>
+<span data-i18n="nextPage">Next</span> →
+</button>
+
+</div>
+
+<div class="timetable-toolbar-group">
+
+<button
+    class="timetable-control"
+    onclick="timetableZoomOut()"
+    title="Zoom out"
+>
+−
+</button>
+
+<button
+    class="timetable-control"
+    onclick="timetableZoomIn()"
+    title="Zoom in"
+>
++
+</button>
+
+<a
+    href="timetable.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="timetable-open-link"
+    data-i18n="openTimetable"
+>
+Open Time Table
+</a>
+
+</div>
+
+</div>
+
+<div class="timetable-stage" id="timetableStage">
+
+<div id="timetableStatus" class="timetable-status">
+    <div class="timetable-spinner"></div>
+    <div id="timetableStatusText">Loading timetable…</div>
+</div>
+
+<div class="timetable-canvas-wrap">
+    <canvas id="timetableCanvas"></canvas>
+</div>
+
 </div>
 
 </div>
@@ -4297,7 +4466,7 @@ welcomeText:
 "Access your school services in one place. Find LMS account information, school timetables, official bell timings, revision resources, weekly learning plans, class Telegram groups and school contacts.",
 
 lmsCardText:
-"Find your student email and LMS account information using your Student ID.",
+"Find your student email and LMS account information using your Student Emirates ID.",
 
 timetableCardText:
 "Access the latest school or student timetable.",
@@ -4330,7 +4499,7 @@ accountInformation:
 "Student Account Information",
 
 studentID:
-"Student ID",
+"Student Emirates ID",
 
 studentName:
 "Student Name",
@@ -4354,7 +4523,7 @@ search:
 "Search Account",
 
 searchPlaceholder:
-"Enter Student ID",
+"Enter Student Emirates ID",
 
 loading:
 "Loading student accounts...",
@@ -4363,10 +4532,10 @@ ready:
 "Student accounts are ready.",
 
 notFound:
-"Student ID not found. Please check the ID and try again.",
+"Student Emirates ID not found. Please check the Emirates ID and try again.",
 
 enterID:
-"Please enter a Student ID.",
+"Please enter a Student Emirates ID.",
 
 databaseError:
 "Student account database could not be loaded.",
@@ -4391,6 +4560,12 @@ openTimetable:
 
 timetableFallback:
 "If the timetable does not appear, open it directly:",
+
+timetableLoading:
+"Loading timetable...",
+
+timetableLoadError:
+"The timetable could not be displayed. Please use Open Time Table.",
 
 bellTitle:
 "Bell Timings",
@@ -4623,7 +4798,7 @@ search:
 "بحث",
 
 searchPlaceholder:
-"أدخل الرقم التعريفي للطالب",
+"أدخل الهوية الإماراتية للطالب",
 
 loading:
 "جاري تحميل حسابات الطلبة...",
@@ -4632,10 +4807,10 @@ ready:
 "حسابات الطلبة جاهزة.",
 
 notFound:
-"لم يتم العثور على الرقم التعريفي. يرجى التحقق والمحاولة مرة أخرى.",
+"لم يتم العثور على الهوية الإماراتية للطالب. يرجى التحقق من الرقم والمحاولة مرة أخرى.",
 
 enterID:
-"يرجى إدخال الرقم التعريفي للطالب.",
+"يرجى إدخال الهوية الإماراتية للطالب.",
 
 databaseError:
 "تعذر تحميل قاعدة بيانات حسابات الطلبة.",
@@ -4660,6 +4835,12 @@ openTimetable:
 
 timetableFallback:
 "إذا لم يظهر الجدول، افتحه مباشرة:",
+
+timetableLoading:
+"جاري تحميل الجدول الدراسي...",
+
+timetableLoadError:
+"تعذر عرض الجدول الدراسي. يرجى استخدام خيار فتح الجدول.",
 
 bellTitle:
 "مواعيد الحصص",
@@ -5010,6 +5191,7 @@ renderSchedule(
 
 
 updateMagazinePageIndicator();
+updateTimetablePageIndicator();
 
 
 }
@@ -5222,6 +5404,345 @@ function toggleMagazineFullscreen() {
 }
 
 /* =========================================================
+   TIMETABLE PDF.JS VIEWER
+========================================================= */
+
+const TIMETABLE_PDF_FILE = "timetable.pdf";
+
+let timetablePdf = null;
+let timetableCurrentPage = 1;
+let timetableZoom = 1;
+let timetableRendering = false;
+let timetablePendingPage = null;
+let timetableLoadPromise = null;
+
+async function ensureTimetableLoaded() {
+
+    if(timetablePdf) {
+        updateTimetablePageIndicator();
+        return;
+    }
+
+    if(timetableLoadPromise) {
+        return timetableLoadPromise;
+    }
+
+    timetableLoadPromise = loadTimetablePdf();
+
+    try {
+        await timetableLoadPromise;
+    }
+    finally {
+        timetableLoadPromise = null;
+    }
+}
+
+
+async function loadTimetablePdf() {
+
+    const status = document.getElementById("timetableStatus");
+    const statusText = document.getElementById("timetableStatusText");
+    const prevButton = document.getElementById("timetablePrev");
+    const nextButton = document.getElementById("timetableNext");
+
+    if(!status || !statusText) {
+        return;
+    }
+
+    status.classList.remove("hidden");
+    statusText.textContent =
+        translations[currentLanguage].timetableLoading ||
+        "Loading timetable...";
+
+    try {
+
+        if(!window.pdfjsLib) {
+            throw new Error("PDF.js is unavailable.");
+        }
+
+        const loadingTask = pdfjsLib.getDocument({
+            url: TIMETABLE_PDF_FILE
+        });
+
+        timetablePdf = await loadingTask.promise;
+        timetableCurrentPage = 1;
+
+        prevButton.disabled = false;
+        nextButton.disabled = false;
+
+        status.classList.add("hidden");
+
+        await renderTimetablePage(timetableCurrentPage);
+
+    }
+    catch(error) {
+
+        console.error("Timetable viewer error:", error);
+
+        status.classList.remove("hidden");
+
+        const spinner = status.querySelector(".timetable-spinner");
+        if(spinner) {
+            spinner.style.display = "none";
+        }
+
+        statusText.textContent =
+            translations[currentLanguage].timetableLoadError ||
+            "The timetable could not be displayed. Please use Open Time Table.";
+
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+    }
+}
+
+
+async function renderTimetablePage(pageNumber) {
+
+    if(!timetablePdf) {
+        return;
+    }
+
+    if(timetableRendering) {
+        timetablePendingPage = pageNumber;
+        return;
+    }
+
+    timetableRendering = true;
+
+    try {
+
+        const page = await timetablePdf.getPage(pageNumber);
+        const stage = document.getElementById("timetableStage");
+        const canvas = document.getElementById("timetableCanvas");
+        const context = canvas.getContext("2d", { alpha: false });
+
+        const baseViewport = page.getViewport({ scale: 1 });
+
+        const availableWidth =
+            Math.max(
+                280,
+                (stage ? stage.clientWidth : 900) - 40
+            );
+
+        const fitScale =
+            Math.min(
+                1.7,
+                availableWidth / baseViewport.width
+            );
+
+        const cssScale =
+            fitScale * timetableZoom;
+
+        const viewport =
+            page.getViewport({
+                scale: cssScale
+            });
+
+        const outputScale =
+            Math.min(
+                window.devicePixelRatio || 1,
+                2
+            );
+
+        canvas.width =
+            Math.floor(
+                viewport.width * outputScale
+            );
+
+        canvas.height =
+            Math.floor(
+                viewport.height * outputScale
+            );
+
+        canvas.style.width =
+            Math.floor(viewport.width) + "px";
+
+        canvas.style.height =
+            Math.floor(viewport.height) + "px";
+
+        const transform =
+            outputScale !== 1
+            ?
+            [
+                outputScale,
+                0,
+                0,
+                outputScale,
+                0,
+                0
+            ]
+            :
+            null;
+
+        await page.render({
+            canvasContext: context,
+            transform: transform,
+            viewport: viewport,
+            background: "rgb(255,255,255)"
+        }).promise;
+
+        page.cleanup();
+
+        timetableCurrentPage = pageNumber;
+        updateTimetablePageIndicator();
+
+        const prevButton = document.getElementById("timetablePrev");
+        const nextButton = document.getElementById("timetableNext");
+
+        prevButton.disabled =
+            timetableCurrentPage <= 1;
+
+        nextButton.disabled =
+            timetableCurrentPage >= timetablePdf.numPages;
+
+    }
+    catch(error) {
+
+        console.error("Timetable page render error:", error);
+
+    }
+    finally {
+
+        timetableRendering = false;
+
+        if(timetablePendingPage !== null) {
+
+            const pending =
+                timetablePendingPage;
+
+            timetablePendingPage =
+                null;
+
+            renderTimetablePage(
+                pending
+            );
+        }
+    }
+}
+
+
+function timetablePreviousPage() {
+
+    if(
+        timetablePdf &&
+        timetableCurrentPage > 1
+    ) {
+
+        renderTimetablePage(
+            timetableCurrentPage - 1
+        );
+    }
+}
+
+
+function timetableNextPage() {
+
+    if(
+        timetablePdf &&
+        timetableCurrentPage < timetablePdf.numPages
+    ) {
+
+        renderTimetablePage(
+            timetableCurrentPage + 1
+        );
+    }
+}
+
+
+function timetableZoomIn() {
+
+    timetableZoom =
+        Math.min(
+            2.2,
+            timetableZoom + 0.15
+        );
+
+    renderTimetablePage(
+        timetableCurrentPage
+    );
+}
+
+
+function timetableZoomOut() {
+
+    timetableZoom =
+        Math.max(
+            0.65,
+            timetableZoom - 0.15
+        );
+
+    renderTimetablePage(
+        timetableCurrentPage
+    );
+}
+
+
+function updateTimetablePageIndicator() {
+
+    const indicator =
+        document.getElementById(
+            "timetablePageIndicator"
+        );
+
+    if(!indicator) {
+        return;
+    }
+
+    if(!timetablePdf) {
+
+        indicator.textContent =
+            currentLanguage === "ar"
+            ?
+            "صفحة —"
+            :
+            "Page —";
+
+        return;
+    }
+
+    indicator.textContent =
+        currentLanguage === "ar"
+        ?
+        "صفحة " +
+        timetableCurrentPage +
+        " من " +
+        timetablePdf.numPages
+        :
+        "Page " +
+        timetableCurrentPage +
+        " of " +
+        timetablePdf.numPages;
+}
+
+
+let timetableResizeTimer = null;
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        if(!timetablePdf) {
+            return;
+        }
+
+        clearTimeout(
+            timetableResizeTimer
+        );
+
+        timetableResizeTimer =
+            setTimeout(
+                () => {
+                    renderTimetablePage(
+                        timetableCurrentPage
+                    );
+                },
+                180
+            );
+    }
+);
+
+
+/* =========================================================
    PAGE NAVIGATION
 ========================================================= */
 
@@ -5262,6 +5783,10 @@ document
 
 if(sectionName === "magazine") {
     ensureMagazineLoaded();
+}
+
+if(sectionName === "timetable") {
+    ensureTimetableLoaded();
 }
 
 
@@ -6224,13 +6749,17 @@ return {
 id:
 String(
 
-    normalized.studentid ||
+    normalized.studentemiratesid ||
 
-    normalized.studentnumber ||
+    normalized.emiratesid ||
 
-    normalized.studentno ||
+    normalized.emiratesidentitynumber ||
 
-    normalized.id ||
+    normalized.emiratesidnumber ||
+
+    normalized.studentemiratesidentitynumber ||
+
+    normalized.eid ||
 
     ""
 
@@ -6453,7 +6982,7 @@ document
 
 
 /* =========================================================
-   ID
+   EMIRATES ID NORMALIZATION
 ========================================================= */
 
 function normalizeID(
@@ -6466,10 +6995,9 @@ return String(
 )
 .trim()
 .replace(
-    /\s+/g,
+    /\D/g,
     ""
-)
-.toLowerCase();
+);
 
 
 }
