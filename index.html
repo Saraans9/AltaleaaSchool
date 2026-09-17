@@ -869,6 +869,115 @@ html[dir="rtl"] .hero::before {
 }
 
 
+
+/* =========================================================
+   IMPORTANT LINKS
+========================================================= */
+
+.important-links-section {
+    margin-top: 28px;
+    padding: 26px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.96);
+    border: 1px solid rgba(255,255,255,.65);
+    box-shadow: 0 12px 34px rgba(0,0,0,.12);
+}
+
+.important-links-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.important-links-heading .section-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+}
+
+.important-links-heading h3 {
+    color: var(--navy);
+    font-size: 21px;
+}
+
+.important-links-heading p {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.important-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.important-link-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-height: 82px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #dce8f0;
+    background: linear-gradient(145deg, #ffffff, #eef8fc);
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 800;
+    box-shadow: 0 5px 14px rgba(0,0,0,.06);
+    transition: all .2s ease;
+}
+
+.important-link-card:hover {
+    transform: translateY(-3px);
+    color: white;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    box-shadow: 0 9px 22px rgba(10,94,145,.20);
+}
+
+.important-link-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #e8f3fb;
+    font-size: 23px;
+}
+
+.important-link-card:hover .important-link-icon {
+    background: rgba(255,255,255,.18);
+}
+
+.important-link-text {
+    line-height: 1.35;
+    font-size: 14px;
+}
+
+@media(max-width:900px) {
+    .important-links-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:600px) {
+    .important-links-section {
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .important-link-card {
+        min-height: 72px;
+        padding: 14px;
+    }
+}
+
+
 /* =========================================================
    LMS SEARCH
 ========================================================= */
@@ -3227,6 +3336,64 @@ Find the school landline and key school contact numbers.
 </div>
 
 
+<div class="important-links-section">
+
+<div class="important-links-heading">
+
+<div class="section-icon">
+🔗
+</div>
+
+<div>
+<h3 data-i18n="importantLinksTitle">Important Links</h3>
+<p data-i18n="importantLinksDescription">Quick access to essential student platforms and services.</p>
+</div>
+
+</div>
+
+<div class="important-links-grid">
+
+<a
+    class="important-link-card"
+    href="https://lms.moe.gov.ae/"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+<div class="important-link-icon">🎓</div>
+<div class="important-link-text" data-i18n="importantLmsPlatform">
+LMS Platform
+</div>
+</a>
+
+<a
+    class="important-link-card"
+    href="https://sso.alefed.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+<div class="important-link-icon">💻</div>
+<div class="important-link-text" data-i18n="importantAlefPlatform">
+Alef Education Platform
+</div>
+</a>
+
+<a
+    class="important-link-card"
+    href="https://student.moe.gov.ae/"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+<div class="important-link-icon">📜</div>
+<div class="important-link-text" data-i18n="importantStudentCertificates">
+Student Certificates
+</div>
+</a>
+
+</div>
+
+</div>
+
+
 </section>
 
 
@@ -4490,6 +4657,21 @@ magazineCardText:
 contactCardText:
 "Find the school landline and key school contact numbers.",
 
+importantLinksTitle:
+"Important Links",
+
+importantLinksDescription:
+"Quick access to essential student platforms and services.",
+
+importantLmsPlatform:
+"LMS Platform",
+
+importantAlefPlatform:
+"Alef Education Platform",
+
+importantStudentCertificates:
+"Student Certificates",
+
 lmsTitle:
 "LMS Account Lookup",
 
@@ -4764,6 +4946,21 @@ magazineCardText:
 
 contactCardText:
 "عرض رقم المدرسة وأرقام التواصل الرئيسية.",
+
+importantLinksTitle:
+"روابط مهمة",
+
+importantLinksDescription:
+"وصول سريع إلى أهم المنصات والخدمات الخاصة بالطلبة.",
+
+importantLmsPlatform:
+"منصة LMS",
+
+importantAlefPlatform:
+"منصة ألف للتعليم",
+
+importantStudentCertificates:
+"شهادات الطلبة",
 
 lmsTitle:
 "البحث عن حساب الطالب",
