@@ -1487,6 +1487,290 @@ html[dir="rtl"] .hero::before {
 
 
 /* =========================================================
+   MIDTERM GRADES
+========================================================= */
+
+.grades-lookup-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.grades-search-area {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0 20px;
+}
+
+.grades-search-area input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px 17px;
+    border: 1px solid #cbd9e4;
+    border-radius: 11px;
+    font-size: 16px;
+    outline: none;
+    background: white;
+}
+
+.grades-search-area input:focus {
+    border-color: var(--light-blue);
+    box-shadow: 0 0 0 4px rgba(74,155,214,.12);
+}
+
+.grades-message {
+    display: none;
+    margin-bottom: 17px;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.grades-message.visible {
+    display: block;
+}
+
+.grades-message.info {
+    color: #1e507a;
+    background: #e3f1fc;
+}
+
+.grades-message.success {
+    color: #166534;
+    background: #dcfce7;
+}
+
+.grades-message.error {
+    color: #991b1b;
+    background: #fee2e2;
+}
+
+.marks-card {
+    display: none;
+    margin-top: 24px;
+    overflow: hidden;
+    border: 1px solid #d9e6ef;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 12px 32px rgba(0,0,0,.10);
+}
+
+.marks-card.visible {
+    display: block;
+}
+
+.marks-card-header {
+    padding: 22px 24px;
+    color: white;
+    background: linear-gradient(135deg, var(--navy), var(--blue), var(--teal));
+}
+
+.marks-card-header h3 {
+    margin: 0 0 5px;
+    font-size: 22px;
+}
+
+.marks-card-header p {
+    margin: 0;
+    font-size: 12px;
+    opacity: .9;
+}
+
+.marks-student-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.4fr;
+    gap: 1px;
+    background: #dce7ee;
+    border-bottom: 1px solid #dce7ee;
+}
+
+.marks-info-item {
+    min-width: 0;
+    padding: 16px 18px;
+    background: #f8fbfd;
+}
+
+.marks-info-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .35px;
+}
+
+.marks-info-value {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.marks-table-wrap {
+    padding: 20px 22px 10px;
+    overflow-x: auto;
+}
+
+.marks-table {
+    width: 100%;
+    min-width: 440px;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.marks-table th {
+    padding: 8px 13px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: start;
+}
+
+.marks-table th:last-child {
+    text-align: center;
+}
+
+.marks-table td {
+    padding: 14px 15px;
+    background: #f8fafc;
+    border-top: 1px solid #e3ebf1;
+    border-bottom: 1px solid #e3ebf1;
+}
+
+.marks-table td:first-child {
+    border-inline-start: 1px solid #e3ebf1;
+    border-radius: 12px 0 0 12px;
+    color: var(--navy);
+    font-weight: 800;
+}
+
+html[dir="rtl"] .marks-table td:first-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.marks-table td:last-child {
+    width: 145px;
+    border-inline-end: 1px solid #e3ebf1;
+    border-radius: 0 12px 12px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+html[dir="rtl"] .marks-table td:last-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.mark-excellent {
+    color: #14532d !important;
+    background: #bbf7d0 !important;
+}
+
+.mark-very-good {
+    color: #166534 !important;
+    background: #dcfce7 !important;
+}
+
+.mark-good {
+    color: #1e3a8a !important;
+    background: #dbeafe !important;
+}
+
+.mark-satisfactory {
+    color: #854d0e !important;
+    background: #fef3c7 !important;
+}
+
+.mark-needs-improvement {
+    color: #9a3412 !important;
+    background: #ffedd5 !important;
+}
+
+.mark-low {
+    color: #991b1b !important;
+    background: #fee2e2 !important;
+}
+
+.marks-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 0 22px 20px;
+    padding: 14px 16px;
+    border-radius: 13px;
+    background: #edf6fb;
+    color: var(--navy);
+    font-weight: 800;
+}
+
+.marks-summary strong {
+    font-size: 20px;
+}
+
+.marks-empty {
+    display: none;
+    margin: 20px 22px;
+    padding: 20px;
+    border-radius: 13px;
+    text-align: center;
+    color: #7c5c12;
+    background: #fff7d6;
+    font-weight: 700;
+}
+
+.marks-empty.visible {
+    display: block;
+}
+
+.grades-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 2px 22px 22px;
+}
+
+.grades-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 9px;
+    border-radius: 20px;
+    color: #42566a;
+    background: #f6f9fb;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.grades-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot-excellent { background: #86efac; }
+.dot-very-good { background: #bbf7d0; }
+.dot-good { background: #bfdbfe; }
+.dot-satisfactory { background: #fde68a; }
+.dot-needs-improvement { background: #fed7aa; }
+.dot-low { background: #fecaca; }
+
+@media(max-width:760px) {
+    .grades-search-area {
+        flex-direction: column;
+    }
+
+    .grades-search-area .primary-button {
+        width: 100%;
+    }
+
+    .marks-student-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
    TIMETABLE PDF VIEWER
 ========================================================= */
 
@@ -3057,6 +3341,15 @@ English
 
 <button
     class="nav-button"
+    data-section="grades"
+    onclick="openSection('grades',this)"
+>
+📊 <span data-i18n="midtermGrades">Midterm Grades</span>
+</button>
+
+
+<button
+    class="nav-button"
     data-section="timetable"
     onclick="openSection('timetable',this)"
 >
@@ -3185,6 +3478,26 @@ LMS Accounts
 
 Find your student email and LMS account information using your Student Emirates ID.
 
+</p>
+
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('grades')"
+>
+
+<div class="dashboard-icon">
+📊
+</div>
+
+<h3 data-i18n="midtermGrades">
+Midterm Grades
+</h3>
+
+<p data-i18n="midtermGradesCardText">
+Enter your Emirates ID to view your midterm marks card.
 </p>
 
 </div>
@@ -3606,6 +3919,180 @@ Copy
 
 </div>
 
+
+</section>
+
+
+<!-- =========================================================
+     MIDTERM GRADES
+========================================================= -->
+
+<section
+    id="grades"
+    class="section"
+>
+
+<div class="glass-card">
+
+<div class="section-heading">
+
+<div class="section-icon">
+📊
+</div>
+
+<div>
+
+<h2 data-i18n="midtermGradesTitle">
+Midterm Grades
+</h2>
+
+<p data-i18n="midtermGradesDescription">
+Enter the student's Emirates ID Number to view the midterm marks card.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="grades-lookup-container">
+
+<div
+    id="gradesMessage"
+    class="grades-message info visible"
+>
+Loading midterm grades...
+</div>
+
+
+<div class="grades-search-area">
+
+<input
+    type="text"
+    id="gradesEID"
+    placeholder="Enter Emirates ID Number"
+    autocomplete="off"
+    inputmode="numeric"
+    maxlength="18"
+    aria-label="Emirates ID Number"
+    disabled
+    onkeydown="
+    if(event.key === 'Enter'){
+        searchMidtermGrades();
+    }"
+>
+
+<button
+    id="gradesSearchButton"
+    class="primary-button"
+    onclick="searchMidtermGrades()"
+    disabled
+    data-i18n="gradesSearch"
+>
+View Marks
+</button>
+
+</div>
+
+
+<div
+    id="marksCard"
+    class="marks-card"
+>
+
+<div class="marks-card-header">
+<h3 data-i18n="marksCardTitle">Midterm Marks Card</h3>
+<p data-i18n="marksOutOf100">All marks are shown out of 100.</p>
+</div>
+
+
+<div class="marks-student-info">
+
+<div class="marks-info-item">
+<span class="marks-info-label" data-i18n="studentName">Student Name</span>
+<div id="gradesStudentName" class="marks-info-value">-</div>
+</div>
+
+<div class="marks-info-item">
+<span class="marks-info-label" data-i18n="gradeClass">Grade / Class</span>
+<div id="gradesStudentClass" class="marks-info-value">-</div>
+</div>
+
+<div class="marks-info-item">
+<span class="marks-info-label" data-i18n="emiratesIDNumber">Emirates ID Number</span>
+<div id="gradesStudentEID" class="marks-info-value" dir="ltr">-</div>
+</div>
+
+</div>
+
+
+<div id="marksEmpty" class="marks-empty" data-i18n="marksNotAvailable">
+No midterm marks have been entered for this student yet.
+</div>
+
+
+<div id="marksTableWrap" class="marks-table-wrap">
+
+<table class="marks-table">
+
+<thead>
+<tr>
+<th data-i18n="subject">Subject</th>
+<th data-i18n="markOutOf100">Mark / 100</th>
+</tr>
+</thead>
+
+<tbody id="marksTableBody">
+</tbody>
+
+</table>
+
+</div>
+
+
+<div id="marksSummary" class="marks-summary">
+<span data-i18n="averageMark">Average of available marks</span>
+<strong id="marksAverage">-</strong>
+</div>
+
+
+<div class="grades-legend">
+
+<span class="grades-legend-item">
+<span class="grades-legend-dot dot-excellent"></span>
+<span data-i18n="legendExcellent">90–100</span>
+</span>
+
+<span class="grades-legend-item">
+<span class="grades-legend-dot dot-very-good"></span>
+<span data-i18n="legendVeryGood">80–89</span>
+</span>
+
+<span class="grades-legend-item">
+<span class="grades-legend-dot dot-good"></span>
+<span data-i18n="legendGood">70–79</span>
+</span>
+
+<span class="grades-legend-item">
+<span class="grades-legend-dot dot-satisfactory"></span>
+<span data-i18n="legendSatisfactory">60–69</span>
+</span>
+
+<span class="grades-legend-item">
+<span class="grades-legend-dot dot-needs-improvement"></span>
+<span data-i18n="legendNeedsImprovement">50–59</span>
+</span>
+
+<span class="grades-legend-item">
+<span class="grades-legend-dot dot-low"></span>
+<span data-i18n="legendLow">Below 50</span>
+</span>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
@@ -4614,6 +5101,9 @@ home:
 lms:
 "LMS Accounts",
 
+midtermGrades:
+"Midterm Grades",
+
 timetable:
 "Time Table",
 
@@ -4646,6 +5136,9 @@ welcomeText:
 
 lmsCardText:
 "Find your student email and LMS account information using your Student Emirates ID.",
+
+midtermGradesCardText:
+"Enter your Emirates ID to view your midterm marks card.",
 
 timetableCardText:
 "Access the latest school or student timetable.",
@@ -4736,6 +5229,78 @@ databaseError:
 
 copied:
 "Copied successfully.",
+
+midtermGradesTitle:
+"Midterm Grades",
+
+midtermGradesDescription:
+"Enter the student's Emirates ID Number to view the midterm marks card.",
+
+gradesSearch:
+"View Marks",
+
+gradesSearchPlaceholder:
+"Enter Emirates ID Number",
+
+gradesLoading:
+"Loading midterm grades...",
+
+gradesReady:
+"Midterm grades are ready.",
+
+gradesNotFound:
+"Emirates ID Number not found. Please check the number and try again.",
+
+gradesEnterID:
+"Please enter an Emirates ID Number.",
+
+gradesInvalidID:
+"Please enter a valid 15-digit Emirates ID Number.",
+
+gradesDatabaseError:
+"Midterm grades could not be loaded. Please ensure Midterm_Grades.xlsx is available.",
+
+marksCardTitle:
+"Midterm Marks Card",
+
+marksOutOf100:
+"All marks are shown out of 100.",
+
+gradeClass:
+"Grade / Class",
+
+emiratesIDNumber:
+"Emirates ID Number",
+
+subject:
+"Subject",
+
+markOutOf100:
+"Mark / 100",
+
+averageMark:
+"Average of available marks",
+
+marksNotAvailable:
+"No midterm marks have been entered for this student yet.",
+
+legendExcellent:
+"90–100",
+
+legendVeryGood:
+"80–89",
+
+legendGood:
+"70–79",
+
+legendSatisfactory:
+"60–69",
+
+legendNeedsImprovement:
+"50–59",
+
+legendLow:
+"Below 50",
 
 timetableTitle:
 "School Time Table",
@@ -4910,6 +5475,9 @@ home:
 lms:
 "حسابات LMS",
 
+midtermGrades:
+"درجات منتصف الفصل",
+
 timetable:
 "الجدول الدراسي",
 
@@ -4942,6 +5510,9 @@ welcomeText:
 
 lmsCardText:
 "ابحث عن البريد الإلكتروني وبيانات حساب الطالب باستخدام الهوية الإماراتية للطالب.",
+
+midtermGradesCardText:
+"أدخل رقم الهوية الإماراتية لعرض بطاقة درجات منتصف الفصل.",
 
 timetableCardText:
 "الوصول إلى أحدث جدول دراسي للمدرسة والطلبة.",
@@ -5032,6 +5603,78 @@ databaseError:
 
 copied:
 "تم النسخ بنجاح.",
+
+midtermGradesTitle:
+"درجات منتصف الفصل",
+
+midtermGradesDescription:
+"أدخل رقم الهوية الإماراتية للطالب لعرض بطاقة درجات منتصف الفصل.",
+
+gradesSearch:
+"عرض الدرجات",
+
+gradesSearchPlaceholder:
+"أدخل رقم الهوية الإماراتية",
+
+gradesLoading:
+"جاري تحميل درجات منتصف الفصل...",
+
+gradesReady:
+"درجات منتصف الفصل جاهزة.",
+
+gradesNotFound:
+"لم يتم العثور على رقم الهوية الإماراتية. يرجى التحقق من الرقم والمحاولة مرة أخرى.",
+
+gradesEnterID:
+"يرجى إدخال رقم الهوية الإماراتية.",
+
+gradesInvalidID:
+"يرجى إدخال رقم هوية إماراتية صحيح مكوّن من 15 رقماً.",
+
+gradesDatabaseError:
+"تعذر تحميل درجات منتصف الفصل. يرجى التأكد من توفر ملف Midterm_Grades.xlsx.",
+
+marksCardTitle:
+"بطاقة درجات منتصف الفصل",
+
+marksOutOf100:
+"جميع الدرجات معروضة من 100.",
+
+gradeClass:
+"الصف / الشعبة",
+
+emiratesIDNumber:
+"رقم الهوية الإماراتية",
+
+subject:
+"المادة",
+
+markOutOf100:
+"الدرجة / 100",
+
+averageMark:
+"متوسط الدرجات المتوفرة",
+
+marksNotAvailable:
+"لم يتم إدخال درجات منتصف الفصل لهذا الطالب بعد.",
+
+legendExcellent:
+"90–100",
+
+legendVeryGood:
+"80–89",
+
+legendGood:
+"70–79",
+
+legendSatisfactory:
+"60–69",
+
+legendNeedsImprovement:
+"50–59",
+
+legendLow:
+"أقل من 50",
 
 timetableTitle:
 "الجدول الدراسي",
@@ -5413,6 +6056,20 @@ renderSchedule(
 
 updateMagazinePageIndicator();
 updateTimetablePageIndicator();
+
+const gradesInput =
+    document.getElementById("gradesEID");
+
+if(gradesInput) {
+    gradesInput.placeholder =
+        language.gradesSearchPlaceholder;
+}
+
+if(currentGradeStudent) {
+    renderMidtermMarksCard(
+        currentGradeStudent
+    );
+}
 
 
 }
@@ -5961,6 +6618,945 @@ window.addEventListener(
             );
     }
 );
+
+
+/* =========================================================
+   MIDTERM GRADES DATABASE
+========================================================= */
+
+const GRADES_FILE =
+    "Midterm_Grades.xlsx";
+
+let gradeStudents =
+    [];
+
+let currentGradeStudent =
+    null;
+
+
+const GRADE_SUBJECT_TRANSLATIONS = {
+
+    "Arabic":
+        "اللغة العربية",
+
+    "Social Studies":
+        "الدراسات الاجتماعية",
+
+    "Islamic":
+        "التربية الإسلامية",
+
+    "English":
+        "اللغة الإنجليزية",
+
+    "Science":
+        "العلوم",
+
+    "Math":
+        "الرياضيات",
+
+    "Physics":
+        "الفيزياء",
+
+    "Chemistry":
+        "الكيمياء",
+
+    "Biology":
+        "الأحياء"
+
+};
+
+
+/* =========================================================
+   LOAD MIDTERM GRADES
+========================================================= */
+
+async function loadGradesExcel() {
+
+    try {
+
+        showGradesMessage(
+            translations[
+                currentLanguage
+            ].gradesLoading,
+            "info"
+        );
+
+
+        const response =
+            await fetch(
+                GRADES_FILE +
+                "?v=" +
+                Date.now()
+            );
+
+
+        if(
+            !response.ok
+        ) {
+
+            throw new Error(
+                "Grades workbook unavailable"
+            );
+
+        }
+
+
+        const data =
+            await response
+                .arrayBuffer();
+
+
+        const workbook =
+            XLSX.read(
+                data,
+                {
+                    type:
+                        "array"
+                }
+            );
+
+
+        const loadedStudents =
+            [];
+
+
+        workbook.SheetNames.forEach(
+            sheetName => {
+
+                const worksheet =
+                    workbook.Sheets[
+                        sheetName
+                    ];
+
+
+                const rows =
+                    XLSX.utils.sheet_to_json(
+                        worksheet,
+                        {
+                            header:
+                                1,
+
+                            defval:
+                                "",
+
+                            raw:
+                                false
+                        }
+                    );
+
+
+                if(
+                    !rows.length
+                ) {
+
+                    return;
+
+                }
+
+
+                const fieldIndex =
+                    {};
+
+
+                rows.forEach(
+                    (row, rowIndex) => {
+
+                        const key =
+                            normalizeGradeField(
+                                row[0]
+                            );
+
+
+                        if(key) {
+
+                            fieldIndex[
+                                key
+                            ] =
+                                rowIndex;
+
+                        }
+
+                    }
+                );
+
+
+                const eidRowIndex =
+                    fieldIndex.eidnumber ??
+                    fieldIndex.emiratesidnumber ??
+                    fieldIndex.emiratesid ??
+                    -1;
+
+
+                const englishNameRowIndex =
+                    fieldIndex.englishname ??
+                    fieldIndex.studentname ??
+                    -1;
+
+
+                const arabicNameRowIndex =
+                    fieldIndex.arabicname ??
+                    -1;
+
+
+                const subjectHeaderRowIndex =
+                    fieldIndex.subject ??
+                    -1;
+
+
+                if(
+                    eidRowIndex < 0 ||
+                    subjectHeaderRowIndex < 0
+                ) {
+
+                    return;
+
+                }
+
+
+                const maxColumns =
+                    Math.max(
+                        ...rows.map(
+                            row =>
+                                row.length
+                        )
+                    );
+
+
+                for(
+                    let columnIndex = 1;
+                    columnIndex < maxColumns;
+                    columnIndex++
+                ) {
+
+                    const rawEID =
+                        rows[
+                            eidRowIndex
+                        ]?.[
+                            columnIndex
+                        ] ?? "";
+
+
+                    const normalizedEID =
+                        normalizeID(
+                            rawEID
+                        );
+
+
+                    if(
+                        !normalizedEID
+                    ) {
+
+                        continue;
+
+                    }
+
+
+                    const englishName =
+                        englishNameRowIndex >= 0
+                        ?
+                        String(
+                            rows[
+                                englishNameRowIndex
+                            ]?.[
+                                columnIndex
+                            ] ?? ""
+                        ).trim()
+                        :
+                        "";
+
+
+                    const arabicName =
+                        arabicNameRowIndex >= 0
+                        ?
+                        String(
+                            rows[
+                                arabicNameRowIndex
+                            ]?.[
+                                columnIndex
+                            ] ?? ""
+                        ).trim()
+                        :
+                        "";
+
+
+                    const marks =
+                        [];
+
+
+                    for(
+                        let rowIndex =
+                            subjectHeaderRowIndex + 1;
+
+                        rowIndex <
+                            rows.length;
+
+                        rowIndex++
+                    ) {
+
+                        const subject =
+                            String(
+                                rows[
+                                    rowIndex
+                                ]?.[0] ?? ""
+                            ).trim();
+
+
+                        if(
+                            !subject
+                        ) {
+
+                            continue;
+
+                        }
+
+
+                        const rawMark =
+                            rows[
+                                rowIndex
+                            ]?.[
+                                columnIndex
+                            ] ?? "";
+
+
+                        if(
+                            rawMark === "" ||
+                            rawMark === null ||
+                            rawMark === undefined
+                        ) {
+
+                            continue;
+
+                        }
+
+
+                        const mark =
+                            Number(
+                                String(
+                                    rawMark
+                                )
+                                .replace(
+                                    "%",
+                                    ""
+                                )
+                                .trim()
+                            );
+
+
+                        if(
+                            !Number.isFinite(
+                                mark
+                            )
+                        ) {
+
+                            continue;
+
+                        }
+
+
+                        marks.push(
+                            {
+                                subject:
+                                    subject,
+
+                                mark:
+                                    Math.max(
+                                        0,
+                                        Math.min(
+                                            100,
+                                            mark
+                                        )
+                                    )
+                            }
+                        );
+
+                    }
+
+
+                    loadedStudents.push(
+                        {
+                            id:
+                                normalizedEID,
+
+                            displayEID:
+                                formatEmiratesID(
+                                    normalizedEID
+                                ),
+
+                            grade:
+                                sheetName,
+
+                            englishName:
+                                englishName,
+
+                            arabicName:
+                                arabicName,
+
+                            marks:
+                                marks
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+
+        gradeStudents =
+            loadedStudents;
+
+
+        if(
+            gradeStudents.length === 0
+        ) {
+
+            throw new Error(
+                "No grade records were found"
+            );
+
+        }
+
+
+        const gradesInput =
+            document.getElementById(
+                "gradesEID"
+            );
+
+
+        const gradesSearchButton =
+            document.getElementById(
+                "gradesSearchButton"
+            );
+
+
+        gradesInput.disabled =
+            false;
+
+        gradesSearchButton.disabled =
+            false;
+
+
+        showGradesMessage(
+            translations[
+                currentLanguage
+            ].gradesReady,
+            "success"
+        );
+
+
+        setTimeout(
+            hideGradesMessage,
+            1800
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            "Midterm grades error:",
+            error
+        );
+
+
+        showGradesMessage(
+            translations[
+                currentLanguage
+            ].gradesDatabaseError,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH MIDTERM GRADES
+========================================================= */
+
+function searchMidtermGrades() {
+
+    const input =
+        document.getElementById(
+            "gradesEID"
+        );
+
+
+    const enteredID =
+        input.value.trim();
+
+
+    document
+        .getElementById(
+            "marksCard"
+        )
+        .classList
+        .remove(
+            "visible"
+        );
+
+
+    currentGradeStudent =
+        null;
+
+
+    if(
+        !enteredID
+    ) {
+
+        showGradesMessage(
+            translations[
+                currentLanguage
+            ].gradesEnterID,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const normalizedEID =
+        normalizeID(
+            enteredID
+        );
+
+
+    if(
+        normalizedEID.length !== 15
+    ) {
+
+        showGradesMessage(
+            translations[
+                currentLanguage
+            ].gradesInvalidID,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const student =
+        gradeStudents.find(
+            item =>
+                item.id ===
+                normalizedEID
+        );
+
+
+    if(
+        !student
+    ) {
+
+        showGradesMessage(
+            translations[
+                currentLanguage
+            ].gradesNotFound,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    hideGradesMessage();
+
+
+    currentGradeStudent =
+        student;
+
+
+    renderMidtermMarksCard(
+        student
+    );
+
+}
+
+
+/* =========================================================
+   RENDER MARKS CARD
+========================================================= */
+
+function renderMidtermMarksCard(
+    student
+) {
+
+    const language =
+        translations[
+            currentLanguage
+        ];
+
+
+    const displayName =
+        currentLanguage === "ar"
+        ?
+        (
+            student.arabicName ||
+            student.englishName ||
+            "-"
+        )
+        :
+        (
+            student.englishName ||
+            student.arabicName ||
+            "-"
+        );
+
+
+    document
+        .getElementById(
+            "gradesStudentName"
+        )
+        .textContent =
+            displayName;
+
+
+    document
+        .getElementById(
+            "gradesStudentClass"
+        )
+        .textContent =
+            student.grade;
+
+
+    document
+        .getElementById(
+            "gradesStudentEID"
+        )
+        .textContent =
+            student.displayEID;
+
+
+    const tbody =
+        document.getElementById(
+            "marksTableBody"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "marksEmpty"
+        );
+
+
+    const tableWrap =
+        document.getElementById(
+            "marksTableWrap"
+        );
+
+
+    const summary =
+        document.getElementById(
+            "marksSummary"
+        );
+
+
+    tbody.innerHTML =
+        "";
+
+
+    if(
+        !student.marks.length
+    ) {
+
+        empty.classList.add(
+            "visible"
+        );
+
+        tableWrap.style.display =
+            "none";
+
+        summary.style.display =
+            "none";
+
+    }
+    else {
+
+        empty.classList.remove(
+            "visible"
+        );
+
+        tableWrap.style.display =
+            "";
+
+        summary.style.display =
+            "";
+
+
+        let total =
+            0;
+
+
+        student.marks.forEach(
+            item => {
+
+                total +=
+                    item.mark;
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const subjectCell =
+                    document.createElement(
+                        "td"
+                    );
+
+
+                subjectCell.textContent =
+                    translateGradeSubject(
+                        item.subject
+                    );
+
+
+                const markCell =
+                    document.createElement(
+                        "td"
+                    );
+
+
+                markCell.textContent =
+                    formatGradeMark(
+                        item.mark
+                    ) +
+                    " / 100";
+
+
+                markCell.classList.add(
+                    getGradeMarkClass(
+                        item.mark
+                    )
+                );
+
+
+                row.appendChild(
+                    subjectCell
+                );
+
+
+                row.appendChild(
+                    markCell
+                );
+
+
+                tbody.appendChild(
+                    row
+                );
+
+            }
+        );
+
+
+        const average =
+            total /
+            student.marks.length;
+
+
+        document
+            .getElementById(
+                "marksAverage"
+            )
+            .textContent =
+                formatGradeMark(
+                    average
+                ) +
+                " / 100";
+
+    }
+
+
+    document
+        .getElementById(
+            "marksCard"
+        )
+        .classList
+        .add(
+            "visible"
+        );
+
+}
+
+
+/* =========================================================
+   MIDTERM GRADE HELPERS
+========================================================= */
+
+function normalizeGradeField(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+    .toLowerCase()
+    .trim()
+    .replace(
+        /[^a-z0-9]/g,
+        ""
+    );
+
+}
+
+
+function formatEmiratesID(
+    value
+) {
+
+    const digits =
+        normalizeID(
+            value
+        );
+
+
+    if(
+        digits.length !== 15
+    ) {
+
+        return digits;
+
+    }
+
+
+    return (
+        digits.slice(
+            0,
+            3
+        ) +
+        "-" +
+        digits.slice(
+            3,
+            7
+        ) +
+        "-" +
+        digits.slice(
+            7,
+            14
+        ) +
+        "-" +
+        digits.slice(
+            14
+        )
+    );
+
+}
+
+
+function translateGradeSubject(
+    subject
+) {
+
+    if(
+        currentLanguage !== "ar"
+    ) {
+
+        return subject;
+
+    }
+
+
+    return (
+        GRADE_SUBJECT_TRANSLATIONS[
+            subject
+        ] ||
+        subject
+    );
+
+}
+
+
+function formatGradeMark(
+    mark
+) {
+
+    const rounded =
+        Math.round(
+            mark * 10
+        ) /
+        10;
+
+
+    return Number.isInteger(
+        rounded
+    )
+    ?
+    String(
+        rounded
+    )
+    :
+    rounded.toFixed(
+        1
+    );
+
+}
+
+
+function getGradeMarkClass(
+    mark
+) {
+
+    if(mark >= 90) {
+        return "mark-excellent";
+    }
+
+    if(mark >= 80) {
+        return "mark-very-good";
+    }
+
+    if(mark >= 70) {
+        return "mark-good";
+    }
+
+    if(mark >= 60) {
+        return "mark-satisfactory";
+    }
+
+    if(mark >= 50) {
+        return "mark-needs-improvement";
+    }
+
+    return "mark-low";
+
+}
+
+
+function showGradesMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.getElementById(
+            "gradesMessage"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "grades-message visible " +
+        type;
+
+}
+
+
+function hideGradesMessage() {
+
+    document
+        .getElementById(
+            "gradesMessage"
+        )
+        .className =
+            "grades-message";
+
+}
 
 
 /* =========================================================
@@ -7558,6 +9154,7 @@ updateLanguage();
 
 
 loadExcel();
+loadGradesExcel();
 
 
 </script>
