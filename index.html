@@ -2156,6 +2156,34 @@ html[dir="rtl"] .marks-table td:last-child {
 
 
 /* =========================================================
+   NATIONAL CHARTER / الميثاق الوطني
+========================================================= */
+
+.charter-content{display:grid;gap:24px;}
+.charter-media-card{overflow:hidden;border:1px solid #dce8f0;border-radius:20px;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.charter-media-header{display:flex;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid #e3ebf1;background:linear-gradient(135deg,#f4f9fd,#edf9f6);}
+.charter-media-icon{width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#e7f3fb;font-size:22px;}
+.charter-media-header h3{margin:0;color:var(--navy);font-size:18px;}
+.charter-video-wrap{padding:18px;background:#0b1722;}
+.charter-video{display:block;width:100%;max-height:650px;margin:0 auto;border-radius:12px;background:#000;}
+.charter-pdf-viewer{overflow:hidden;background:linear-gradient(145deg,#eef7fb,#e7f5f2);}
+.charter-pdf-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 14px;border-bottom:1px solid #d7e5ed;background:rgba(255,255,255,.96);}
+.charter-toolbar-group{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.charter-control{min-height:40px;padding:8px 12px;border:1px solid #d2e1ea;border-radius:9px;cursor:pointer;color:var(--navy);background:#fff;font-size:12px;font-weight:800;transition:all .2s ease;}
+.charter-control:hover:not(:disabled){color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--blue),var(--teal));}
+.charter-control:disabled{opacity:.45;cursor:not-allowed;}
+.charter-page-indicator{min-width:100px;text-align:center;color:var(--muted);font-size:12px;font-weight:800;}
+.charter-open-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 13px;border-radius:9px;color:#fff;text-decoration:none;font-size:12px;font-weight:800;background:linear-gradient(135deg,var(--navy),var(--blue));}
+.charter-pdf-stage{position:relative;min-height:600px;display:flex;align-items:flex-start;justify-content:center;padding:18px;overflow:auto;background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.98),rgba(255,255,255,.38) 44%,transparent 72%),linear-gradient(145deg,#dfeef4,#edf7f7);}
+.charter-pdf-canvas{display:block;max-width:none;height:auto;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.17);border-radius:4px;}
+.charter-pdf-status{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center;color:var(--navy);background:rgba(239,248,251,.96);font-weight:800;}
+.charter-pdf-status.hidden{display:none;}
+.charter-spinner{width:38px;height:38px;border:4px solid #cfe2ed;border-top-color:var(--blue);border-radius:50%;animation:charterSpin .85s linear infinite;}
+@keyframes charterSpin{to{transform:rotate(360deg);}}
+@media(max-width:760px){.charter-pdf-toolbar{justify-content:center}.charter-toolbar-group{width:100%;justify-content:center}.charter-pdf-stage{min-height:500px;padding:12px 8px 18px}.charter-control,.charter-open-link{flex:1;min-width:82px;text-align:center}.charter-video-wrap{padding:10px}}
+@media(max-width:480px){.charter-pdf-stage{min-height:430px}}
+
+/* =========================================================
    CONTACT US
 ========================================================= */
 
@@ -3404,6 +3432,15 @@ English
 
 <button
     class="nav-button"
+    data-section="charter"
+    onclick="openSection('charter',this)"
+>
+🇦🇪 <span data-i18n="nationalCharter">الميثاق الوطني</span>
+</button>
+
+
+<button
+    class="nav-button"
     data-section="contact"
     onclick="openSection('contact',this)"
 >
@@ -3630,6 +3667,16 @@ School Magazine
 Read the latest school magazine with an interactive page-turning view.
 </p>
 
+</div>
+
+
+<div
+    class="dashboard-card"
+    onclick="openSectionByName('charter')"
+>
+<div class="dashboard-icon">🇦🇪</div>
+<h3 data-i18n="nationalCharter">الميثاق الوطني</h3>
+<p data-i18n="nationalCharterCardText">Watch the introductory video and view the parent and student guides.</p>
 </div>
 
 
@@ -4673,6 +4720,79 @@ Use the arrow buttons, swipe, or drag a page corner to turn pages. On smaller sc
 
 
 <!-- =========================================================
+     NATIONAL CHARTER / الميثاق الوطني
+========================================================= -->
+<section id="charter" class="section">
+<div class="glass-card">
+<div class="section-heading">
+<div class="section-icon">🇦🇪</div>
+<div>
+<h2 data-i18n="nationalCharterTitle">الميثاق الوطني</h2>
+<p data-i18n="nationalCharterDescription">شاهد الفيديو التعريفي واطلع على أدلة الميثاق الوطني لأولياء الأمور والطلبة.</p>
+</div>
+</div>
+<div class="charter-content">
+
+<div class="charter-media-card">
+<div class="charter-media-header"><div class="charter-media-icon">🎬</div><h3 data-i18n="charterVideoTitle">فيديو تعريفي عن الميثاق الوطني</h3></div>
+<div class="charter-video-wrap">
+<video class="charter-video" controls preload="metadata" playsinline>
+<source src="national-charter-video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+
+<div class="charter-media-card">
+<div class="charter-media-header"><div class="charter-media-icon">👨‍👩‍👧‍👦</div><h3 data-i18n="charterParentGuideTitle">الميثاق الوطني (دليل أولياء الأمور)</h3></div>
+<div class="charter-pdf-viewer">
+<div class="charter-pdf-toolbar">
+<div class="charter-toolbar-group">
+<button id="charterParentPrev" class="charter-control" onclick="charterPreviousPage('parent')" disabled>← <span data-i18n="previousPage">Previous</span></button>
+<span id="charterParentPageIndicator" class="charter-page-indicator">Page —</span>
+<button id="charterParentNext" class="charter-control" onclick="charterNextPage('parent')" disabled><span data-i18n="nextPage">Next</span> →</button>
+</div>
+<div class="charter-toolbar-group">
+<button class="charter-control" onclick="charterZoomOut('parent')">−</button>
+<button class="charter-control" onclick="charterZoomIn('parent')">+</button>
+<a href="national-charter-parent-guide.pdf" target="_blank" rel="noopener noreferrer" class="charter-open-link" data-i18n="openPdf">Open PDF</a>
+</div>
+</div>
+<div id="charterParentStage" class="charter-pdf-stage">
+<div id="charterParentStatus" class="charter-pdf-status"><div class="charter-spinner"></div><div id="charterParentStatusText">Loading document…</div></div>
+<canvas id="charterParentCanvas" class="charter-pdf-canvas"></canvas>
+</div>
+</div>
+</div>
+
+<div class="charter-media-card">
+<div class="charter-media-header"><div class="charter-media-icon">🎓</div><h3 data-i18n="charterStudentGuideTitle">الميثاق الوطني (دليل الطالب)</h3></div>
+<div class="charter-pdf-viewer">
+<div class="charter-pdf-toolbar">
+<div class="charter-toolbar-group">
+<button id="charterStudentPrev" class="charter-control" onclick="charterPreviousPage('student')" disabled>← <span data-i18n="previousPage">Previous</span></button>
+<span id="charterStudentPageIndicator" class="charter-page-indicator">Page —</span>
+<button id="charterStudentNext" class="charter-control" onclick="charterNextPage('student')" disabled><span data-i18n="nextPage">Next</span> →</button>
+</div>
+<div class="charter-toolbar-group">
+<button class="charter-control" onclick="charterZoomOut('student')">−</button>
+<button class="charter-control" onclick="charterZoomIn('student')">+</button>
+<a href="national-charter-student-guide.pdf" target="_blank" rel="noopener noreferrer" class="charter-open-link" data-i18n="openPdf">Open PDF</a>
+</div>
+</div>
+<div id="charterStudentStage" class="charter-pdf-stage">
+<div id="charterStudentStatus" class="charter-pdf-status"><div class="charter-spinner"></div><div id="charterStudentStatusText">Loading document…</div></div>
+<canvas id="charterStudentCanvas" class="charter-pdf-canvas"></canvas>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- =========================================================
      CONTACT US
 ========================================================= -->
 
@@ -5122,6 +5242,9 @@ telegram:
 magazine:
 "School Magazine",
 
+nationalCharter:
+"National Charter",
+
 contact:
 "Contact Us",
 
@@ -5157,6 +5280,9 @@ telegramCardText:
 
 magazineCardText:
 "Read the latest school magazine with an interactive page-turning view.",
+
+nationalCharterCardText:
+"Watch the introductory video and view the parent and student guides.",
 
 contactCardText:
 "Find the school landline and key school contact numbers.",
@@ -5407,6 +5533,30 @@ magazineLoadError:
 magazineHelp:
 "Use the arrow buttons, swipe, or drag a page corner to turn pages. On smaller screens, portrait mode is recommended.",
 
+nationalCharterTitle:
+"National Charter",
+
+nationalCharterDescription:
+"Watch the introductory video and view the National Charter guides for parents and students.",
+
+charterVideoTitle:
+"Introduction Video about the National Charter",
+
+charterParentGuideTitle:
+"National Charter (Parents Guide)",
+
+charterStudentGuideTitle:
+"National Charter (Student Guide)",
+
+openPdf:
+"Open PDF",
+
+charterLoading:
+"Loading document...",
+
+charterLoadError:
+"The document could not be displayed. Please use Open PDF.",
+
 contactTitle:
 "Contact Us",
 
@@ -5496,6 +5646,9 @@ telegram:
 magazine:
 "مجلة المدرسة",
 
+nationalCharter:
+"الميثاق الوطني",
+
 contact:
 "اتصل بنا",
 
@@ -5531,6 +5684,9 @@ telegramCardText:
 
 magazineCardText:
 "تصفح أحدث مجلة مدرسية بطريقة تفاعلية مع تأثير تقليب الصفحات.",
+
+nationalCharterCardText:
+"شاهد الفيديو التعريفي واطلع على دليل أولياء الأمور ودليل الطالب.",
 
 contactCardText:
 "عرض رقم المدرسة وأرقام التواصل الرئيسية.",
@@ -5780,6 +5936,30 @@ magazineLoadError:
 
 magazineHelp:
 "استخدم أزرار الأسهم أو اسحب الصفحة لتقليبها. يفضّل استخدام الوضع العمودي على الشاشات الصغيرة.",
+
+nationalCharterTitle:
+"الميثاق الوطني",
+
+nationalCharterDescription:
+"شاهد الفيديو التعريفي واطلع على أدلة الميثاق الوطني لأولياء الأمور والطلبة.",
+
+charterVideoTitle:
+"فيديو تعريفي عن الميثاق الوطني",
+
+charterParentGuideTitle:
+"الميثاق الوطني (دليل أولياء الأمور)",
+
+charterStudentGuideTitle:
+"الميثاق الوطني (دليل الطالب)",
+
+openPdf:
+"فتح ملف PDF",
+
+charterLoading:
+"جاري تحميل المستند...",
+
+charterLoadError:
+"تعذر عرض المستند. يرجى استخدام خيار فتح ملف PDF.",
 
 contactTitle:
 "اتصل بنا",
@@ -6056,6 +6236,8 @@ renderSchedule(
 
 updateMagazinePageIndicator();
 updateTimetablePageIndicator();
+updateCharterPageIndicator("parent");
+updateCharterPageIndicator("student");
 
 const gradesInput =
     document.getElementById("gradesEID");
@@ -7560,6 +7742,97 @@ function hideGradesMessage() {
 
 
 /* =========================================================
+   NATIONAL CHARTER PDF VIEWERS
+========================================================= */
+
+const CHARTER_PDFS = {
+    parent: {
+        file: "national-charter-parent-guide.pdf",
+        pdf: null, page: 1, zoom: 1, rendering: false, pendingPage: null, loadPromise: null,
+        ids: { stage:"charterParentStage", canvas:"charterParentCanvas", status:"charterParentStatus", statusText:"charterParentStatusText", prev:"charterParentPrev", next:"charterParentNext", indicator:"charterParentPageIndicator" }
+    },
+    student: {
+        file: "national-charter-student-guide.pdf",
+        pdf: null, page: 1, zoom: 1, rendering: false, pendingPage: null, loadPromise: null,
+        ids: { stage:"charterStudentStage", canvas:"charterStudentCanvas", status:"charterStudentStatus", statusText:"charterStudentStatusText", prev:"charterStudentPrev", next:"charterStudentNext", indicator:"charterStudentPageIndicator" }
+    }
+};
+
+async function ensureNationalCharterLoaded(){
+    await Promise.allSettled([ensureCharterPdfLoaded("parent"),ensureCharterPdfLoaded("student")]);
+}
+
+async function ensureCharterPdfLoaded(type){
+    const viewer=CHARTER_PDFS[type];
+    if(viewer.pdf){updateCharterPageIndicator(type);return;}
+    if(viewer.loadPromise){return viewer.loadPromise;}
+    viewer.loadPromise=loadCharterPdf(type);
+    try{await viewer.loadPromise;}finally{viewer.loadPromise=null;}
+}
+
+async function loadCharterPdf(type){
+    const viewer=CHARTER_PDFS[type], ids=viewer.ids;
+    const status=document.getElementById(ids.status), statusText=document.getElementById(ids.statusText);
+    const prevButton=document.getElementById(ids.prev), nextButton=document.getElementById(ids.next);
+    if(!status||!statusText)return;
+    status.classList.remove("hidden");
+    statusText.textContent=translations[currentLanguage].charterLoading||"Loading document...";
+    try{
+        if(!window.pdfjsLib)throw new Error("PDF.js is unavailable.");
+        viewer.pdf=await pdfjsLib.getDocument({url:viewer.file}).promise;
+        viewer.page=1;
+        prevButton.disabled=false; nextButton.disabled=false;
+        status.classList.add("hidden");
+        await renderCharterPdfPage(type,1);
+    }catch(error){
+        console.error("National Charter PDF error:",type,error);
+        status.classList.remove("hidden");
+        const spinner=status.querySelector(".charter-spinner"); if(spinner)spinner.style.display="none";
+        statusText.textContent=translations[currentLanguage].charterLoadError||"The document could not be displayed. Please use Open PDF.";
+        prevButton.disabled=true; nextButton.disabled=true;
+    }
+}
+
+async function renderCharterPdfPage(type,pageNumber){
+    const viewer=CHARTER_PDFS[type]; if(!viewer.pdf)return;
+    if(viewer.rendering){viewer.pendingPage=pageNumber;return;}
+    viewer.rendering=true;
+    try{
+        const page=await viewer.pdf.getPage(pageNumber);
+        const stage=document.getElementById(viewer.ids.stage), canvas=document.getElementById(viewer.ids.canvas);
+        const context=canvas.getContext("2d",{alpha:false});
+        const baseViewport=page.getViewport({scale:1});
+        const availableWidth=Math.max(280,(stage?stage.clientWidth:900)-36);
+        const fitScale=Math.min(1.65,availableWidth/baseViewport.width);
+        const viewport=page.getViewport({scale:fitScale*viewer.zoom});
+        const outputScale=Math.min(window.devicePixelRatio||1,2);
+        canvas.width=Math.floor(viewport.width*outputScale); canvas.height=Math.floor(viewport.height*outputScale);
+        canvas.style.width=Math.floor(viewport.width)+"px"; canvas.style.height=Math.floor(viewport.height)+"px";
+        const transform=outputScale!==1?[outputScale,0,0,outputScale,0,0]:null;
+        await page.render({canvasContext:context,transform,viewport,background:"rgb(255,255,255)"}).promise;
+        page.cleanup(); viewer.page=pageNumber; updateCharterPageIndicator(type);
+        document.getElementById(viewer.ids.prev).disabled=viewer.page<=1;
+        document.getElementById(viewer.ids.next).disabled=viewer.page>=viewer.pdf.numPages;
+    }catch(error){console.error("National Charter page render error:",type,error);}
+    finally{
+        viewer.rendering=false;
+        if(viewer.pendingPage!==null){const pending=viewer.pendingPage;viewer.pendingPage=null;renderCharterPdfPage(type,pending);}
+    }
+}
+
+function charterPreviousPage(type){const v=CHARTER_PDFS[type];if(v.pdf&&v.page>1)renderCharterPdfPage(type,v.page-1);}
+function charterNextPage(type){const v=CHARTER_PDFS[type];if(v.pdf&&v.page<v.pdf.numPages)renderCharterPdfPage(type,v.page+1);}
+function charterZoomIn(type){const v=CHARTER_PDFS[type];v.zoom=Math.min(2.2,v.zoom+.15);if(v.pdf)renderCharterPdfPage(type,v.page);}
+function charterZoomOut(type){const v=CHARTER_PDFS[type];v.zoom=Math.max(.65,v.zoom-.15);if(v.pdf)renderCharterPdfPage(type,v.page);}
+function updateCharterPageIndicator(type){
+    const v=CHARTER_PDFS[type], indicator=document.getElementById(v.ids.indicator); if(!indicator)return;
+    if(!v.pdf){indicator.textContent=currentLanguage==="ar"?"صفحة —":"Page —";return;}
+    indicator.textContent=currentLanguage==="ar"?"صفحة "+v.page+" من "+v.pdf.numPages:"Page "+v.page+" of "+v.pdf.numPages;
+}
+let charterResizeTimer=null;
+window.addEventListener("resize",()=>{clearTimeout(charterResizeTimer);charterResizeTimer=setTimeout(()=>{["parent","student"].forEach(type=>{const v=CHARTER_PDFS[type];if(v.pdf)renderCharterPdfPage(type,v.page);});},180);});
+
+/* =========================================================
    PAGE NAVIGATION
 ========================================================= */
 
@@ -7604,6 +7877,10 @@ if(sectionName === "magazine") {
 
 if(sectionName === "timetable") {
     ensureTimetableLoaded();
+}
+
+if(sectionName === "charter") {
+    ensureNationalCharterLoaded();
 }
 
 
