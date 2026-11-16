@@ -3244,6 +3244,216 @@ button,
 }
 
 
+/* =========================================================
+   RESPONSIVE AUTO-FIT: ALL SCREEN SIZES
+   Keep this block last to override older fixed-width rules.
+========================================================= */
+:root {
+    --site-max-width: 1480px;
+    --site-gutter: clamp(10px, 2.5vw, 36px);
+}
+
+html {
+    width: 100%;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow-x: clip;
+}
+
+main, .language-bar {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--site-gutter);
+}
+
+/* Never let long names, translations or content force a wide viewport. */
+.school-header, .school-title, .school-title h1,
+main, main > .section, .hero, .glass-card, .section-heading,
+.section-heading > div, .dashboard, .dashboard-card,
+.important-links-section, .important-links-grid, .important-link-card,
+.resource-grid, .resource-card, .class-grid, .class-button,
+.contact-grid, .contact-card, .account-result, .account-row,
+.marks-card, .marks-student-info, .marks-info-item,
+.magazine-viewer, .magazine-stage, .timetable-viewer,
+.timetable-stage, .charter-content, .charter-media-card,
+.charter-pdf-viewer, .charter-pdf-stage {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.school-title h1, .school-title p, .section-heading h2,
+.section-heading p, .hero h2, .hero p, .dashboard-card h3,
+.dashboard-card p, .important-link-text, .contact-name,
+.account-actions, .account-row, .marks-info-value,
+.resource-card, .class-button {
+    overflow-wrap: anywhere;
+}
+
+.school-header {
+    width: 100%;
+    grid-template-columns: minmax(90px, 140px) minmax(0, 1fr) minmax(90px, 140px);
+    gap: clamp(8px, 2vw, 24px);
+    padding-inline: var(--site-gutter);
+}
+
+.school-title h1 { font-size: clamp(18px, 2.7vw, 35px); line-height: 1.17; }
+.school-title p { font-size: clamp(9px, 1.1vw, 14px); line-height: 1.45; }
+.logo-card { width: clamp(64px, 9vw, 120px); height: clamp(60px, 7vw, 92px); }
+.logo-card img { width: 100%; height: 100%; object-fit: contain; }
+
+.main-nav {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: clamp(4px, .6vw, 9px);
+    padding-inline: var(--site-gutter);
+}
+.nav-button { flex: 0 1 auto; font-size: clamp(11px, 1vw, 13px); }
+
+.hero, .glass-card { padding: clamp(16px, 2.7vw, 34px); }
+.hero h2 { font-size: clamp(22px, 3.6vw, 34px); }
+.hero p { max-width: min(100%, 760px); }
+.section-heading { flex-wrap: wrap; }
+
+.dashboard {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr));
+}
+.important-links-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 255px), 1fr));
+}
+.resource-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+}
+.contact-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+.class-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+.lookup-container, .grades-lookup-container { width: 100%; }
+.search-area input, .grades-search-area input { width: 100%; min-width: 0; }
+.account-actions span { overflow-wrap: anywhere; }
+.marks-student-info { grid-template-columns: 2fr 1fr 1.4fr; }
+.marks-table-wrap, .table-container { width: 100%; max-width: 100%; overflow-x: auto; }
+
+/* Responsive embedded documents and video. Normal zoom can still scroll. */
+.timetable-viewer, .magazine-viewer, .charter-pdf-viewer { width: 100%; }
+.timetable-stage, .charter-pdf-stage {
+    width: 100%;
+    min-height: clamp(290px, 58vh, 680px);
+    padding: clamp(8px, 1.6vw, 20px);
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+.timetable-canvas-wrap { width: 100%; min-width: 0; }
+#timetableCanvas, .charter-pdf-canvas { max-width: none; }
+.charter-video { width: 100%; max-width: 100%; height: auto; }
+.magazine-stage {
+    width: 100%;
+    min-height: clamp(350px, 70vh, 820px);
+    padding: clamp(8px, 1.6vw, 22px);
+}
+.magazine-book { max-width: 100%; }
+.magazine-viewer:fullscreen { width: 100vw; height: 100dvh; }
+.magazine-viewer:fullscreen .magazine-stage {
+    min-height: 0;
+    height: calc(100dvh - 88px);
+}
+
+@media (max-width: 1000px) {
+    .class-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .school-header { grid-template-columns: 95px minmax(0, 1fr) 95px; }
+}
+
+@media (max-width: 900px) {
+    /* Swipeable navigation on smaller screens rather than clipping tabs. */
+    .main-nav {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+    }
+    .nav-button { flex: 0 0 auto; scroll-snap-align: start; }
+    .dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .class-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .marks-student-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 600px) {
+    .school-header {
+        grid-template-columns: 58px minmax(0, 1fr) 58px;
+        gap: 5px;
+        padding: 10px var(--site-gutter);
+    }
+    .logo-card { width: 54px; height: 54px; padding: 4px; }
+    .school-title h1 { font-size: clamp(16px, 4.4vw, 21px); }
+    .school-title p { font-size: clamp(8px, 2.1vw, 10px); }
+    .main-nav { padding-inline: var(--site-gutter); }
+    .language-bar { padding-inline: var(--site-gutter); }
+    main { padding-inline: var(--site-gutter); margin-block: 18px 35px; }
+    .hero, .glass-card { padding: clamp(12px, 4vw, 20px); }
+    .hero h2 { font-size: clamp(21px, 5.6vw, 26px); }
+    .dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .dashboard-card { min-height: 0; padding: clamp(12px, 3.3vw, 18px); }
+    .dashboard-card h3 { font-size: clamp(13px, 3.7vw, 16px); }
+    .dashboard-card p { font-size: 12px; }
+    .important-links-grid, .resource-grid, .contact-grid { grid-template-columns: minmax(0, 1fr); }
+    .class-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .marks-student-info { grid-template-columns: minmax(0, 1fr); }
+    .marks-table { min-width: 0; width: 100%; }
+    .marks-table th, .marks-table td { padding: 9px 8px; font-size: 12px; }
+    .marks-table td:last-child { width: auto; font-size: 14px; }
+    .marks-table-wrap { padding-inline: 10px; }
+    .marks-summary { margin-inline: 10px; }
+    .bell-table { min-width: 0; table-layout: fixed; }
+    .bell-table th, .bell-table td { padding: 9px 5px; font-size: 11px; overflow-wrap: anywhere; }
+    .bell-table th:nth-child(2) { width: 42%; }
+    .timetable-toolbar, .magazine-toolbar, .charter-pdf-toolbar { gap: 8px; }
+    .timetable-toolbar-group, .magazine-toolbar-group, .charter-toolbar-group {
+        width: 100%; justify-content: center; min-width: 0;
+    }
+    .timetable-control, .magazine-control, .charter-control,
+    .timetable-open-link, .magazine-open-link, .charter-open-link {
+        min-width: 0; flex: 1 1 auto; padding-inline: 9px; font-size: 12px;
+    }
+    .timetable-page-indicator, .magazine-page-indicator, .charter-page-indicator {
+        min-width: 65px; font-size: 11px;
+    }
+    .magazine-stage { min-height: clamp(315px, 65vh, 570px); }
+}
+
+@media (max-width: 400px) {
+    .school-header { grid-template-columns: 47px minmax(0, 1fr) 47px; }
+    .logo-card { width: 44px; height: 46px; }
+    .school-title h1 { font-size: clamp(14px, 4.6vw, 18px); }
+    .school-title p { font-size: 8px; }
+    .dashboard { grid-template-columns: minmax(0, 1fr); }
+    .dashboard-card { display: grid; grid-template-columns: 46px minmax(0,1fr); column-gap: 12px; align-items: center; }
+    .dashboard-icon { width: 44px; height: 44px; margin-bottom: 0; grid-row: span 2; }
+    .dashboard-card h3 { margin-bottom: 2px; }
+    .dashboard-card p { font-size: 12px; }
+    .magazine-stage { min-height: 340px; }
+    .marks-table td:last-child { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section, .dashboard-card, .class-button, .nav-button { animation: none; transition: none; }
+}
+
 </style>
 
 </head>
@@ -6356,15 +6566,28 @@ async function loadMagazine() {
             pdfPage.cleanup();
         }
 
+        // Adapt the page geometry to the viewer, including narrow phones.
+        // PageFlip's stretch setting then follows live browser resizes.
+        const magazineStage = document.getElementById("magazineStage");
+        const stageWidth = Math.max(200, magazineStage?.clientWidth || window.innerWidth);
+        const stagePadding = magazineStage
+            ? (parseFloat(getComputedStyle(magazineStage).paddingLeft) || 0) +
+              (parseFloat(getComputedStyle(magazineStage).paddingRight) || 0)
+            : 24;
+        const spaceForBook = Math.max(165, stageWidth - stagePadding - 8);
+        const singlePage = spaceForBook < 700;
+        const pageWidth = Math.min(550, Math.floor(spaceForBook / (singlePage ? 1 : 2)));
+        const pageHeight = Math.round(pageWidth * 780 / 550);
+
         magazinePageFlip = new St.PageFlip(
             book,
             {
-                width: 550,
-                height: 780,
+                width: pageWidth,
+                height: pageHeight,
                 size: "stretch",
-                minWidth: 275,
+                minWidth: 120,
                 maxWidth: 650,
-                minHeight: 390,
+                minHeight: 170,
                 maxHeight: 920,
                 maxShadowOpacity: 0.35,
                 showCover: true,
@@ -6580,8 +6803,8 @@ async function renderTimetablePage(pageNumber) {
 
         const availableWidth =
             Math.max(
-                280,
-                (stage ? stage.clientWidth : 900) - 40
+                140,
+                (stage ? stage.clientWidth : 900) - 2 * (parseFloat(getComputedStyle(stage).paddingLeft) || 8) - 2 * (parseFloat(getComputedStyle(stage).paddingRight) || 8)
             );
 
         const fitScale =
@@ -7802,7 +8025,7 @@ async function renderCharterPdfPage(type,pageNumber){
         const stage=document.getElementById(viewer.ids.stage), canvas=document.getElementById(viewer.ids.canvas);
         const context=canvas.getContext("2d",{alpha:false});
         const baseViewport=page.getViewport({scale:1});
-        const availableWidth=Math.max(280,(stage?stage.clientWidth:900)-36);
+        const availableWidth=Math.max(140,(stage?stage.clientWidth:900)-2*(parseFloat(getComputedStyle(stage).paddingLeft)||8)-2*(parseFloat(getComputedStyle(stage).paddingRight)||8));
         const fitScale=Math.min(1.65,availableWidth/baseViewport.width);
         const viewport=page.getViewport({scale:fitScale*viewer.zoom});
         const outputScale=Math.min(window.devicePixelRatio||1,2);
