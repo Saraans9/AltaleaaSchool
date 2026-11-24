@@ -3454,6 +3454,13 @@ main, main > .section, .hero, .glass-card, .section-heading,
     .section, .dashboard-card, .class-button, .nav-button { animation: none; transition: none; }
 }
 
+
+/* Exam Display external link */
+.exam-display-nav { display: inline-flex; align-items: center; gap: 5px; text-decoration: none; background: #e3f4f3; color: var(--navy); }
+.exam-display-card { text-decoration: none; color: inherit; display: block; border: 1px solid #a9d9df; }
+.exam-display-nav:focus-visible, .exam-display-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+@media (max-width: 400px) { .exam-display-card { display: grid; } }
+
 </style>
 
 </head>
@@ -3611,6 +3618,11 @@ English
 >
 📚 <span data-i18n="revision">Revision Material</span>
 </button>
+
+
+<a class="nav-button exam-display-nav" href="https://saraans9.github.io/ExamDisplay/" target="_blank" rel="noopener noreferrer">
+🖥️ <span data-i18n="examDisplay">Exam Display</span>
+</a>
 
 
 <button
@@ -3814,6 +3826,13 @@ Access revision resources and study material.
 </p>
 
 </div>
+
+
+<a class="dashboard-card exam-display-card" href="https://saraans9.github.io/ExamDisplay/" target="_blank" rel="noopener noreferrer">
+<div class="dashboard-icon">🖥️</div>
+<h3 data-i18n="examDisplay">Exam Display</h3>
+<p data-i18n="examDisplayCardText">Open the classroom exam screen with timings, clock and instructions.</p>
+</a>
 
 
 <div
@@ -5455,6 +5474,9 @@ bell:
 revision:
 "Revision Material",
 
+examDisplay: "Exam Display",
+examDisplayCardText: "Open the classroom exam screen with timings, clock and instructions.",
+
 weekly:
 "Weekly Plans",
 
@@ -5858,6 +5880,9 @@ bell:
 
 revision:
 "مواد المراجعة",
+
+examDisplay: "شاشة الاختبار",
+examDisplayCardText: "فتح شاشة الاختبار لعرض التوقيت والساعة والتعليمات داخل القاعة.",
 
 weekly:
 "الخطط الأسبوعية",
